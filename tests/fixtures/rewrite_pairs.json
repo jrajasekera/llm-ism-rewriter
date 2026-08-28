@@ -1,0 +1,218 @@
+{
+  "note": "Original/rewrite pairs. `expect_pass` is whether the validator should exit 0. `expect_fail_checks` names checks that must appear at FAIL level; `expect_warn_checks` at WARN level.",
+  "pairs": [
+    {
+      "id": "VF-01-hedge-dropped",
+      "mode": "edit",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "number with units"
+      ],
+      "before": "The service may fail when the queue exceeds 50 ms of lag.",
+      "after": "The service fails when the queue exceeds lag.",
+      "expect_warn_checks": [
+        "modality"
+      ]
+    },
+    {
+      "id": "VF-02-version-narrowed",
+      "mode": "edit",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "versions"
+      ],
+      "before": "Requires Python 3.11+ and a POSIX shell.",
+      "after": "Requires Python 3.11 and a POSIX shell."
+    },
+    {
+      "id": "VF-03-flag-removed",
+      "mode": "edit",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "inline codes",
+        "command flags"
+      ],
+      "before": "Run `--dry-run` first to preview the migration.",
+      "after": "Run it first to preview the migration."
+    },
+    {
+      "id": "VF-04-negation-inverted",
+      "mode": "edit",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "negation"
+      ],
+      "before": "Traffic did not increase after the rollout.",
+      "after": "Traffic increased after the rollout."
+    },
+    {
+      "id": "VF-05-code-reformatted",
+      "mode": "edit",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "code blocks"
+      ],
+      "before": "Run it:\n\n```python\nx = 1\ny = 2\n```\n",
+      "after": "Run it:\n\n```python\nx=1\ny=2\n```\n"
+    },
+    {
+      "id": "VF-06-quote-polished",
+      "mode": "edit",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "attributed quotations"
+      ],
+      "before": "She said it plainly.\n\n> \"Logs are the first thing I check and the last thing I trust.\" — an SRE\n",
+      "after": "She said it plainly.\n\n> \"Logs are the first thing I check and the last thing I rely on.\" — an SRE\n"
+    },
+    {
+      "id": "VF-07-table-edited",
+      "mode": "edit",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "table cells"
+      ],
+      "before": "| Flag | Effect |\n|---|---|\n| `--dry-run` | Preview only |\n",
+      "after": "| Flag | Effect |\n|---|---|\n| `--dry-run` | Previews the run |\n"
+    },
+    {
+      "id": "VF-08-frontmatter-edited",
+      "mode": "edit",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "frontmatter"
+      ],
+      "before": "---\ntitle: Retry budgets\n---\n\nThe cap is five.",
+      "after": "---\ntitle: Retry Budgets\n---\n\nThe cap is five."
+    },
+    {
+      "id": "VF-09-url-dropped",
+      "mode": "edit",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "URLs"
+      ],
+      "before": "See the [runbook](https://example.com/runbook) before paging.",
+      "after": "See the runbook before paging."
+    },
+    {
+      "id": "VF-10-invented-first-person",
+      "mode": "rewrite",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "first person"
+      ],
+      "before": "The migration completed with no data loss.",
+      "after": "I ran the migration myself and we lost nothing, which I think is worth noting."
+    },
+    {
+      "id": "VF-11-heading-changed-in-edit",
+      "mode": "edit",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "headings"
+      ],
+      "before": "## Retry budgets\n\nThe cap is five.",
+      "after": "## Retries\n\nThe cap is five."
+    },
+    {
+      "id": "VF-12-new-pattern-introduced",
+      "mode": "rewrite",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "residual findings"
+      ],
+      "before": "The cap is five attempts.",
+      "after": "Here's the thing: the cap is five attempts. In conclusion, that is enough. Hope this helps!"
+    },
+    {
+      "id": "PASS-01-cliche-removed",
+      "mode": "rewrite",
+      "expect_pass": true,
+      "before": "In today's fast-paced world, the retry cap is five attempts. Hope this helps!",
+      "after": "The retry cap is five attempts."
+    },
+    {
+      "id": "PASS-02-contraction-normalized",
+      "mode": "edit",
+      "expect_pass": true,
+      "before": "The service doesn't retry after the fifth attempt.",
+      "after": "The service does not retry after the fifth attempt."
+    },
+    {
+      "id": "PASS-03-sentences-merged",
+      "mode": "rewrite",
+      "expect_pass": true,
+      "before": "The cap is five. Retries use exponential backoff. Jitter is applied.",
+      "after": "The cap is five, and retries use exponential backoff with jitter."
+    },
+    {
+      "id": "PASS-04-adjectives-reordered",
+      "mode": "edit",
+      "expect_pass": true,
+      "before": "A small fast cache sits in front of the index.",
+      "after": "A fast small cache sits in front of the index."
+    },
+    {
+      "id": "PASS-05-protected-preserved",
+      "mode": "edit",
+      "expect_pass": true,
+      "before": "Delve into it.\n\n```\nkeep --me exactly\n```\n\n| a | b |\n|---|---|\n| 1 | 2 |\n",
+      "after": "Read it.\n\n```\nkeep --me exactly\n```\n\n| a | b |\n|---|---|\n| 1 | 2 |\n"
+    },
+    {
+      "id": "PASS-06-detect-unchanged",
+      "mode": "detect",
+      "expect_pass": true,
+      "before": "In conclusion, the cap is five.",
+      "after": "In conclusion, the cap is five."
+    },
+    {
+      "id": "VF-13-detect-changed",
+      "mode": "detect",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "detect mode"
+      ],
+      "before": "In conclusion, the cap is five.",
+      "after": "The cap is five."
+    },
+    {
+      "id": "WARN-01-large-shrink",
+      "mode": "rewrite",
+      "expect_pass": true,
+      "expect_warn_checks": [
+        "length"
+      ],
+      "before": "The retry cap is five attempts, which the team chose after the October incident when the queue backed up for an entire afternoon and nobody could tell whether the consumer had stalled or the producer had simply doubled its rate, a question that took two people the better part of a day to answer from the traces they had kept.",
+      "after": "The retry cap is five attempts, chosen after the October incident."
+    },
+    {
+      "id": "WARN-02-proper-noun-introduced",
+      "mode": "rewrite",
+      "expect_pass": true,
+      "expect_warn_checks": [
+        "proper nouns"
+      ],
+      "before": "The vendor delivered the report late.",
+      "after": "The vendor Contoso delivered the report late."
+    },
+    {
+      "id": "WARN-03-modal-weakened",
+      "mode": "rewrite",
+      "expect_pass": true,
+      "expect_warn_checks": [
+        "modality"
+      ],
+      "before": "The cache may hold stale entries for a minute. It should recover on its own.",
+      "after": "The cache may hold stale entries for a minute. It recovers on its own."
+    },
+    {
+      "id": "WARN-04-number-spelled-out",
+      "mode": "rewrite",
+      "expect_pass": true,
+      "before": "The cap is 5 attempts.",
+      "after": "The cap is five attempts."
+    }
+  ]
+}

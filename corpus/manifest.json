@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "note": "Provenance records only. No third-party text is stored in this repository. See corpus/README.md.",
+  "documents": [],
+  "self_scan_set": {
+    "note": "This repository's own prose, measured by scripts/self_scan.py against self-scan-budget.json.",
+    "register": "technical-docs",
+    "authorship": "human-post-llm",
+    "licence": "Apache-2.0",
+    "local_path": "."
+  }
+}

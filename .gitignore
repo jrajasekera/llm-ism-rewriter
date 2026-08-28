@@ -1,1 +1,9 @@
 .serena/
+.idea/
+tmp/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store

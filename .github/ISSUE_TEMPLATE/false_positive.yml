@@ -1,0 +1,73 @@
+name: False positive
+description: A rule fired on text where the usage is legitimate
+labels: ["false-positive"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every resolved report becomes one of three things: a narrower detector plus a
+        test, a context-profile carve-out plus a test, or a documented decision to keep
+        the finding, with a negative fixture and the reasoning. Reports are not closed
+        as "working as intended" without preserving the reasoning.
+  - type: textarea
+    id: text
+    attributes:
+      label: Minimal text that triggered the rule
+      description: The smallest excerpt that still reproduces it.
+      render: markdown
+    validations:
+      required: true
+  - type: input
+    id: rule
+    attributes:
+      label: Rule ID
+      placeholder: "LX.STOCK_VOCAB_CLUSTER"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Tool version
+      description: "`python3 scripts/llm_ism_check.py --version`"
+    validations:
+      required: true
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Context profile
+      options: [general-prose, technical-docs, academic-research, marketing-product, essay-blog, social-email, legal-policy, creative, "not sure"]
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why the flagged use is legitimate
+      description: What the phrase is doing that the rule missed.
+    validations:
+      required: true
+  - type: dropdown
+    id: provenance
+    attributes:
+      label: Was this text written before or without LLM assistance?
+      description: Optional. Only answer if you are comfortable stating it; it helps calibration and is never used to label anyone's writing.
+      options: ["prefer not to say", "written before LLMs were available", "written without LLM assistance", "written with LLM assistance", "not sure"]
+    validations:
+      required: false
+  - type: dropdown
+    id: fixture
+    attributes:
+      label: May this snippet be added as a public test fixture?
+      options: ["yes", "no"]
+    validations:
+      required: true
+  - type: dropdown
+    id: expected
+    attributes:
+      label: Expected behavior
+      options:
+        - suppress the finding entirely
+        - relax it under this profile
+        - lower its edit priority
+        - keep the finding but explain it better
+    validations:
+      required: true

@@ -1,0 +1,71 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      # Pin these to reviewed commit SHAs before relying on this workflow for
+      # anything security-sensitive; tags are mutable.
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Reject generated Python artifacts
+        run: |
+          if [ -n "$(git ls-files '*.pyc' '*.pyo' '**/__pycache__/**')" ]; then
+            echo "tracked bytecode found"; git ls-files '*.pyc' '*.pyo'; exit 1
+          fi
+
+      - name: Compile
+        run: python -m compileall -q scripts tests
+
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Catalog contract
+        run: python scripts/build_catalog.py --check
+
+      - name: Rule index is current
+        run: |
+          python scripts/build_catalog.py --write
+          git diff --exit-code references/patterns.md
+
+      - name: Self scan
+        run: python scripts/self_scan.py --check
+
+      - name: Scripts are non-interactive and documented
+        run: |
+          for s in scripts/llm_ism_check.py scripts/llm_ism_validate.py \
+                   scripts/llm_ism_project_check.py scripts/build_catalog.py \
+                   scripts/self_scan.py; do
+            python "$s" --help > /dev/null || exit 1
+          done
+
+
+  # Optional: validate against the Agent Skills reference implementation.
+  # It describes itself as a demonstration artifact, so it is a development
+  # check rather than a runtime dependency, and the pin below should be
+  # reviewed deliberately before it is made blocking.
+  spec:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install the Agent Skills reference validator
+        run: python -m pip install "git+https://github.com/agentskills/agentskills.git#subdirectory=skills-ref"
+      - name: Validate skill format
+        run: skills-ref validate .

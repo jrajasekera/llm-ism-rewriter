@@ -1,0 +1,142 @@
+{
+  "note": "The skill's prose is subject to the skill's own catalog. patterns.md and examples.md deliberately quote the clich\u00e9s they describe, so those rules are exempted there and the raw count is reported alongside. A budget should move down or hold; raising one requires a commit that says why.",
+  "files": {
+    "README.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [],
+      "note": "No exemptions. The README should pass its own checker."
+    },
+    "SKILL.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [
+        "LX.STOCK_VOCAB_CLUSTER",
+        "LX.STOCK_VOCAB_REPEAT"
+      ],
+      "note": "The ground rules name the stock vocabulary they prohibit."
+    },
+    "references/patterns.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [
+        "LX.STOCK_VOCAB_CLUSTER",
+        "LX.STOCK_VOCAB_REPEAT",
+        "LX.FIGURATIVE_LANDSCAPE",
+        "LX.INFLATED_SIGNIFICANCE",
+        "LX.PROMOTIONAL_REGISTER",
+        "LX.VAGUE_AUTHORITY",
+        "LX.ENGAGEMENT_HOOK",
+        "LX.SYCOPHANCY",
+        "LX.PERFORMATIVE_HONESTY",
+        "LX.PARTICIPLE_TAIL",
+        "LX.COPULA_AVOIDANCE",
+        "LX.ASSOCIATION_VAGUENESS",
+        "LX.STOCK_TRANSITION",
+        "RH.FALSE_CONTRAST",
+        "RH.APHORISM_CLOSER",
+        "RH.GENERIC_INTRO",
+        "RH.GENERIC_OUTRO",
+        "FP.CHATBOT_RESIDUE",
+        "FP.KNOWLEDGE_CUTOFF",
+        "FP.META_NARRATION",
+        "FP.PROMPT_LEAKAGE",
+        "FP.TOOL_MARKUP",
+        "FP.UNFILLED_PLACEHOLDER",
+        "ST.HEADING_RHETORIC",
+        "ST.LABELED_BULLET_RUN",
+        "RH.PHRASE_TRIAD",
+        "CL.WORDY_PHRASE"
+      ],
+      "note": "The catalog quotes every pattern it documents. Structural metrics are not exempt."
+    },
+    "references/contexts.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [
+        "LX.STOCK_VOCAB_CLUSTER",
+        "LX.STOCK_VOCAB_REPEAT",
+        "LX.FIGURATIVE_LANDSCAPE",
+        "LX.STOCK_TRANSITION",
+        "RH.FALSE_CONTRAST",
+        "LX.ENGAGEMENT_HOOK",
+        "LX.VAGUE_AUTHORITY",
+        "ST.LABELED_BULLET_RUN",
+        "FP.CHATBOT_RESIDUE"
+      ],
+      "note": "The legitimate-uses and genre sections quote the patterns they defend, courtesy closers included."
+    },
+    "references/examples.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [
+        "LX.STOCK_VOCAB_CLUSTER",
+        "LX.STOCK_VOCAB_REPEAT",
+        "LX.FIGURATIVE_LANDSCAPE",
+        "LX.INFLATED_SIGNIFICANCE",
+        "LX.PROMOTIONAL_REGISTER",
+        "LX.VAGUE_AUTHORITY",
+        "LX.ENGAGEMENT_HOOK",
+        "LX.SYCOPHANCY",
+        "LX.PERFORMATIVE_HONESTY",
+        "LX.PARTICIPLE_TAIL",
+        "LX.COPULA_AVOIDANCE",
+        "LX.STOCK_TRANSITION",
+        "RH.FALSE_CONTRAST",
+        "RH.APHORISM_CLOSER",
+        "RH.GENERIC_INTRO",
+        "RH.GENERIC_OUTRO",
+        "FP.CHATBOT_RESIDUE",
+        "FP.KNOWLEDGE_CUTOFF",
+        "FP.META_NARRATION",
+        "FP.TOOL_MARKUP",
+        "FP.UNFILLED_PLACEHOLDER",
+        "ST.HEADING_RHETORIC",
+        "ST.LABELED_BULLET_RUN",
+        "RH.PHRASE_TRIAD",
+        "ST.DASH_DENSITY"
+      ],
+      "note": "Every 'Before:' line is a clich\u00e9 on purpose, including the em-dash example."
+    },
+    "references/voices.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [],
+      "note": ""
+    },
+    "references/rewrite-invariants.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [
+        "RH.TRIAD_DENSITY"
+      ],
+      "note": "The anchor tables enumerate; the triad metric measures narrative prose."
+    },
+    "references/detector-map.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [],
+      "note": ""
+    },
+    "references/negative-results.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [],
+      "note": ""
+    },
+    "NOTICE.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [],
+      "note": ""
+    },
+    "CHANGELOG.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [
+        "RH.TRIAD_DENSITY"
+      ],
+      "note": "A changelog is an enumeration; the triad metric measures narrative prose."
+    }
+  }
+}

@@ -1,47 +1,117 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working in this repository.
 
 ## What this repo is
 
-A single Claude Agent Skill, `llm-ism-rewriter`. It is a prompt/reference package that another Claude instance loads at runtime to detect and rewrite LLM writing clichés, not an application. There is no build, no dependency manifest, and no test suite. The product is `SKILL.md` plus its `references/`; the only executable is one standard-library Python 3 helper.
+A Claude Agent Skill, `llm-ism-rewriter`, plus the quality-engineering layer that
+keeps it honest. The product is `SKILL.md` and its `references/`; the scripts are
+optional accelerators and checks. There is no application, no build step, and no
+runtime dependency beyond Python 3.10+ and its standard library — keep it that
+way, because the skill has to run wherever it is copied.
 
 ## Commands
 
 ```bash
-python3 scripts/llm_ism_check.py FILE [FILE...]   # human-readable candidates
-python3 scripts/llm_ism_check.py --json FILE      # machine-readable
-cat text.md | python3 scripts/llm_ism_check.py -  # stdin
+python3 -m unittest discover -s tests -v          # 210 unit tests
+python3 scripts/build_catalog.py --check          # registry / catalog / code contract
+python3 scripts/build_catalog.py --write          # regenerate the rule index in patterns.md
+python3 scripts/self_scan.py --check              # this repo's prose against its budget
+
+python3 scripts/llm_ism_check.py FILE [FILE...]           # candidates and findings
+python3 scripts/llm_ism_check.py --format json FILE       # machine-readable
+python3 scripts/llm_ism_validate.py before.md after.md    # preservation validator
+python3 scripts/llm_ism_project_check.py docs/            # cross-file templates
 ```
 
-Exit 0 whether or not findings exist; exit 2 on unreadable input or bad arguments. No third-party packages — keep it that way so the skill runs anywhere Python 3 does.
-
-To sanity-check a change to the checker, run it against the repo's own prose (`references/patterns.md`, `references/examples.md`) — those files deliberately contain example clichés inside code spans and quoted "Before:" lines, so they exercise the protected-span skipping.
+Checker exits: 0 always unless `--fail-on` is set, 1 when it is met, 2 on
+unreadable input, 3 on a registry failure. Validator exits 1 on a preservation
+failure. Both print diagnostics to stderr and structured output to stdout.
 
 ## Architecture
 
-Four files carry the whole skill, loaded progressively rather than all at once:
+Progressive disclosure: `SKILL.md` is the only always-loaded file and points at
+references rather than inlining them.
 
-- **`SKILL.md`**: the entry point and the only file always in context. Holds the frontmatter (`name`, `description` — these determine when the skill triggers), the ground rules, the three modes, and a 7-step procedure. It *points to* the references rather than inlining them; keep it short.
-- **`references/patterns.md`**: the detection catalog, organized A–E: A fingerprints, B lexical clichés, C rhetorical structures, D structural/formatting, E clarity. Every pattern carries tier, what it looks like, why it reads as boilerplate, and a fix. Loaded at procedure step 3.
-- **`references/contexts.md`**: genre norms and legitimate uses, so structural patterns aren't flagged in speeches, fiction, or marketing where a competent writer uses them on purpose. Loaded at step 1.
-- **`references/examples.md`**: before/after pairs per category plus a worked report. Loaded at step 5.
+- **`SKILL.md`** — frontmatter (`name`, `description` decide when the skill
+  triggers), the trust boundary, the three modes, an 8-step procedure, the report
+  formats, and an acceptance gate. Keep it under 500 lines; a test enforces that.
+- **`references/rules.json`** — **canonical** for deterministic rules: stable IDs,
+  tier, family, edit priority, evidence strength, action, detector, thresholds,
+  exceptions, and the eight context profiles. The checker reads it; nothing is
+  hard-coded.
+- **`references/patterns.md`** — the human-readable catalog, A–E, that the agent
+  works from. Every registry rule carries a `catalog` anchor into it. The rule
+  index at the bottom is generated.
+- **`references/detector-map.md`** — the coverage contract: directly executable,
+  partially executable, judgment-only.
+- **`references/contexts.md`**, **`voices.md`**, **`rewrite-invariants.md`**,
+  **`examples.md`**, **`negative-results.md`** — loaded at the steps that need them.
+- **`scripts/llm_ism_core.py`** — shared segmentation, registry loading, inline
+  masking, sentence splitting. Imported by every other script so the two
+  checkers cannot drift.
+- **`scripts/llm_ism_check.py`** — read, segment and protect, produce candidates,
+  measure metrics, aggregate under profile thresholds, group overlaps, emit
+  text/JSON/SARIF.
+- **`scripts/llm_ism_validate.py`** — protected spans exact, technical anchors,
+  semantic anchors, structure, residual findings.
 
-`scripts/llm_ism_check.py` is an *optional accelerator*, not the source of truth. It mirrors a high-precision subset of the catalog in `FINGERPRINTS` / `CLICHES` regex dicts plus three structural heuristics (em-dash rate, triad density, sentence-length stdev). `prose_lines()` strips frontmatter, fenced code, inline code, blockquotes, tables, headings, URLs, and paths before matching. It reports candidates only and never judges severity.
+## The contract
 
-### Invariants to preserve when editing
+These are enforced by `scripts/build_catalog.py --check` and
+`tests/test_catalog_contract.py`. Breaking one fails CI.
 
-- **Tier vocabulary is shared.** `SKILL.md`, `patterns.md`, and the script's `tier` field all use fingerprint / cliché / structural / clarity. Renaming a tier means changing all three.
-- **The script is a subset, not a mirror.** Adding a pattern to `patterns.md` does not require a regex; regexes must be high-precision because the script can't weigh density. Adding a regex does require the category to exist in `patterns.md`.
-- **Protected spans** (quotations, code, tables, frontmatter, URLs, paths, citations) are report-only in the skill and skipped in the script. Any new pattern must respect both.
-- **Signals, not verdicts.** No wording anywhere may imply that a detection proves AI authorship. The script's output ends with an explicit "candidates only" caveat; keep an equivalent.
-- **No invented specifics.** The rewrite rules forbid adding names, dates, numbers, or sources; gaps get a `[specify: …]` marker and a `[Gap]` finding instead.
-- **Attribution.** The header of `references/patterns.md` and the Attribution section of `SKILL.md` credit Wikipedia's "Signs of AI writing" (CC BY-SA 4.0, paraphrased) and Simon Willison's llm-cliché-highlighter (Apache-2.0, no code reused). Preserve both notices in any redistribution or restructuring.
+- **`rules.json` is canonical.** Adding a rule to `patterns.md` needs no
+  detector. Adding a detector needs a registry rule *and* a catalog anchor.
+- **Rule IDs are stable and namespaced** `FP|LX|RH|ST|CL` + `.UPPER_SNAKE`.
+  Renaming one is a major version change.
+- **Tier vocabulary is shared** across `SKILL.md`, `patterns.md`,
+  `detector-map.md`, and the registry: `fingerprint`, `cliche`, `structural`,
+  `clarity`. Renaming a tier means changing all four.
+- **Four fields do separate jobs**: tier (what kind), edit priority (how
+  urgent), evidence strength (how supported), action (what to do). Do not
+  collapse them.
+- **Every executable rule needs** one positive and two negative fixtures in
+  `tests/fixtures/cases.json`.
+- **Judgment-only rules** carry a `judgment_prompt` and must never acquire a
+  regex. See `detector-map.md` for why each one is there.
+- **Provisional thresholds** must be recorded in `negative-results.md`. All of
+  them currently are provisional.
+- **Versions stay in sync**: `SKILL.md` frontmatter, `registry_version`,
+  `TOOL_VERSION`, and a `CHANGELOG.md` entry.
+- **Protected spans** (quotations, code, tables, frontmatter, URLs, paths,
+  citations) are report-only in the skill and excluded from findings in the
+  script unless `--include-protected`. Any new pattern must respect both.
+- **Signals, not verdicts.** No wording anywhere may imply a detection proves
+  authorship. A test asserts that no output schema contains a probability, score,
+  or `human`/`mixed`/`AI` field.
+- **No invented specifics.** Rewrite rules forbid adding names, dates, numbers,
+  or sources; gaps get a `[specify: …]` marker and a `[Gap]` finding.
+- **Attribution.** `NOTICE.md` carries file-level provenance for the Wikipedia
+  CC BY-SA source, Simon Willison's highlighter, `ai-smell`, and
+  `avoid-ai-writing`. Preserve it and the header of `references/patterns.md` in
+  any redistribution or restructuring.
 
-### Report format
+## Changing things
 
-Findings are emitted as `- [Tier] Lnn: "span" — reason; action.`, followed by revised text (rewrite mode) or edits-plus-verification (edit mode), then a Notes density line. The canonical example is at the end of `references/examples.md`; change the format there and in `SKILL.md` together.
+- **Unit tests and evals are different.** `tests/` verifies the code; `evals/`
+  verifies that an agent following the skill behaves better than one following
+  the previous version. A change to rules or wording wants both.
+- **Changes to `SKILL.md`, an output schema, a rule ID, a profile, or validator
+  policy** require the matching contract test and a changelog entry.
+- **A research finding is not a production threshold** until it has been
+  measured across the registers named in `negative-results.md`. Record the
+  decision there either way, including rejections.
+- **A false positive becomes** a narrower detector plus a test, a profile
+  carve-out plus a test, or a documented decision to keep the finding with a
+  negative fixture. Never a silent close.
+- **Self-scan budgets move down or hold.** Raising one needs a commit that says
+  why. Prefer fixing the prose.
 
 ## Writing style for this repo
 
-The skill's own prose is subject to its own catalog. Before committing changes to any Markdown here, run `python3 scripts/llm_ism_check.py` over the edited file and clear anything that isn't a deliberate example.
+The skill's own prose is subject to its own catalog. Before committing changes
+to any Markdown here, run `python3 scripts/self_scan.py --check`. Put
+illustrative clichés inside code spans, quotations, or an exempted file so they
+are protected rather than counted; if a finding is real, fix the prose rather
+than the budget.
