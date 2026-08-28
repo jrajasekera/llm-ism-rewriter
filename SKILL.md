@@ -2,10 +2,10 @@
 name: llm-ism-rewriter
 description: Audit or revise prose that reads as formulaic, over-polished, generic, or "AI-ish". Use when asked to remove LLM-isms or AI-writing clichés, cut chatbot residue, fix stock vocabulary, false contrasts ("not just X, but Y"), rule-of-three padding, inflated significance, canned intros and conclusions, or over-formatted structure; also for detect-only audits and explicit in-place prose edits. Preserves meaning, facts, hedges, and the author's voice. Findings are writing-quality signals, never proof of authorship.
 license: Apache-2.0
-version: "2.1.0"
-author: jrajasekera
 compatibility: Agent Skills (agentskills.io) format; runs on Claude Code, Codex, Hermes Agent, and any harness that loads SKILL.md. Needs only file reading and editing. The optional checker and validator require Python 3.10+ and the standard library only.
 metadata:
+  author: jrajasekera
+  version: "2.1.1"
   sources: "Wikipedia 'Signs of AI writing' (CC BY-SA 4.0); Simon Willison's llm-cliche-highlighter (Apache-2.0); structural leads from osolmaz/ai-smell; contract practices from conorbronsdon/avoid-ai-writing"
 ---
 

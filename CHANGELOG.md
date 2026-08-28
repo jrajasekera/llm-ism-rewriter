@@ -7,6 +7,30 @@ incompatible CLI. `SKILL.md`'s frontmatter version, `registry_version` in
 `references/rules.json`, and `TOOL_VERSION` in the scripts are kept in sync by
 `scripts/build_catalog.py --check`.
 
+## [2.1.1]
+
+Fixes the `spec` CI job, which validates this skill against the Agent Skills
+reference implementation.
+
+### Fixed
+
+- `version` and `author` return to `metadata`. 2.1.0 promoted them to the top
+  level on the strength of one harness's authoring guide, which lists them as
+  recommended top-level fields; `skills-ref validate` rejects any key outside
+  `name`, `description`, `license`, `compatibility`, `metadata` and
+  `allowed-tools`. The spec is the authority, and `metadata` is the open field
+  the spec provides for exactly this.
+- The workflow validates `$GITHUB_WORKSPACE` rather than `.`. The validator
+  takes the basename of the path it is given to check against the skill name,
+  and the basename of `.` is empty, so the job had been failing on every push
+  since it was added — the frontmatter error in 2.1.0 was the second one.
+
+### Added
+
+- `tests/test_harness_compat.py` now enforces the spec allowlist directly: any
+  top-level key outside those six fails, and the version must sit under
+  `metadata`. This is the check that would have caught the 2.1.0 regression.
+
 ## [2.1.0]
 
 Portability across harnesses. No rule, threshold, schema, or editorial judgment changed.

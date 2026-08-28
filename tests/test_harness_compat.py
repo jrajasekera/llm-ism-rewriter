@@ -21,6 +21,14 @@ def read(path: str) -> str:
         return fh.read()
 
 
+# The Agent Skills reference validator accepts these top-level keys and rejects
+# every other one. Anything else a harness wants — a version, an author, a tag
+# list — belongs under `metadata`, which the spec leaves open.
+SPEC_FIELDS = {"name", "description", "license", "compatibility", "metadata",
+               "allowed-tools"}
+REQUIRED_FIELDS = {"name", "description"}
+
+
 def frontmatter(text: str) -> dict:
     """Top-level scalar keys only. Enough for the base agentskills.io fields."""
     m = re.match(r"^---\n(.*?)\n---\n", text, re.S)
@@ -39,9 +47,23 @@ class Frontmatter(unittest.TestCase):
     def setUp(self):
         self.fields = frontmatter(read(SKILL))
 
-    def test_required_and_recommended_fields_are_top_level(self):
-        for key in ("name", "description", "license", "version", "compatibility"):
-            self.assertIn(key, self.fields, f"{key} must be a top-level frontmatter key")
+    def test_required_fields_are_present(self):
+        for key in sorted(REQUIRED_FIELDS):
+            self.assertIn(key, self.fields, f"{key} is required by the spec")
+
+    def test_no_field_outside_the_spec_allowlist(self):
+        """`skills-ref validate` rejects an unknown top-level key outright, so a
+        field a single harness merely recommends must live under `metadata`."""
+        extra = sorted(set(self.fields) - SPEC_FIELDS)
+        self.assertEqual(extra, [], f"move {extra} under metadata: the spec allows "
+                                    f"only {sorted(SPEC_FIELDS)}")
+
+    def test_version_is_declared_under_metadata(self):
+        text = read(SKILL)
+        self.assertIsNotNone(re.search(r"^metadata:\n(?:  .*\n)*  version:", text, re.M),
+                             "metadata must carry the version")
+        self.assertIsNone(re.search(r"^version:", text, re.M),
+                          "a top-level version is rejected by skills-ref validate")
 
     def test_name_follows_the_naming_rules(self):
         """Installers require the directory to be named after this field, so the
