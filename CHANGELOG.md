@@ -7,6 +7,26 @@ incompatible CLI. `SKILL.md`'s frontmatter version, `registry_version` in
 `references/rules.json`, and `TOOL_VERSION` in the scripts are kept in sync by
 `scripts/build_catalog.py --check`.
 
+## [2.1.0]
+
+Portability across harnesses. No rule, threshold, schema, or editorial judgment changed.
+
+### Added
+
+- A `Paths` section in `SKILL.md`: reference and script paths resolve against the
+  skill's own directory, with a fallback that locates it under any of the four
+  install roots. The scripts already found their registry from `__file__`; the
+  documented commands now match.
+- Frontmatter fields the agentskills.io base spec expects at the top level:
+  `version` and `author` move out of `metadata`, `license` becomes a bare SPDX
+  identifier, and `compatibility` names the harnesses.
+- `tests/test_harness_compat.py`: frontmatter fields, the directory-name match,
+  the 500-character `compatibility` limit, no runnable command that assumes the
+  working directory, and no harness-specific tool name in the skill or its
+  references.
+- Install instructions for Codex and Hermes Agent, and for the shared
+  `~/.agents/skills` root, in `README.md`.
+
 ## [2.0.0]
 
 A quality-engineering layer around the same conservative skill. The editorial

@@ -26,15 +26,40 @@ Stock vocabulary clusters (`delve`, `testament`, `ever-evolving landscape`), fal
 
 ## Install
 
-```bash
-# available in every project, for Claude Code
-git clone git@github.com:jrajasekera/llm-ism-rewriter.git ~/.claude/skills/llm-ism-rewriter
+The repository *is* the skill directory: `SKILL.md` sits at its root, so cloning it
+into a skills root is the whole installation.
 
-# or just this project
+```bash
+# Claude Code, Codex, or Hermes Agent — pick the root your harness reads
+git clone git@github.com:jrajasekera/llm-ism-rewriter.git ~/.claude/skills/llm-ism-rewriter
+git clone git@github.com:jrajasekera/llm-ism-rewriter.git ~/.codex/skills/llm-ism-rewriter
+git clone git@github.com:jrajasekera/llm-ism-rewriter.git ~/.hermes/skills/llm-ism-rewriter
+
+# one clone for all three, if your harnesses share ~/.agents/skills
+git clone git@github.com:jrajasekera/llm-ism-rewriter.git ~/.agents/skills/llm-ism-rewriter
+ln -s ~/.agents/skills/llm-ism-rewriter ~/.claude/skills/llm-ism-rewriter
+
+# or scope it to one project
 git clone git@github.com:jrajasekera/llm-ism-rewriter.git .claude/skills/llm-ism-rewriter
 ```
 
-Claude picks the skill up from `SKILL.md`'s frontmatter. You can also name it: "use llm-ism-rewriter on draft.md".
+Each harness picks the skill up from `SKILL.md`'s frontmatter. You can also name
+it: "use llm-ism-rewriter on draft.md".
+
+### Harness notes
+
+The skill body names no tool. It asks for actions — read this file, edit that
+span, run this command — which map onto whatever the harness provides: `Read` and
+`Edit` under Claude Code, `read_file` and `patch` under Hermes Agent, shell and
+patch application under Codex. Reference and script paths resolve against the
+skill's own directory, not the working directory; `SKILL.md`'s `Paths` section
+says how to find it when the harness does not hand it over.
+
+The scripts are optional. They are Python 3.10+ with the standard library and
+nothing else, and they locate `references/rules.json` relative to their own file,
+so they run from any directory. Where a sandbox blocks shell execution — Codex in
+read-only mode, for instance — the skill degrades to judgment alone, which is what
+step 3 already allows.
 
 ## Modes
 

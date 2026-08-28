@@ -13,7 +13,7 @@ way, because the skill has to run wherever it is copied.
 ## Commands
 
 ```bash
-python3 -m unittest discover -s tests -v          # 210 unit tests
+python3 -m unittest discover -s tests -v          # 217 unit tests
 python3 scripts/build_catalog.py --check          # registry / catalog / code contract
 python3 scripts/build_catalog.py --write          # regenerate the rule index in patterns.md
 python3 scripts/self_scan.py --check              # this repo's prose against its budget
@@ -87,6 +87,11 @@ These are enforced by `scripts/build_catalog.py --check` and
   or `human`/`mixed`/`AI` field.
 - **No invented specifics.** Rewrite rules forbid adding names, dates, numbers,
   or sources; gaps get a `[specify: …]` marker and a `[Gap]` finding.
+- **The skill runs on any harness.** `SKILL.md` and the references name no
+  harness-specific tool, and every `references/` or `scripts/` path resolves
+  against the skill's own directory rather than the working directory.
+  `tests/test_harness_compat.py` enforces both, plus the agentskills.io
+  frontmatter fields Claude Code, Codex, and Hermes Agent read.
 - **Attribution.** `NOTICE.md` carries file-level provenance for the Wikipedia
   CC BY-SA source, Simon Willison's highlighter, `ai-smell`, and
   `avoid-ai-writing`. Preserve it and the header of `references/patterns.md` in

@@ -91,7 +91,7 @@ If the user names a register or supplies a style sample, read `references/voices
 - **Under ~300 lines, or a clearly named section:** proceed.
 - **Larger, with no section named, in `rewrite` or `edit` mode:** report findings for the whole file, then ask which sections to rewrite. Do not rewrite everything on the assumption that the user wants it.
 - **`detect` mode:** scan the whole file regardless of length.
-- **Multiple files:** handle each separately. Never carry a voice from one file into another. For repeated templates across files, run `scripts/llm_ism_project_check.py` and report the repetition as repetition.
+- **Multiple files:** handle each separately. Never carry a voice from one file into another. For repeated templates across files, run `$SKILL_DIR/scripts/llm_ism_project_check.py` and report the repetition as repetition.
 
 ## Things that are not signals
 
