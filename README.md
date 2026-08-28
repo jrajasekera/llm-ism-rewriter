@@ -12,10 +12,10 @@ Copy or clone the repository into a skills directory:
 
 ```bash
 # available in every project, for Claude Code
-git clone <this-repo> ~/.claude/skills/llm-ism-rewriter
+git clone git@github.com:jrajasekera/llm-ism-rewriter.git ~/.claude/skills/llm-ism-rewriter
 
 # or just this project
-git clone <this-repo> .claude/skills/llm-ism-rewriter
+git clone git@github.com:jrajasekera/llm-ism-rewriter.git .claude/skills/llm-ism-rewriter
 ```
 
 Claude picks the skill up from `SKILL.md`'s frontmatter and loads it on requests like removing AI-isms, auditing a draft for clichés, or making prose sound less generated. You can also name it directly: "use llm-ism-rewriter on draft.md".
