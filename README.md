@@ -8,7 +8,7 @@ The repository ships three things:
 2. **The checker.** `scripts/llm_ism_check.py` turns deterministic matches into contextual findings, applying genre profiles and density thresholds rather than reporting every regex hit.
 3. **The validator.** `scripts/llm_ism_validate.py` compares an original with its rewrite and fails when a claim has moved: a dropped hedge, a narrowed version string, a vanished measurement, an edited quotation.
 
-The validator is the part most tools skip. A rewrite that removes every cliché and quietly changes what the text asserts is a failed rewrite, and this repository can prove it.
+A rewrite that removes every cliché and quietly changes what the text asserts is a failed rewrite. The validator is what catches that, and step 4 of [Try it](#try-it) shows it rejecting one.
 
 Nothing here judges authorship. See [Why there is no authorship score](#why-there-is-no-authorship-score).
 
