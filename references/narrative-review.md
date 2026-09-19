@@ -61,6 +61,8 @@ Review in three passes instead of holding every check in mind at once:
 2. **Thematic and emotional repetition.** F1, F2, and F3.
 3. **Closure and information timing.** F4 and F5. Both need the ending; skip them, and say so, when it was not supplied.
 
+One span gets one finding. A closing paragraph can match F1, F4, and F5 at once. File it under the most specific check, which for commentary after the ending is F4. The other rule IDs go on the same finding as evidence tags.
+
 Each finding carries four things: the source spans, the problem as a reader meets it, the legitimate purpose you checked for and ruled out, and the smallest action the user's scope allows. When the evidence supports more than one reasonable reading, leave the passage, or report a low-confidence suggestion and change nothing.
 
 ## The five checks
@@ -73,6 +75,7 @@ All five are judgment-only `structural` rules in the `narrative` family. The reg
 - **Ask:** does this passage explain a meaning already explicit elsewhere, without adding a distinct belief, a qualification, irony, a change of perspective, or a development? Narration that explains an action, dialogue that repeats the explanation, and an ending that gives it a third time are the usual shape. So are characters who have become interchangeable speakers for the theme, when the scenes support that reading.
 - **Allowed repair:** remove or compress the redundant interpretation. Keep the story's stance and every unique character belief. Rewording one lesson three ways is not a repair.
 - **Leave alone:** deliberate moral instruction, an unreliable narrator's self-justification, an interpretation that changes as the character does, philosophical fiction, a refrain whose repetition does literary work. An explicit theme is not by that fact a redundant one.
+- **Which statement survives:** the one that carries the belief, its attribution, and any qualification. That can be a line of dialogue. Say which one you would keep and why; the author chooses.
 - **Overlap:** when `RH.LOW_INFORMATION_RESTATEMENT` describes the same span, report one finding carrying both IDs.
 
 ### F2. Redundant emotional explanation
@@ -96,6 +99,7 @@ All five are judgment-only `structural` rules in the `narrative` family. The reg
 
 - **Ask:** after the substantive ending, does further narration only explain its meaning again? Or does it assert a resolution that conflicts with uncertainty the story itself established?
 - **Allowed repair:** remove a duplicate explanation when the outcome and the stance both survive. A unique assertion of acceptance, forgiveness, certainty, or moral judgment is an author decision: report it as `[Decision]` and leave it in the text.
+- **The hard case:** a sentence that states outright what the last scene only dramatized. It is a duplicate when the outcome and the stance are just as clear without it. It is a `[Decision]` when it is the story's only explicit statement of the resolution, or when it settles something the scene left open. Split a closing paragraph sentence by sentence if its sentences differ.
 - **Leave alone:** an earned reconciliation, a moral the form requires, an epilogue that adds information, a quiet internal resolution. The presence of an epilogue is not a finding, and a late scene that changes the reader's understanding is not padding. Never push an ending toward the unresolved, the cynical, or the abrupt.
 
 ### F5. Information timing
@@ -153,7 +157,9 @@ Narrative findings use the existing format, with source spans in place of a sing
 Coverage: whole story read (5 scenes, 31 paragraphs). Edited: Sc5 only, as requested.
 ```
 
-State coverage every time. Keep narrative findings out of the density line, which counts the checker-visible catalog.
+Count paragraphs from the top of the file, skipping the title and scene-break lines; each line of dialogue set as its own paragraph counts as one. Give the scene ranges in the coverage line when the story has scenes, so the numbering can be checked.
+
+State coverage every time. Keep narrative findings out of the density line, which counts the checker-visible catalog; when the catalog has fewer than three findings, omit the line as usual. `[Leave]` lines are for passages a reader might expect you to change, not for every passage you considered. Where a deliberate reading is plausible, say "low confidence" in the finding and recommend no change. The report does not need to recite the research status of these checks, and it never cites the research as a reason.
 
 "This story is already doing what it means to do; no narrative finding" is a complete and valid result. So is a report whose only narrative content is an author decision with no edit made.
 

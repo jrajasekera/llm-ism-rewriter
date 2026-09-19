@@ -63,7 +63,7 @@ Report, do not rewrite, unless the user explicitly owns and targets it:
 
 attributed quotations and blockquotes · fenced and indented code · inline code, identifiers, commands, flags, paths, URLs, and link targets · frontmatter and configuration · Markdown table cells · citations, footnote labels, reference definitions, and bibliographies · externally supplied legal or policy language.
 
-A pattern inside a protected span is reported as `[Protected]`. That is a complete outcome, not an unfinished edit.
+A pattern inside a protected span is reported as `[Protected]`. The other report tags are `[Gap]` for a missing fact, `[Leave]` for a span kept on purpose, and `[Decision]` for a choice that belongs to the author. That is a complete outcome, not an unfinished edit.
 
 ## Meaning-preservation invariants
 
@@ -86,7 +86,7 @@ State whether the review covered the whole story or an excerpt.
 
 2. **Segment and protect.** Mark protected spans before interpreting or editing anything. For a long file, work on the section the user named; if none was named, follow the large-file policy in `contexts.md` rather than silently rewriting the whole file.
 
-3. **Detect candidates.** Read `references/patterns.md`. On a document of any length, run the checker if Python is available:
+3. **Detect candidates.** Read `references/patterns.md`; for prose fiction, sections A and F are the ones that apply. On a document of any length, run the checker if Python is available:
    ```
    python3 "$SKILL_DIR/scripts/llm_ism_check.py" --profile <profile> <file>
    ```
@@ -96,7 +96,7 @@ State whether the review covered the whole story or an excerpt.
 
    Tiers, shared with `references/rules.json` and the checker's output: `fingerprint`, `cliche`, `structural`, `clarity`. Edit priority (P0/P1/P2), evidence strength, and action are separate fields; do not collapse them.
 
-5. **Choose the smallest valid action.** Delete residue or empty restatement · replace an inflated term with the source's own concrete wording · restate a real claim directly · merge or split only when structure is the problem · mark a gap instead of inventing the fact · leave legitimate or intentional usage unchanged, and say why.
+5. **Choose the smallest valid action.** In `detect`, stop after this step and report. Delete residue or empty restatement · replace an inflated term with the source's own concrete wording · restate a real claim directly · merge or split only when structure is the problem · mark a gap instead of inventing the fact · leave legitimate or intentional usage unchanged, and say why.
 
 6. **Rewrite.** Change only the spans the findings require. Do not optimize for a checker score, mechanically vary sentence lengths, or add "human" mannerisms — no planted typos, slang, fragments, performative candor, or theatrical punctuation.
 
