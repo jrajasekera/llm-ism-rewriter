@@ -84,6 +84,18 @@ These have no detector and must never acquire a broad regex.
 | `ST.OPENING_IDENTITY` | Does the opening say what the thing *is*? |
 | `ST.TABLE_MISUSE` | Is this table holding tabular data or reformatted prose? |
 | `CL.SEMANTIC_EDIT` | Does naming the actor make the sentence clearer without changing the claim? |
+| `ST.NARRATIVE_THEME_REDUNDANCY` | Does this passage explain a meaning the story already made explicit, and add nothing? |
+| `ST.NARRATIVE_EMOTION_REDUNDANCY` | Are several descriptions doing one piece of emotional work? |
+| `ST.NARRATIVE_DECORATIVE_MIRRORING` | Does the description restate one emotional reading, or carry place, action, or a clue? |
+| `ST.NARRATIVE_FORCED_CLOSURE` | Does narration after the ending only explain it again, or override the story's uncertainty? |
+| `ST.NARRATIVE_INFORMATION_TIMING` | Does this explanation repeat or pre-empt what the reader learns elsewhere? |
+
+The five `ST.NARRATIVE_*` rules form the `narrative` family. They apply to prose
+fiction alone, under `references/narrative-review.md`, and the registry sets the
+family to `full` in `creative` and `skip` in the other seven profiles. No word
+list can stand in for them: "realized", "lesson", "rain", and "fear" appear in
+repetition and in development alike. The checker emits nothing for them, and the
+validator does not run them; narrative preservation is an agent review.
 
 Related judgments with no rule at all, because they are properties of the
 *rewrite* rather than of the source:
@@ -101,7 +113,9 @@ Related judgments with no rule at all, because they are properties of the
   `metric` must have a working implementation, positive fixtures, and at least
   two negative fixtures under `tests/fixtures/`.
 - A rule whose `detector` is `llm_judgment` must carry a `judgment_prompt` and
-  must not carry `patterns`.
+  must not carry `patterns`, `terms`, a `metric`, or any threshold.
+- A judgment-only family holds no executable rule, and exactly one profile
+  enables it.
 - A `threshold_status` of `provisional` must be recorded in
   `references/negative-results.md` with its corpus limitations.
 

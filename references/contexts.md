@@ -49,9 +49,24 @@ Context profiles are data. `references/rules.json` carries the same eight profil
 | Sentence continuity | full | skip | relaxed | relaxed | full | skip | skip | skip |
 | Opening identity | full | full | skip | full | relaxed | skip | skip | skip |
 | Clarity edits | skip² | full | skip² | full | skip² | skip² | skip² | skip |
+| Narrative construction (`narrative`) | skip | skip | skip | skip | skip | skip | skip | full³ |
 
 ¹ In email and chat, "Hope this helps" and "Let me know if…" are ordinary courtesy, so the `fingerprint` family relaxes there. Knowledge-cutoff text, leaked tool markup, unfilled placeholders, and prompt leakage live in the separate `residue` family and stay at full strength in every profile, including `creative`.
 ² Clarity edits are raised only when the user asked for general editing, whatever the profile.
+³ Judgment-only, so the checker reports nothing for it. `full` enables the family; the prose-fiction gate below decides whether it applies to the text in hand.
+
+## Fiction: two layers
+
+The `creative` profile and the narrative review do separate jobs.
+
+- **The deterministic layer** is the checker under `creative`. It reports residue and chat courtesy and skips every lexical, rhetorical, and formatting family. Fragments, anaphora, heavy punctuation, and any diction are the author's. This has not changed.
+- **The narrative layer** is the agent reading for meaning under `narrative-review.md`: redundant thematic explanation, repeated emotional interpretation, decorative mirroring, over-explained closure, and information timing. It finds what no phrase list can, and it carries its own limits on what may be edited.
+
+The narrative layer applies when the profile is `creative` **and** the material is narrative prose fiction: a short story, a chapter, a scene. Decide that from the task and the text. Poetry, lyrics, speeches, sermons, and scripts stay in `creative` without it. Memoir, narrative nonfiction, and screenplays are outside it too; the research behind the checks covers none of them, and a user who wants the review there can ask for it by name.
+
+Respect the user's statement that a text is fiction. The checker infers `creative` only from sustained quoted dialogue, so a story told without it falls back to `general-prose` under `auto`. Pass `--profile creative` to the checker and the same profile to the validator.
+
+The layer never travels the other way. A README, a research summary, or an incident report keeps its linear order, its explicit conclusion, and its direct statement of what matters.
 
 ## Genre norms in prose
 
@@ -62,7 +77,8 @@ Context profiles are data. `references/rules.json` carries the same eight profil
 | Marketing, landing pages, product copy | Rule of three; short punchy contrasts; bold; promotional register; hooks in headlines | Stacked superlatives with no concrete claim; "not just X, but Y" more than once; invented metrics or customers |
 | Journalism, essays, blog posts | Varied rhythm; a single rhetorical question; one deliberate contrast; em dashes the author uses consistently | Generic intros and outros, "experts say" without naming, aphorism closers, "Here's the thing" openers |
 | Speeches, sermons, manifestos, slogans | Anaphora; triads; echo structures; "not X but Y"; short repeated sentences | Almost nothing structural. Fingerprints and stock-vocabulary clusters only. Say so in the report. |
-| Fiction, poetry, lyrics | Everything structural; fragments; any punctuation | Fingerprints only. Do not touch voice. Recommend `detect` mode. |
+| Prose fiction | Everything structural; fragments; any punctuation; a linear plot; an explicit theme; a direct emotion label; a lush passage | Fingerprints, plus the narrative review in `narrative-review.md`. Do not touch voice. Recommend `detect` mode when the user has not asked for edits. |
+| Poetry, lyrics | Everything structural; fragments; any punctuation; repetition of every kind | Fingerprints only. Do not touch voice. Recommend `detect` mode. |
 | Legal, policy, compliance | Formal connectives; repetition for precision; "in connection with"; defined-term restatement | Placeholders; marketing register |
 | Chat, Slack, email | "Let me know if…", "Hope this helps", "Great question" are ordinary courtesy | Stock vocabulary clusters, false contrasts, canned significance |
 | Wiki and encyclopedic prose | Neutral register; simple copulas; explicit citations | The whole catalog applies; promotional register and vague attribution are the most common problems |
@@ -91,6 +107,7 @@ If the user names a register or supplies a style sample, read `references/voices
 - **Under ~300 lines, or a clearly named section:** proceed.
 - **Larger, with no section named, in `rewrite` or `edit` mode:** report findings for the whole file, then ask which sections to rewrite. Do not rewrite everything on the assumption that the user wants it.
 - **`detect` mode:** scan the whole file regardless of length.
+- **Coverage:** say what you read. A whole-story diagnosis of closure, subplot structure, or chronology requires reading the whole supplied story, even when the edit covers one scene. When length or scope prevents that, call the diagnosis partial and name the parts it covers. An excerpt cannot show that a subplot is missing or that an unseen ending fails. A complete audit is still not authorization for a complete rewrite.
 - **Multiple files:** handle each separately. Never carry a voice from one file into another. For repeated templates across files, run `$SKILL_DIR/scripts/llm_ism_project_check.py` and report the repetition as repetition.
 
 ## Things that are not signals

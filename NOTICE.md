@@ -16,6 +16,7 @@ It is a provenance record, not legal advice.
 | `SKILL.md` | Original | Written for this project. |
 | `references/patterns.md` | See *Wikipedia* below | Category names and several example words paraphrased from a CC BY-SA 4.0 source. No sentences copied. |
 | `references/contexts.md` | Original | Written for this project. |
+| `references/narrative-review.md` | See *StoryScope* below | Editorial checks adapted from published research findings. All text, definitions, and examples written for this project. |
 | `references/examples.md` | Original | All before/after pairs written for this project. |
 | `references/voices.md` | Original | Written for this project. |
 | `references/rewrite-invariants.md` | Original | Written for this project. |
@@ -24,6 +25,7 @@ It is a provenance record, not legal advice.
 | `references/rules.json` | Original | Rule IDs, thresholds, and regexes written for this project. |
 | `scripts/*.py` | Original | Independently implemented. No code from any referenced project was reused. |
 | `tests/**` | Original | Fixtures written for this project. |
+| `evals/**` | Original | Cases and input files, the three long stories included, written for this project. No story from any research corpus is used. |
 | `LICENSE` | Apache Software Foundation | Verbatim Apache License 2.0 text. |
 
 ## Wikipedia, *Signs of AI writing*
@@ -63,6 +65,23 @@ hypotheses that did not hold on its corpus. Those are recorded in
 `references/negative-results.md` with their limitations. No thresholds were
 adopted as production defaults on the strength of that corpus alone, and no
 code was reused.
+
+## Russell et al., *StoryScope*
+
+Jenna Russell, Rishanth Rajendhran, Chau Minh Pham, Mohit Iyyer, and John
+Wieting, *StoryScope: Investigating idiosyncrasies in AI fiction*, COLM 2026.
+<https://arxiv.org/abs/2604.03136v6>
+
+The five `ST.NARRATIVE_*` rules, the catalog's section F, and
+`references/narrative-review.md` adapt reported associations from that paper
+into editorial checks. The adaptation is original: the rule definitions, the
+permission limits, the examples, and the eval stories were written for this
+project. No research code, feature taxonomy, prompt, classifier, or data was
+copied or reimplemented, and no story from the paper's corpus appears in this
+repository. The paper's human stories come from Books3, and its own ethics
+statement discusses that corpus's copyright status; do not import them as test
+material. `references/negative-results.md` records what the paper does and does
+not support.
 
 ## conorbronsdon/avoid-ai-writing
 

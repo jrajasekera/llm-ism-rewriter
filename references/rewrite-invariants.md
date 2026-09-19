@@ -51,6 +51,39 @@ mechanically; a reader confirms the ones it cannot.
 | Scope | which system, version, environment, population, or period | An unscoped claim is a bigger claim. |
 | Proper nouns | product, person, org, and place names | Removing one loses a fact; adding one invents one. |
 
+## Narrative commitments
+
+For prose fiction, the claim anchors extend to what the story commits to. The
+validator extracts none of these. Compare the source and the revision for each
+one yourself, under `references/narrative-review.md`.
+
+| Commitment | What drift looks like |
+|------------|-----------------------|
+| Who did what | An action moves to another character, or loses its agent. |
+| Chronology and causality | Events change order, or one stops causing the next. |
+| What each character knows, and when | A character acts on a fact they have not yet learned. |
+| What the reader knows, and when | A reveal is spoiled, delayed, or explained twice. |
+| Point of view and focalization | The revision reports a thought the viewpoint character could not have. |
+| Stated versus inferred feeling | A gesture becomes a named emotion, or a named emotion becomes an invented gesture. |
+| Narrator reliability | A rationalization is tidied into a plain statement of fact. |
+| Open questions | An ambiguity the story keeps open is settled. |
+| Outcomes and stance | The ending is unchanged on paper and means something else. |
+| Existing references | A named book, song, or place is dropped, swapped, or added. |
+
+A character's belief is not a fact the narration has established. Keep the
+attribution: "To her, loyalty meant staying" and "Loyalty means staying" are
+different claims.
+
+A requested restructure may change the order of presentation. It may not
+silently change the underlying events or the author's stance, and it invents no
+connective material. Track in-place authority and restructuring authority
+separately; the user grants each one by asking for it.
+
+In-world dialogue is the author's text, and an attributed quotation or a
+blockquote is someone else's. The exact invariants above still protect the
+second kind in fiction. For dialogue, diagnose and report unless the user
+targets it.
+
 ## What may never be added
 
 Not by any mode, voice, or user request short of the user supplying the fact
@@ -60,6 +93,8 @@ themselves:
 - anecdotes, personal experience, or first-person claims where the source had none
 - opinions, emotional reactions, humour, or stakes
 - certainty the source did not express
+- in fiction: events, characters, motives, bodily reactions, named references,
+  resolutions, or ambiguity the source does not contain
 - planted typos, slang, fragments, ellipses, or theatrical punctuation
 
 When a cliché can only be repaired with a fact that is not in the source, the
@@ -105,3 +140,9 @@ It does not check semantic equivalence, and it cannot. It reports likely drift.
 A clean validator run means the mechanical anchors survived — not that the
 rewrite is faithful, useful, or in the author's voice. Those are read, not
 computed.
+
+It runs no narrative check and cannot tell whether two versions tell one story.
+Its residual-findings step judges both versions under a single context profile:
+the one passed as `--profile`, or under `auto` the one resolved from the
+original. The output names that profile. Report "mechanical checks passed" and
+"narrative preservation reviewed" as two separate statements.

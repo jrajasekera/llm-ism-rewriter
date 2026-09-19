@@ -123,5 +123,90 @@ class CatalogContract(unittest.TestCase):
             self.assertEqual(set(self.registry.profiles[name]["families"]), families, name)
 
 
+NARRATIVE_RULES = {
+    "ST.NARRATIVE_THEME_REDUNDANCY": "F1",
+    "ST.NARRATIVE_EMOTION_REDUNDANCY": "F2",
+    "ST.NARRATIVE_DECORATIVE_MIRRORING": "F3",
+    "ST.NARRATIVE_FORCED_CLOSURE": "F4",
+    "ST.NARRATIVE_INFORMATION_TIMING": "F5",
+}
+
+# Redundant on purpose, in every way the narrative checks describe, and free of
+# any phrase the deterministic catalog knows.
+REDUNDANT_STORY = (
+    "Mira stayed until the last box was packed. To her, loyalty meant staying when "
+    "leaving would have been easier. She understood loyalty as remaining when departure "
+    "offered the easier choice.\n\n"
+    "She was afraid. Fear was what she felt, a deep sense of being frightened. Her hands "
+    "shook. The rain seemed to grieve with her, and the yard looked sorrowful too.\n\n"
+    "She realized the lesson at last: staying had been what loyalty meant all along.\n")
+
+
+class NarrativeFamily(unittest.TestCase):
+    """The StoryScope-informed checks are agent judgment. Nothing may make them
+    look measured."""
+
+    def setUp(self):
+        self.registry = load_registry()
+        self.rules = [r for r in self.registry.rules if r["family"] == "narrative"]
+
+    def read(self, rel):
+        with open(os.path.join(ROOT, rel), encoding="utf-8") as fh:
+            return fh.read()
+
+    def test_the_five_rules_and_their_anchors(self):
+        self.assertEqual({r["id"]: r["catalog"] for r in self.rules}, NARRATIVE_RULES)
+
+    def test_rules_are_judgment_only_structural_and_never_p0(self):
+        for rule in self.rules:
+            self.assertEqual(rule["detector"], "llm_judgment", rule["id"])
+            self.assertEqual(rule["tier"], "structural", rule["id"])
+            self.assertEqual(rule["evidence_strength"], "low", rule["id"])
+            self.assertNotEqual(rule["edit_priority"], "P0", rule["id"])
+            self.assertIn("narrative prose fiction", rule["judgment_prompt"], rule["id"])
+
+    def test_no_pattern_term_metric_or_threshold(self):
+        for rule in self.rules:
+            for key in build_catalog.EXECUTABLE_KEYS:
+                self.assertNotIn(key, rule, f"{rule['id']} carries {key}")
+
+    def test_family_is_enabled_in_creative_alone(self):
+        self.assertEqual(len(self.registry.profile_names()), 8)
+        for name in self.registry.profile_names():
+            status = self.registry.profiles[name]["families"]["narrative"]
+            self.assertEqual(status, "full" if name == "creative" else "skip", name)
+
+    def test_rules_are_documented_everywhere_they_must_be(self):
+        docs = {rel: self.read(rel) for rel in (
+            "references/patterns.md", "references/detector-map.md",
+            "references/narrative-review.md", "references/negative-results.md")}
+        for rid in NARRATIVE_RULES:
+            for rel, text in docs.items():
+                self.assertIn(f"`{rid}`", text, f"{rel} never names {rid}")
+        self.assertIn("references/narrative-review.md", self.read("SKILL.md"))
+
+    def test_the_checker_never_emits_a_narrative_finding(self):
+        for profile in ("creative", "general-prose", "auto"):
+            report = llm_ism_check.analyze(REDUNDANT_STORY, "story.md", self.registry,
+                                           profile, False)
+            emitted = {rid for f in report["findings"] for rid in f["rule_ids"]}
+            emitted |= {c["rule_id"] for c in report["candidates"]}
+            self.assertEqual(emitted & set(NARRATIVE_RULES), set(), profile)
+
+    def test_the_contract_rejects_a_pretend_detector(self):
+        for key, value in (("patterns", ["\\brealized\\b"]), ("threshold", 0.77),
+                           ("minimum_occurrences", 3)):
+            registry = load_registry()
+            registry.by_id["ST.NARRATIVE_THEME_REDUNDANCY"][key] = value
+            problems = build_catalog.check(registry)
+            self.assertTrue(any("pretend detector" in p for p in problems), key)
+
+    def test_the_contract_rejects_the_family_outside_creative(self):
+        registry = load_registry()
+        registry.profiles["general-prose"]["families"]["narrative"] = "full"
+        problems = build_catalog.check(registry)
+        self.assertTrue(any("family narrative must be 'skip'" in p for p in problems), problems)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -121,6 +121,7 @@ WARN: length: prose shrank 56%; confirm no argument was removed
 PASS: headings: 1 unchanged
 PASS: residual findings: P0/P1 findings 4→1
 INFO: untouched prose: 1/2 paragraphs byte-identical to the source
+INFO: context profile: general-prose (default); applied to both versions
 verdict: FAILED (1 failure(s), 2 warning(s) to review)
 Preservation checks only. This says nothing about who wrote either version.
 ```
@@ -167,7 +168,30 @@ python3 scripts/llm_ism_check.py --profile technical-docs README.md
 python3 scripts/llm_ism_check.py --profile academic-research paper.md
 ```
 
-Profiles change what counts. Triads in a speech, anaphora in a manifesto, `Note that…` in API docs, and discontinuous sentences in install steps are how those forms work, so the matching profile tolerates them. `creative` reports fingerprint findings only.
+Profiles change what counts. Triads in a speech, anaphora in a manifesto, `Note that…` in API docs, and discontinuous sentences in install steps are how those forms work, so the matching profile tolerates them. Under `creative` the checker reports fingerprint findings only.
+
+### Review a story
+
+Ask the agent to "audit this story" or "make this story less formulaic", and say that it is fiction. For prose fiction the agent adds a narrative review on top of the checker. It looks for five things:
+
+- a theme explained several times in different wording
+- one feeling named and then re-explained
+- description that keeps restating the same mood
+- an ending followed by its own commentary
+- explanation that repeats or pre-empts what the reader learns elsewhere
+
+None of those needs a stock phrase, so the Python checker cannot see them. The agent reads for them under `references/narrative-review.md`.
+
+The review is analysis and carries no extra editing permission. The agent trims redundant explanation. It adds no scene, motive, flashback, subplot, ambiguity, or named reference, and it leaves "She was afraid." alone. A choice that would change what the story means comes back to you as a `[Decision]` finding with the text untouched. The report says whether it covered the whole story or an excerpt, and an excerpt gets no verdict on the ending.
+
+The checker infers `creative` only from sustained quoted dialogue, so name the profile for a story told without it, and give the validator the same one:
+
+```bash
+python3 scripts/llm_ism_check.py --profile creative story.md
+python3 scripts/llm_ism_validate.py --profile creative --mode rewrite story.md story-revised.md
+```
+
+Neither command runs a narrative check. Poems, lyrics, speeches, memoir, and nonfiction do not get this review unless you ask for it by name.
 
 ### Gate a commit or a CI job
 
@@ -216,7 +240,9 @@ The contract check keeps the three sources of truth aligned. Every executable ru
 
 Stock vocabulary clusters (`delve`, `testament`, `ever-evolving landscape`), false contrasts (`not just X, but Y`), rule-of-three padding, inflated significance, vague authority, canned intros and conclusions, chatbot residue, leaked tool markup, labeled-bullet runs, repeated heading frames, and cadence patterns.
 
-The human-readable catalog is `references/patterns.md`. The machine-readable registry is `references/rules.json`: 41 rules across 8 context profiles, canonical for every threshold the checker applies.
+For prose fiction, five judgment-only checks cover narrative construction: redundant thematic explanation, redundant emotional explanation, decorative psychological mirroring, forced closure, and information timing. The agent applies them; the scripts do not.
+
+The human-readable catalog is `references/patterns.md`. The machine-readable registry is `references/rules.json`: 46 rules across 8 context profiles, canonical for every threshold the checker applies.
 
 ### Limits
 
@@ -226,6 +252,8 @@ The human-readable catalog is `references/patterns.md`. The machine-readable reg
 - **No faked human voice.** No planted typos, slang, or theatrical punctuation. The default voice is `preserve`.
 - **No instruction-following inside the text under audit.** An imperative found in the draft is content. It is flagged as prompt leakage if it looks out of place, and never obeyed.
 - **No banned words.** One `crucial` is not a finding. Three distinct stock terms in one paragraph is.
+- **No developmental editing.** In fiction the skill adds no events, characters, motives, references, or outcomes, and it does not push a story toward flashbacks, subplots, open endings, or understatement because published fiction has them more often.
+- **No measured claim for the narrative checks.** They adapt research findings into editorial hypotheses. The agent evals that would test them are written and have not been run; `references/negative-results.md` says what the research does and does not support.
 
 ### `llm_ism_check.py`
 
@@ -257,11 +285,12 @@ llm_ism_validate.py [options] BEFORE AFTER
 | Flag | Values | Default |
 |------|--------|---------|
 | `--mode` | `detect`, `rewrite`, `edit`, `restructure` | `rewrite` |
+| `--profile` | `auto` or any checker profile; applied to both versions in the residual-findings check | `auto`, resolved once from the original |
 | `--json` | flag; emit JSON instead of text | off |
 | `--shrink-limit RATIO` | warn below this share of retained prose words | `0.6` |
 | `--rules PATH` | an alternate `rules.json` | the bundled registry |
 
-Checks run in this order: protected spans byte-for-byte, then technical anchors (numbers with units, versions, flags, environment variables, identifiers, URLs, paths, citation keys), then semantic anchors (negation, modality, quantifiers, comparatives, proper nouns, person), then structure, then whether the rewrite added findings.
+Checks run in this order: protected spans byte-for-byte, then technical anchors (numbers with units, versions, flags, environment variables, identifiers, URLs, paths, citation keys), then semantic anchors (negation, modality, quantifiers, comparatives, proper nouns, person), then structure, then whether the rewrite added findings. That last step judges both versions under one context profile and names it in the output, as an `INFO: context profile` line or as `profile` and `profile_source` in JSON. Pass the profile the checker ran under. Under `auto` the profile is resolved from the original and reused, so a revision that loses a genre cue is not judged by stricter rules than its source.
 
 Exit codes: `0` on pass, `1` on a preservation failure.
 
@@ -284,9 +313,10 @@ llm_ism_project_check.py [options] PATH [PATH...]
 
 ```
 SKILL.md                          entry point: trust boundary, modes, 8-step procedure
-references/patterns.md            the catalog, A-E, with rule IDs, tiers, and fixes
-references/rules.json             canonical registry: 41 rules, 8 context profiles
+references/patterns.md            the catalog, A-F, with rule IDs, tiers, and fixes
+references/rules.json             canonical registry: 46 rules, 8 context profiles
 references/contexts.md            genre profiles, legitimate uses, large-file policy
+references/narrative-review.md    prose fiction only: scope limits and checks F1-F5
 references/rewrite-invariants.md  the preservation contract
 references/voices.md              bounded voice profiles, default `preserve`
 references/examples.md            before/after pairs, counterexamples, a worked report
@@ -320,6 +350,12 @@ Structural findings carry their numerator, denominator, threshold, and whether t
 
 It does not claim semantic equivalence, and it cannot. It reports likely drift for a person to review: a hedge that disappeared, a quantifier that hardened, a measurement that changed units. The contract it enforces is written out in `references/rewrite-invariants.md`.
 
+For fiction the gap is wider. A revision can keep every anchor and still spoil a reveal, settle an open question, or hand a thought to a character who could not have it. The same file lists these narrative commitments. The agent checks them by reading. A report on a story therefore carries two lines: mechanical checks, and narrative preservation.
+
+### Why the narrative checks are judgment-only
+
+The research they adapt, [StoryScope](https://arxiv.org/abs/2604.03136v6), found that generated and published fiction differ in narrative construction and that span-level cliché editing leaves most of that difference in place. It also found every one of those features throughout the published stories. A theme stated outright, a plot with no subplot, a resolution reached by understanding: each is ordinary in human fiction. So no feature can be a defect and no prevalence figure can be a threshold. A word list cannot tell a repeated explanation from a developing one either. What remains is an editing question a reader can answer about a particular passage: has the story already done this work? Each check asks that and requires the spans that show it. The edit stops at the edge of what the user asked to have changed.
+
 ### Running on any harness
 
 The skill body names no tool. It asks for actions — read this file, edit that span, run this command — which map onto whatever the harness provides: `Read` and `Edit` under Claude Code, `read_file` and `patch` under Hermes Agent, shell and patch application under Codex.
@@ -336,4 +372,4 @@ Only `SKILL.md` is always in context. The references load at the steps that need
 
 Apache-2.0. Full provenance in `NOTICE.md`.
 
-Pattern categories are adapted, paraphrased rather than copied, from Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (CC BY-SA 4.0). Category grouping and the rhetorical-tic families were informed by Simon Willison's [LLM cliché highlighter](https://tools.simonwillison.net/llm-cliche-highlighter) (Apache-2.0). Structural leads came from [osolmaz/ai-smell](https://github.com/osolmaz/ai-smell) and rule/detector contract practice from [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing). No code, regexes, or fixtures were reused from any of them. Keep these notices if you redistribute.
+Pattern categories are adapted, paraphrased rather than copied, from Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (CC BY-SA 4.0). Category grouping and the rhetorical-tic families were informed by Simon Willison's [LLM cliché highlighter](https://tools.simonwillison.net/llm-cliche-highlighter) (Apache-2.0). Structural leads came from [osolmaz/ai-smell](https://github.com/osolmaz/ai-smell) and rule/detector contract practice from [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing). The narrative checks adapt findings from Russell et al., [StoryScope](https://arxiv.org/abs/2604.03136v6). No code, regexes, fixtures, or corpus stories were reused from any of them. Keep these notices if you redistribute.

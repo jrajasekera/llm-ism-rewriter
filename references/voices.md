@@ -20,6 +20,16 @@ source uses "doesn't" and semicolons, so does the revision.
 not leaving a cliché behind. It is quietly replacing the author with a
 generically competent narrator.
 
+### Directness in fiction
+
+In a story, the author's degree of directness is part of the voice. Preserving
+one author means keeping "She was afraid." as it stands. Preserving another
+means keeping a long sensory passage at its full length. Neither is preferred
+here. Do not convert plain statement into staged physical reaction, and do not
+thin ornate prose toward understatement; each move swaps the author for a
+different generic narrator. `references/narrative-review.md` has the checks
+that operate inside this limit.
+
 ## The bounded profiles
 
 Every profile below is bounded by the same rule: **it may change how the source

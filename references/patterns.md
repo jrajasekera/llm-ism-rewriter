@@ -159,8 +159,10 @@ Consecutive sentences with the same skeleton ("X is a Y. Z is a Y. W is a Y."), 
 A paragraph that ends by re-summarizing itself; a conclusion that repeats the intro; "In other words" followed by the same words; a sentence defining a term the previous sentence already used correctly.
 
 - **Ask:** what new fact, claim, example, consequence, or turn does this paragraph add? Could it be deleted without changing the argument?
+- **Across paragraphs:** note each paragraph's distinct contribution in a few words. Several paragraphs can do one rhetorical job in different wording, so a search for repeated words will miss them. See EX-RH-07.
 - **Fix:** delete the restatement. Keep the version with more specifics.
-- **Exception:** legal repetition for precision; a pedagogical recap; a mandated summary section.
+- **Exception:** legal repetition for precision; a pedagogical recap; a mandated or executive summary whose separate function justifies the repetition.
+- **In fiction:** `ST.NARRATIVE_THEME_REDUNDANCY` (F1) covers thematic restatement; when both describe one span, report one finding.
 
 ### C6. Generic introductions and conclusions
 `RH.GENERIC_INTRO`, `RH.GENERIC_OUTRO` — P1, high evidence.
@@ -242,6 +244,56 @@ These improve writing and are not signals about how the text was produced. Raise
 
 ---
 
+## F. Narrative construction (prose fiction only)
+
+Judgment-only, `structural`, and outside the density judgment. These apply to narrative prose fiction under `narrative-review.md`, which holds the gate, the workflow, the permission limits, and the full definitions. Read that file before using any of them. They do not apply to poetry, lyrics, speeches, or nonfiction, and the checker never reports them.
+
+Each is a reason to read a passage closely. A finding needs source spans and an editorial reason that comes from the story itself. The absence of a flashback, a subplot, an open ending, or a named reference is never a finding.
+
+### F1. Redundant thematic explanation
+`ST.NARRATIVE_THEME_REDUNDANCY` — P1, low evidence, judgment-only.
+
+Narration, then dialogue, then the ending each explain one meaning, in different words, with nothing added.
+
+- **Fix:** remove or compress the repeats; keep the stance and every unique belief.
+- **Exception:** moral instruction, an unreliable narrator's rationalizing, a changing interpretation, a working refrain.
+- **Overlap:** one finding with `RH.LOW_INFORMATION_RESTATEMENT` (C5) when both describe the span.
+
+### F2. Redundant emotional explanation
+`ST.NARRATIVE_EMOTION_REDUNDANCY` — P1, low evidence, judgment-only.
+
+Several descriptions doing one piece of emotional work, or narration explaining a feeling the text already named.
+
+- **Fix:** compress the repetition. Keep a direct emotion label that works.
+- **Exception:** a symptom with a plot function, distinct stages of a response, a bodily motif, deliberately unresolved feeling.
+- **Never:** turn a gesture into an emotion label the source does not state, or a label into an invented bodily reaction.
+
+### F3. Decorative psychological mirroring
+`ST.NARRATIVE_DECORATIVE_MIRRORING` — P1, low evidence, judgment-only.
+
+Setting and sensory description that keeps restating one emotional reading of the scene.
+
+- **Fix:** trim the repeated gloss; keep the environmental facts.
+- **Exception:** a smell that is a clue, weather that constrains action, recurring imagery, prose heightened on purpose. Sensory words are not counted.
+
+### F4. Forced closure
+`ST.NARRATIVE_FORCED_CLOSURE` — P1, low evidence, judgment-only.
+
+Narration after the substantive ending that explains it again, or asserts a resolution the story's own uncertainty does not support.
+
+- **Fix:** trim a duplicate explanation. Report a unique assertion of acceptance, forgiveness, or judgment as `[Decision]` and leave it.
+- **Exception:** an earned reconciliation, a moral the form requires, an informative epilogue, a quiet internal resolution.
+
+### F5. Information timing
+`ST.NARRATIVE_INFORMATION_TIMING` — P1, low evidence, judgment-only.
+
+Explanation that repeats what the reader knows, displaces a reveal the text stages, or settles early what the story presents as uncertain.
+
+- **Fix:** remove a duplicate explanation. Report anything that would move unique information; that needs restructuring authority.
+- **Exception:** chronological storytelling, dramatic irony, deliberate early disclosure, a retrospective narrator, necessary exposition.
+
+---
+
 ## Scoring guidance
 
 | Evidence | Weight |
@@ -253,6 +305,7 @@ These improve writing and are not signals about how the text was produced. Raise
 | D-tier item consistent with genre norms | Not a finding |
 | Pattern inside a protected span | `[Protected]`; report, no edit |
 | Any clarity item | Never contributes to density |
+| Any F-tier narrative item | Never contributes to density; reported with source spans and coverage |
 
 Report density with its counts, not as a score: *"moderate — 3 findings across 540 scanned prose words, including one fingerprint."* Thresholds: **light** under ~1 finding per 300 words with no fingerprint; **moderate** 1 per 100–300 words or one fingerprint; **heavy** more than 1 per 100 words, or two or more fingerprints. These describe the prose. They describe nothing about the author.
 
@@ -308,4 +361,9 @@ Generated from `references/rules.json` by `scripts/build_catalog.py --write`. Do
 | `ST.TABLE_MISUSE` | D5 | structural | layout | P2 | llm_judgment | report |
 | `CL.SEMANTIC_EDIT` | E | clarity | clarity | P2 | llm_judgment | review_in_context |
 | `CL.WORDY_PHRASE` | E | clarity | clarity | P2 | regex | replace |
+| `ST.NARRATIVE_THEME_REDUNDANCY` | F1 | structural | narrative | P1 | llm_judgment | review_in_context |
+| `ST.NARRATIVE_EMOTION_REDUNDANCY` | F2 | structural | narrative | P1 | llm_judgment | review_in_context |
+| `ST.NARRATIVE_DECORATIVE_MIRRORING` | F3 | structural | narrative | P1 | llm_judgment | review_in_context |
+| `ST.NARRATIVE_FORCED_CLOSURE` | F4 | structural | narrative | P1 | llm_judgment | review_in_context |
+| `ST.NARRATIVE_INFORMATION_TIMING` | F5 | structural | narrative | P1 | llm_judgment | report |
 <!-- END GENERATED RULE INDEX -->

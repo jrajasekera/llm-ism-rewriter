@@ -1,6 +1,6 @@
 # Examples
 
-Before/after pairs by category, then counterexamples, then a full worked report. Every "after" keeps the original claim strength and adds no facts.
+Before/after pairs by category, then counterexamples, narrative-prose examples, and two worked reports. Every "after" keeps the original claim strength and adds no facts.
 
 Examples carry stable IDs. Where an ID appears in `tests/fixtures/`, the behavior is pinned by a test rather than by this prose.
 
@@ -53,6 +53,12 @@ Examples carry stable IDs. Where an ID appears in `tests/fixtures/`, the behavio
 **EX-RH-05 — restatement** (`RH.LOW_INFORMATION_RESTATEMENT`)
 - Before: *Latency dropped 40% after enabling compression. In other words, compression made responses significantly faster.*
 - After: *Latency dropped 40% after enabling compression.*
+
+**EX-RH-07 — three paragraphs, one job** (`RH.LOW_INFORMATION_RESTATEMENT`, `LX.INFLATED_SIGNIFICANCE`)
+- Before, three consecutive paragraphs of a release post: the first calls the release important for the platform; the second says it represents meaningful progress for teams that depend on it; the third closes by saying that this is why the release matters. No paragraph names a capability, a limitation, or a consequence, and no two share a phrase.
+- After: keep whichever paragraph carries a concrete claim. If none does: delete two, keep one, and report a `[Gap]`: the post says the release matters and never says what it changes.
+- Method: write down each paragraph's distinct contribution in a few words. Paragraphs that come out the same are one paragraph. Repeated words are not the test, and neither is their absence.
+- Leave alone: an executive summary above a detailed section, and a teaching recap at the end of a lesson. Each repeats on purpose for a reader who needs it, and each has a job the body does not do.
 
 **EX-RH-06 — generic intro and outro** (`RH.GENERIC_INTRO`, `RH.GENERIC_OUTRO`)
 - Before, intro: *In today's fast-paced digital world, monitoring has become increasingly important for organizations of all sizes.*
@@ -174,6 +180,96 @@ Source: *In conclusion, the parser is robust, fast, and reliable. Hope this help
 **EX-VO-03 — requested `casual`, done wrong**
 - Bad after: *Honestly? The retry budget is just… way too chill. Wild.*
 - Fake candor, planted fragments, theatrical punctuation, and an opinion the source hedged. Every one of these is prohibited regardless of the requested voice.
+
+## Narrative prose
+
+For prose fiction under `narrative-review.md`. Each example gives the context the judgment depends on; a narrative finding made without context is a guess. Examples set in italics or blockquotes here are presentation. Anyone turning one into a test supplies the underlying prose as plain editable text, so that the test does not exercise the protected-blockquote path by accident.
+
+**EX-NR-01 — a second explanation, removed; the position, kept** (`ST.NARRATIVE_THEME_REDUNDANCY`)
+- Before: *Mira stayed until the last box was packed. To her, loyalty meant staying when leaving would have been easier. In other words, she understood loyalty as remaining when departure offered the easier choice.*
+- After: *Mira stayed until the last box was packed. To her, loyalty meant staying when leaving would have been easier.*
+- Why: the third sentence restates a belief the second already made explicit. The second stays because it carries the belief and attributes it to Mira. Deleting both explanatory sentences would be a much stronger editorial choice, and nothing in a clean-up request authorizes it.
+
+**EX-NR-02 — a feeling named once and explained twice** (`ST.NARRATIVE_EMOTION_REDUNDANCY`)
+- Before: *Tomas was ashamed of the letter. Shame was what he felt when he looked at it, a deep sense of being ashamed of what he had written. He put it back in the drawer.*
+- After: *Tomas was ashamed of the letter. He put it back in the drawer.*
+- Bad after: *Tomas's face burned as he looked at the letter. He put it back in the drawer.* The source has no burning face. This invents a bodily reaction and deletes a label that was doing its job.
+
+**EX-NR-03 — the gloss goes, the weather stays** (`ST.NARRATIVE_DECORATIVE_MIRRORING`)
+- Before: *Rain had come in off the estuary since noon, and the lane to the farm was under a hand of water. The rain seemed to grieve with her. In the kitchen the stove had gone out and the window over the sink had fogged, as if the house too were mourning. Even the yard looked sorrowful, in sympathy with what she felt.*
+- After: *Rain had come in off the estuary since noon, and the lane to the farm was under a hand of water. The rain seemed to grieve with her. In the kitchen the stove had gone out and the window over the sink had fogged.*
+- Why: three glosses gave one reading. The first stays. The flooded lane, the dead stove, and the fogged window are facts of the scene and all survive. The yard sentence held nothing else.
+
+**EX-NR-04 — a duplicate explanation and a unique assertion** (`ST.NARRATIVE_FORCED_CLOSURE`)
+- Context: across the story Anneke cannot decide whether she forgives her late husband, and the scene before the last ends with her saying she may never know.
+- Before, the final paragraphs: *She signed the papers and slid the keys across the desk. Outside, she did not look back at the house.* Then: *In letting the house go she had let go of him too. Selling it had been her way of releasing him, and with the keys went the last of her hold on the past. She had forgiven him.*
+- After: the second commentary sentence is removed. It restates the first. Nothing else changes.
+- Reported as `[Decision]` and left in place: *She had forgiven him.* It is the only statement of forgiveness in the story, and it settles a question the previous scene held open. Cutting it changes the ending, and so does keeping it. That is the author's call.
+
+**EX-NR-05 — a timing question, reported and not acted on** (`ST.NARRATIVE_INFORMATION_TIMING`)
+- Source structure: the first paragraph names the thief. A later scene takes the detective, step by step, to the same name.
+- Report: both readings, with their locations. The early disclosure may be dramatic irony, with the reader watching the detective catch up. It may also undercut a mystery the later scene is staged as. Nothing moves. Relocating the first paragraph needs restructuring authority, and the research this check draws on is no reason to prefer a delayed reveal.
+
+### Narrative no-change examples
+
+The correct output is the source, unchanged.
+
+**EX-NR-06 — a plain emotion label**
+> I was afraid. I locked the door and waited.
+> No racing pulse, no tight throat, no description of the room. Each would be invented.
+
+**EX-NR-07 — a symptom with a plot function**
+> His hands shook so badly that he dropped the key into the drain. The shaking had begun before he entered the house.
+> The symptom causes an event, and its timing is unexplained on purpose. An emotion label here would delete a fact and impose a reading.
+
+**EX-NR-08 — an ambiguity the story keeps**
+> He laughed when the verdict came. Later, nobody agreed on what the laugh had meant.
+> Do not call the laugh relief, bitterness, or triumph. The open question is the content.
+
+**EX-NR-09 — an unspecified reference**
+> The novel on her desk reminded her of home.
+> Leave the novel unnamed. A title, an author, or a brand would be an invented fact. Optional specificity can be offered in the report and nowhere else.
+
+**EX-NR-10 — a linear story in one place with no subplot.** Told in order, in a single kitchen, with two characters and one question. Nothing to report. Order, unity of place, and a single plot line are choices.
+
+**EX-NR-11 — an earned happy ending.** The sisters reconcile in the last scene, after three scenes in which each gives something up. No added doubt, no cynical coda, no external event to "complicate" it.
+
+**EX-NR-12 — the moral of a fable.** A closing line that states the lesson is the form doing its work. It is a finding only when the fable states it twice.
+
+**EX-NR-13 — reader address the author chose.** A narrator who has said "you" since the first page keeps saying it, and a narrator who never has does not start.
+
+**EX-NR-14 — a conclusion outside fiction**
+> The rollback restored service. We have not identified the cause of the connection leak.
+> An incident report states its outcome and its open question directly. No narrative rule applies to it.
+
+### Worked report: an author decision and no structural edit
+
+Request: "Make the ending of this story less formulaic." The whole story was supplied. The ending is EX-NR-04.
+
+```
+## Findings
+- [P1 structural] Sc6 ¶41: "Selling it had been her way of releasing him, and with the keys went
+  the last of her hold on the past" restates ¶41's first sentence (ST.NARRATIVE_FORCED_CLOSURE,
+  RH.LOW_INFORMATION_RESTATEMENT). Removed.
+- [Decision] Sc6 ¶41: "She had forgiven him." The only statement of forgiveness in the story. Sc5
+  ends with Anneke saying she may never know, so this sentence settles what the story held open.
+  Requires an author decision; left in place, and no structural edit made.
+- [Leave] Sc6 ¶40: "she did not look back at the house" is the substantive ending, an action.
+  Unchanged.
+
+## Validation
+Mechanical checks: passed under --profile creative (no protected spans; negation and modality
+counts unchanged).
+Narrative preservation: reviewed. Events, viewpoint, and the order in which the reader learns
+things are unchanged. The open question from Sc5 is exactly as open or closed as the author left it.
+Second audit: the revision adds no new interpretation, reaction, or resolution.
+
+Coverage: whole story read (6 scenes, 41 paragraphs). Edited: Sc6 only, as requested.
+Context: creative, prose fiction (stated by the user). Voice: preserve.
+Not evidence of authorship.
+```
+
+One sentence changed. The most useful part of the report is the decision it hands back.
 
 ## Validation failures
 

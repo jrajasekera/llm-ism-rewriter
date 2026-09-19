@@ -101,6 +101,73 @@ project's framing: these are readability and editing signals, and nothing else.
   `AI_ONLY`, or 0–100 field appears in any output schema in this repository.
   The JSON schema is checked for their absence in `tests/test_catalog_contract.py`.
 
+## Unvalidated editorial hypotheses
+
+Rules adopted on an editorial argument, with a research association behind them
+and no measurement of their own. They are not failed experiments, because no
+experiment on this skill has been run. They are not findings either.
+
+### Narrative checks adapted from StoryScope
+
+- **Rules:** `ST.NARRATIVE_THEME_REDUNDANCY`, `ST.NARRATIVE_EMOTION_REDUNDANCY`,
+  `ST.NARRATIVE_DECORATIVE_MIRRORING`, `ST.NARRATIVE_FORCED_CLOSURE`,
+  `ST.NARRATIVE_INFORMATION_TIMING`. Judgment-only, low evidence strength, with
+  no threshold of any kind.
+- **Motivation:** Russell et al., *StoryScope: Investigating idiosyncrasies in AI
+  fiction* (arXiv 2604.03136v6). On a parallel corpus built from 10,272
+  published stories and generations from five model versions, narrative-only
+  features gave a binary macro-F1 of 93.2, against 96.0 with style features
+  added. On 278 stories edited span by span, the same measure moved from 95.5
+  to 93.9. Macro-F1 is a classifier statistic over a corpus. It is not a
+  per-document probability, and it is not a measurement of this skill, which
+  the study never tested.
+- **Associations the checks draw on** (model-assigned prevalence, generated
+  versus published): narratorial thematic commentary 77% versus 52%;
+  philosophical dialogue 59% versus 34%; embodied emotional expression 81%
+  versus 38%; explicit emotion labels 8% versus 29%; olfactory detail 82%
+  versus 57%; no subplot 79% versus 57%; resolution by internal understanding
+  47% versus 27%.
+- **Why none of these is a threshold:** every feature is common in the
+  published stories too. Half of them carry thematic commentary and more than
+  half have no subplot, and both groups score high on thematic unity. The study
+  measures association with a source; it does not show that reversing a feature
+  improves a story or keeps its author's intent.
+- **Corpus limits:** published English fiction against generations from
+  reverse-engineered prompts, with no comparable drafting and revision on the
+  generated side. Features were assigned mostly by models; the human validation
+  covers 240 story-feature items across 12 stories and two annotators. The
+  study's rarity measure is defined inside its own feature space and is no
+  measure of quality or originality. Nothing here transfers on that evidence to
+  business prose, other languages, poetry, memoir, or heavily revised
+  collaborative fiction.
+- **Decision:** **adopted as editorial hypotheses, 2026-09-18, version 2.2.0.**
+  Each check asks whether a passage repeats work the story has already done,
+  which is an editing question with or without the study. The agent cases in
+  `evals/evals.json` (E13 onward) exist to test them and have not been run. A
+  check that over-edits, misreads intentional style, or costs more than its
+  findings are worth gets narrowed or removed, and the result is recorded here.
+
+### Interpretations of StoryScope rejected outright
+
+- **Sensory-word limits.** No count of smell words and no ceiling on sensory
+  modalities. A smell can be the clue.
+- **Universal ambiguity.** No pushing endings toward the unresolved, the
+  cynical, or the abrupt. An earned reconciliation is an ending.
+- **Forced nonlinear structure.** No flashback, delayed reveal, or subplot
+  recommended because a story lacks one. Most published stories in the study
+  were linear enough to lack them too.
+- **Named-reference insertion.** No title, author, brand, or place added to
+  resemble the published corpus. That would be an invented fact.
+- **Emotion-label quotas.** No conversion of bodily expression into labels, or
+  of labels into bodily expression, as a policy in either direction.
+- **Per-model corrective presets.** The study covers particular model versions,
+  and an attribution feature is not an editing instruction. The skill does not
+  infer a model and does not apply a recipe for one.
+- **The classifier itself.** No StoryScope classifier, embedding model,
+  feature export, or "humanness" score, here or as a release gate for the evals.
+- **Cross-story template analysis.** Deferred. `ST.CROSS_FILE_TEMPLATE` compares
+  surface n-grams and is not a narrative-diversity measure.
+
 ## Provisional thresholds currently shipping
 
 Every number below is a starting policy calibrated against this repository's own

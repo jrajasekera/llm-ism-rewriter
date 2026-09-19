@@ -1,17 +1,19 @@
 ---
 name: llm-ism-rewriter
-description: Audit or revise prose that reads as formulaic, over-polished, generic, or "AI-ish". Use when asked to remove LLM-isms or AI-writing clichés, cut chatbot residue, fix stock vocabulary, false contrasts ("not just X, but Y"), rule-of-three padding, inflated significance, canned intros and conclusions, or over-formatted structure; also for detect-only audits and explicit in-place prose edits. Preserves meaning, facts, hedges, and the author's voice. Findings are writing-quality signals, never proof of authorship.
+description: Audit or revise prose that reads as formulaic, over-polished, generic, or "AI-ish". Use when asked to remove LLM-isms or AI-writing clichés, cut chatbot residue, fix stock vocabulary, false contrasts ("not just X, but Y"), rule-of-three padding, inflated significance, canned intros and conclusions, or over-formatted structure; for a story or other prose fiction that feels formulaic, with themes or emotions explained repeatedly; also for detect-only audits and explicit in-place prose edits. Preserves meaning, facts, hedges, and the author's voice. Findings are writing-quality signals, never proof of authorship.
 license: Apache-2.0
 compatibility: Agent Skills (agentskills.io) format; runs on Claude Code, Codex, Hermes Agent, and any harness that loads SKILL.md. Needs only file reading and editing. The optional checker and validator require Python 3.10+ and the standard library only.
 metadata:
   author: jrajasekera
-  version: "2.1.1"
-  sources: "Wikipedia 'Signs of AI writing' (CC BY-SA 4.0); Simon Willison's llm-cliche-highlighter (Apache-2.0); structural leads from osolmaz/ai-smell; contract practices from conorbronsdon/avoid-ai-writing"
+  version: "2.2.0"
+  sources: "Wikipedia 'Signs of AI writing' (CC BY-SA 4.0); Simon Willison's llm-cliche-highlighter (Apache-2.0); structural leads from osolmaz/ai-smell; contract practices from conorbronsdon/avoid-ai-writing; narrative checks adapted from Russell et al., StoryScope (arXiv 2604.03136)"
 ---
 
 # LLM-ism rewriter
 
-Improve prose that reads as formulaic or model-shaped, while preserving its meaning, evidence, and voice. The unit of work is the sentence and its purpose: every flagged span gets a concrete replacement, a deletion, or a stated reason it should stay.
+Improve prose that reads as formulaic or model-shaped, while preserving its meaning, evidence, and voice. The unit of editing is the sentence and its purpose: every flagged span gets a concrete replacement, a deletion, or a stated reason it should stay.
+
+Analysis scope and edit scope are separate. Read as much as the judgment needs, up to a whole scene or story. Change only what the user's request covers. A wider audit never widens the edit.
 
 ## Non-goal
 
@@ -52,7 +54,7 @@ you; run a script with whatever runs a shell command.
 
 - **Context profile:** infer only from strong cues; otherwise `general-prose`. State which profile you applied.
 - **Voice:** `preserve`. Read `references/voices.md` only when the user names a voice or supplies a style sample.
-- **Scope:** preserve structure unless the user asks to restructure.
+- **Scope:** preserve structure unless the user asks to restructure. Permission to edit a file in place is not permission to restructure it.
 - **Intensity:** patch the flagged spans. Leave clean paragraphs byte-identical. Rebuild only under the conditions below.
 
 ## Protected content
@@ -69,10 +71,18 @@ Preserve: facts, names, dates, numbers, units, versions, and examples · negatio
 
 Never invent specificity, sources, personal experience, reactions, humour, stakes, or opinions. When a cliché can only be repaired with a fact the source does not contain, report an editorial gap. Insert `[specify: …]` only when the missing detail blocks a usable revision; when the claim stands without it, say so in the report instead of littering the prose. Full contract: `references/rewrite-invariants.md`.
 
+## Narrative prose
+
+For prose fiction, read `references/narrative-review.md`. It adds a semantic review of redundant thematic explanation, repeated emotional interpretation, decorative psychological mirroring, over-explained closure, and information timing (catalog F1–F5). Every such finding needs source spans and an editorial reason drawn from the story. Keep the `creative` profile's tolerance for intentional style: this review does not switch on the general-prose structural rules. Do not apply it by default to poetry, lyrics, speeches, or nonfiction.
+
+"Make this less formulaic" authorizes no new event, character, motive, reference, viewpoint, or outcome. Keep a direct emotion label that works, and never add a bodily reaction to satisfy "show, don't tell." Do not add a flashback, subplot, ambiguity, reader address, or named reference because published fiction has them more often. Report a deeper structural choice as an author decision and leave it unmade.
+
+State whether the review covered the whole story or an excerpt.
+
 ## Workflow
 
 1. **Resolve mode, scope, context, and voice.**
-   Read `references/contexts.md` when genre affects the judgment, and for the large-file policy. Read `references/voices.md` only if a voice was requested.
+   Read `references/contexts.md` when genre affects the judgment, and for the large-file policy. Read `references/voices.md` only if a voice was requested. Read `references/narrative-review.md` only for prose fiction; respect the user's statement that a text is fiction even when the checker would not infer it.
 
 2. **Segment and protect.** Mark protected spans before interpreting or editing anything. For a long file, work on the section the user named; if none was named, follow the large-file policy in `contexts.md` rather than silently rewriting the whole file.
 
@@ -92,11 +102,11 @@ Never invent specificity, sources, personal experience, reactions, humour, stake
 
 7. **Validate.** Re-read the source and the revision side by side. For a file edit or a substantial rewrite:
    ```
-   python3 "$SKILL_DIR/scripts/llm_ism_validate.py" --mode <rewrite|edit> <before> <after>
+   python3 "$SKILL_DIR/scripts/llm_ism_validate.py" --profile <profile> --mode <rewrite|edit> <before> <after>
    ```
-   Resolve every `FAIL`. Review each `WARN` for semantic drift and say what you concluded.
+   Pass the profile the checker ran under, so both versions are judged alike. Use `--mode restructure` only when the user asked for restructuring. Resolve every `FAIL`: rework the edit, or leave the span in place and report the edit as deferred with the check that blocked it. Never hide a failure. Review each `WARN` for semantic drift and say what you concluded. For fiction, then check narrative facts, viewpoint, uncertainty, and information timing yourself; the validator cannot.
 
-8. **Second audit.** Re-scan the revision with the same catalog. Rewrites routinely introduce new clichés: a fresh "not X but Y", a tidy triad, a new em dash, one hook swapped for another. Fix them **before** reporting, and return only the corrected text. Confirm no claim was silently dropped or strengthened; a deleted unsupported claim appears in Findings as a `[Gap]`, it does not vanish.
+8. **Second audit.** Re-scan the revision with the same catalog, and repeat every review layer you used, the narrative one included: a rewrite can add a moral, a physical reaction, or an artificial resolution with no stock phrase in it. Rewrites routinely introduce new clichés: a fresh "not X but Y", a tidy triad, a new em dash, one hook swapped for another. Fix them **before** reporting, and return only the corrected text. Confirm no claim was silently dropped or strengthened; a deleted unsupported claim appears in Findings as a `[Gap]`, it does not vanish.
 
 ## Patch versus rebuild
 
@@ -123,7 +133,7 @@ Density: moderate — 3 findings across 540 scanned prose words, including one f
 
 ### `rewrite`
 
-`## Findings` · `## Revised text` (one final version, post-second-audit) · `## Change summary` · `## Validation` (protected content, claim anchors, warnings reviewed, second-audit result). Never place a superseded draft before the final text.
+`## Findings` · `## Revised text` (one final version, post-second-audit) · `## Change summary` · `## Validation` (protected content, claim anchors, warnings reviewed, second-audit result). For fiction, `## Validation` reports mechanical checks and narrative preservation on separate lines, and states coverage. Never place a superseded draft before the final text.
 
 ### `edit`
 
@@ -137,6 +147,7 @@ Omit the density line when there are fewer than three findings. "This passage is
 |------|-----------|
 | `references/patterns.md` | Step 3 — the full catalog with rule IDs, tiers, and fixes |
 | `references/contexts.md` | Step 1 — genre profiles, legitimate uses, large-file policy |
+| `references/narrative-review.md` | Step 1, prose fiction only — scope limits, the working map, checks F1–F5 |
 | `references/rewrite-invariants.md` | Step 5 or 7 — the preservation contract |
 | `references/voices.md` | Step 1, only when a voice was requested |
 | `references/examples.md` | Step 5 — before/after pairs, counterexamples, a worked report |
@@ -144,12 +155,12 @@ Omit the density line when there are fewer than three findings. "This passage is
 | `references/negative-results.md` | Before treating any threshold as authoritative |
 | `references/rules.json` | Canonical thresholds; the checker reads it |
 
-Scripts (optional, standard library only, `--help` on each): `scripts/llm_ism_check.py` (candidates and contextual findings; `--profile`, `--format text|json|sarif`, `--level findings|candidates`, `--include-protected`), `scripts/llm_ism_validate.py` (original vs. rewrite preservation), `scripts/llm_ism_project_check.py` (templates repeated across files). The checker exits 0 whether or not it finds anything; the validator exits 1 on a preservation failure.
+Scripts (optional, standard library only, `--help` on each): `scripts/llm_ism_check.py` (candidates and contextual findings; `--profile`, `--format text|json|sarif`, `--level findings|candidates`, `--include-protected`), `scripts/llm_ism_validate.py` (original vs. rewrite preservation; `--profile`, `--mode`), `scripts/llm_ism_project_check.py` (templates repeated across files). The checker exits 0 whether or not it finds anything; the validator exits 1 on a preservation failure.
 
 ## Acceptance gate
 
-A result is acceptable only when every edit is supported by the source or an explicit user instruction; protected content is unchanged; uncertainty and claim strength are preserved; clean passages stayed clean; no new formulaic pattern was introduced; and the report makes no claim about authorship.
+A result is acceptable only when every edit is supported by the source or an explicit user instruction; protected content is unchanged; uncertainty and claim strength are preserved; for fiction, events, viewpoint, open questions, and the timing of what the reader learns are preserved, and the report states its coverage; clean passages stayed clean; no new formulaic pattern was introduced; and the report makes no claim about authorship.
 
 ## Attribution
 
-Pattern categories draw on Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (CC BY-SA 4.0; paraphrased, not copied) and the structure and interaction ideas of Simon Willison's [LLM cliché highlighter](https://tools.simonwillison.net/llm-cliche-highlighter) (Apache-2.0; no code reused). Structural leads came from [osolmaz/ai-smell](https://github.com/osolmaz/ai-smell) and the rule/detector contract practice from [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing); no code, rules, or fixtures were copied from either. Full provenance in `NOTICE.md`.
+Pattern categories draw on Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (CC BY-SA 4.0; paraphrased, not copied) and the structure and interaction ideas of Simon Willison's [LLM cliché highlighter](https://tools.simonwillison.net/llm-cliche-highlighter) (Apache-2.0; no code reused). Structural leads came from [osolmaz/ai-smell](https://github.com/osolmaz/ai-smell) and the rule/detector contract practice from [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing); no code, rules, or fixtures were copied from either. The narrative checks are original editorial adaptations of findings in Russell et al., [StoryScope](https://arxiv.org/abs/2604.03136v6); no research code, data, or stories were used. Full provenance in `NOTICE.md`.

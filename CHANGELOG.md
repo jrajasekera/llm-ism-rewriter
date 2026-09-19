@@ -7,6 +7,62 @@ incompatible CLI. `SKILL.md`'s frontmatter version, `registry_version` in
 `references/rules.json`, and `TOOL_VERSION` in the scripts are kept in sync by
 `scripts/build_catalog.py --check`.
 
+## [2.2.0]
+
+A narrative-review layer for prose fiction, and one profile for both sides of a
+validation. The five new checks are editorial hypotheses adapted from Russell et
+al., *StoryScope* (arXiv 2604.03136v6). No agent evaluation of them has been run;
+`references/negative-results.md` records that, and what the paper does and does
+not support.
+
+### Added
+
+- `references/narrative-review.md`. It says when the review applies (prose
+  fiction, judged from the task and the text) and separates analysis scope from
+  edit scope. It defines a working map of events, viewpoint, and reader
+  knowledge, reviewed in three passes. Its report format for fiction adds a
+  coverage line and a `[Decision]` tag for choices that belong to the author.
+- Five judgment-only `structural` rules in a new `narrative` family, catalog
+  section F: `ST.NARRATIVE_THEME_REDUNDANCY`, `ST.NARRATIVE_EMOTION_REDUNDANCY`,
+  `ST.NARRATIVE_DECORATIVE_MIRRORING`, `ST.NARRATIVE_FORCED_CLOSURE`,
+  `ST.NARRATIVE_INFORMATION_TIMING`. The family is `full` in `creative` and
+  `skip` in the other seven profiles. The checker emits nothing for them.
+- `llm_ism_validate.py --profile`, and a `profile` argument on `validate()`
+  defaulting to `auto`. The output names the profile used: an `INFO: context
+  profile` line in text, `profile` and `profile_source` in JSON.
+- Narrative commitments in `references/rewrite-invariants.md`, a note on
+  directness in fiction in `references/voices.md`, and examples EX-NR-01 to
+  EX-NR-14 with a worked report whose outcome is an author decision and no
+  structural edit. EX-RH-07 covers several differently worded paragraphs doing
+  one rhetorical job in nonfiction, under the existing restatement rule.
+- Agent eval cases E13 to E38, with three original long stories as inputs.
+  Every assertion kind is now labeled machine-executed, agent-judged, or
+  human-reviewed.
+
+### Changed
+
+- `SKILL.md` separates analysis scope from edit scope and routes prose fiction
+  to the narrative review. The validator now receives the checker's profile.
+  The second audit covers every layer used, and the acceptance gate includes
+  narrative preservation.
+- `references/contexts.md` splits fiction handling into the deterministic layer
+  and the narrative layer, keeps poetry, lyrics, and speeches out of the second,
+  and adds coverage reporting to the large-file policy.
+- `build_catalog.py --check` rejects any executable key on a judgment-only rule,
+  where it used to reject `patterns` alone. It also requires a judgment-only
+  family to hold no executable rule and to be enabled in exactly one profile.
+- `evals/evals.json` compares 2.2.0 against the 2.1.1 commit. The global "fewer
+  P0/P1 findings" objective became case-specific: a no-change case and a
+  narrative edit can both succeed with identical checker output.
+
+### Fixed
+
+- The validator ran its residual-findings check with `auto` on each version
+  separately. A story without sustained quoted dialogue was judged as
+  `general-prose` even when the agent had chosen `creative`, and a revision that
+  lost a genre cue was judged under different rules from its source. Both sides
+  now share one profile, resolved once.
+
 ## [2.1.1]
 
 Fixes the `spec` CI job, which validates this skill against the Agent Skills

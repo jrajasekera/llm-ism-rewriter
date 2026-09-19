@@ -156,8 +156,23 @@ def added(before: Counter, after: Counter) -> list[str]:
     return sorted(k for k in after if before[k] < after[k])
 
 
+def resolve_profile(before: str, registry, profile: str = "auto") -> tuple[str, str]:
+    """Return (profile, source) for the pair, decided once from the original.
+
+    A revision can lose the cue that identified its source's genre, such as the
+    dialogue that marked a story. Detecting each side separately would then
+    judge the two versions under different tolerances.
+    """
+    if profile != "auto":
+        if profile not in registry.profile_names():
+            raise RegistryError(f"unknown profile: {profile}")
+        return profile, "explicit"
+    name, cues = llm_ism_check.detect_profile(before, parse_markdown(before))
+    return name, "auto" if cues else "default"
+
+
 def validate(before: str, after: str, mode: str, registry, path_before: str,
-             path_after: str, shrink_limit: float) -> list[Result]:
+             path_after: str, shrink_limit: float, profile: str = "auto") -> list[Result]:
     policy = POLICY[mode]
     results: list[Result] = []
 
@@ -266,13 +281,16 @@ def validate(before: str, after: str, mode: str, registry, path_before: str,
         results.append(Result({"error": "fail", "warn": "warn"}[policy["order"]],
                               "paragraph order", "paragraphs were reordered but not reworded"))
 
-    # 6. residual findings
+    # 6. residual findings, both versions under the one profile
     try:
-        rb = llm_ism_check.analyze(before, path_before, registry, "auto", False)
-        ra = llm_ism_check.analyze(after, path_after, registry, "auto", False)
+        resolved, source = resolve_profile(before, registry, profile)
+        rb = llm_ism_check.analyze(before, path_before, registry, resolved, False)
+        ra = llm_ism_check.analyze(after, path_after, registry, resolved, False)
     except RegistryError as exc:
         results.append(Result("warn", "residual findings", f"not evaluated: {exc}"))
         return results
+    results.append(Result("info", "context profile",
+                          f"{resolved} ({source}); applied to both versions"))
     hi_b = sum(rb["summary"]["by_priority"][p] for p in ("P0", "P1"))
     hi_a = sum(ra["summary"]["by_priority"][p] for p in ("P0", "P1"))
     if hi_a > hi_b:
@@ -311,11 +329,16 @@ def main(argv=None) -> int:
         epilog="Examples:\n"
                "  llm_ism_validate.py before.md after.md\n"
                "  llm_ism_validate.py --mode edit before.md after.md\n"
+               "  llm_ism_validate.py --profile creative story.md story-revised.md\n"
                "  llm_ism_validate.py --json before.md after.md\n")
     ap.add_argument("before", help="the original document")
     ap.add_argument("after", help="the rewritten document")
     ap.add_argument("--mode", default="rewrite", choices=MODES,
                     help="policy strictness (default: rewrite)")
+    ap.add_argument("--profile", default="auto", metavar="NAME",
+                    help="context profile for the residual-findings check, applied to both "
+                         "versions; pass the one the checker ran under (default: auto, "
+                         "resolved once from the original)")
     ap.add_argument("--json", action="store_true", help="emit JSON instead of text")
     ap.add_argument("--shrink-limit", type=float, default=0.6, metavar="RATIO",
                     help="warn when the rewrite keeps less than this share of prose words (default: 0.6)")
@@ -328,17 +351,22 @@ def main(argv=None) -> int:
     except RegistryError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 3
+    if args.profile != "auto" and args.profile not in registry.profile_names():
+        ap.error(f"argument --profile: invalid choice: {args.profile!r} (choose from "
+                 + ", ".join(["auto"] + registry.profile_names()) + ")")
     texts = []
     for path in (args.before, args.after):
         try:
-            texts.append(open(path, encoding="utf-8").read())
+            with open(path, encoding="utf-8") as fh:
+                texts.append(fh.read())
         except (OSError, UnicodeDecodeError) as exc:
             print(f"error: cannot read {path}: {exc}", file=sys.stderr)
             return 2
 
     try:
+        profile, source = resolve_profile(texts[0], registry, args.profile)
         results = validate(texts[0], texts[1], args.mode, registry,
-                           args.before, args.after, args.shrink_limit)
+                           args.before, args.after, args.shrink_limit, args.profile)
     except Exception as exc:  # parser or analysis failure
         print(f"error: validation failed: {exc}", file=sys.stderr)
         return 3
@@ -346,7 +374,8 @@ def main(argv=None) -> int:
     if args.json:
         print(json.dumps({
             "schema_version": SCHEMA_VERSION, "tool_version": TOOL_VERSION,
-            "mode": args.mode, "before": args.before, "after": args.after,
+            "mode": args.mode, "profile": profile, "profile_source": source,
+            "before": args.before, "after": args.after,
             "results": [asdict(r) for r in results],
             "passed": not any(r.level == "fail" for r in results),
             "disclaimer": "Preservation checks only. Not evidence of authorship.",

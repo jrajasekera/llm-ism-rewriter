@@ -13,7 +13,7 @@ way, because the skill has to run wherever it is copied.
 ## Commands
 
 ```bash
-python3 -m unittest discover -s tests -v          # 217 unit tests
+python3 -m unittest discover -s tests -v          # unit tests
 python3 scripts/build_catalog.py --check          # registry / catalog / code contract
 python3 scripts/build_catalog.py --write          # regenerate the rule index in patterns.md
 python3 scripts/self_scan.py --check              # this repo's prose against its budget
@@ -21,6 +21,7 @@ python3 scripts/self_scan.py --check              # this repo's prose against it
 python3 scripts/llm_ism_check.py FILE [FILE...]           # candidates and findings
 python3 scripts/llm_ism_check.py --format json FILE       # machine-readable
 python3 scripts/llm_ism_validate.py before.md after.md    # preservation validator
+python3 scripts/llm_ism_validate.py --profile creative before.md after.md   # same profile as the checker
 python3 scripts/llm_ism_project_check.py docs/            # cross-file templates
 ```
 
@@ -40,13 +41,16 @@ references rather than inlining them.
   tier, family, edit priority, evidence strength, action, detector, thresholds,
   exceptions, and the eight context profiles. The checker reads it; nothing is
   hard-coded.
-- **`references/patterns.md`** — the human-readable catalog, A–E, that the agent
+- **`references/patterns.md`** — the human-readable catalog, A–F, that the agent
   works from. Every registry rule carries a `catalog` anchor into it. The rule
   index at the bottom is generated.
 - **`references/detector-map.md`** — the coverage contract: directly executable,
   partially executable, judgment-only.
 - **`references/contexts.md`**, **`voices.md`**, **`rewrite-invariants.md`**,
   **`examples.md`**, **`negative-results.md`** — loaded at the steps that need them.
+- **`references/narrative-review.md`** — prose fiction only. Analysis scope versus
+  edit scope, the working map, and the five judgment-only `ST.NARRATIVE_*` checks
+  (catalog F). The scripts never run these.
 - **`scripts/llm_ism_core.py`** — shared segmentation, registry loading, inline
   masking, sentence splitting. Imported by every other script so the two
   checkers cannot drift.
@@ -74,9 +78,18 @@ These are enforced by `scripts/build_catalog.py --check` and
 - **Every executable rule needs** one positive and two negative fixtures in
   `tests/fixtures/cases.json`.
 - **Judgment-only rules** carry a `judgment_prompt` and must never acquire a
-  regex. See `detector-map.md` for why each one is there.
+  regex, a term list, a metric, or a threshold. See `detector-map.md` for why
+  each one is there.
+- **The `narrative` family is judgment-only**, `full` in `creative` and `skip` in
+  the other seven profiles. A corpus prevalence figure is never a threshold, and
+  the absence of a narrative feature is never a finding.
+- **Analysis scope is not edit scope.** The narrative review may read a whole
+  story; it adds no events, motives, references, ambiguity, or restructuring the
+  user did not ask for. In-place authority and restructuring authority are
+  separate.
 - **Provisional thresholds** must be recorded in `negative-results.md`. All of
-  them currently are provisional.
+  them currently are provisional. Research-informed rules with no measurement of
+  their own are recorded there too, as unvalidated hypotheses.
 - **Versions stay in sync**: `SKILL.md` frontmatter, `registry_version`,
   `TOOL_VERSION`, and a `CHANGELOG.md` entry.
 - **Protected spans** (quotations, code, tables, frontmatter, URLs, paths,
@@ -93,8 +106,8 @@ These are enforced by `scripts/build_catalog.py --check` and
   `tests/test_harness_compat.py` enforces both, plus the agentskills.io
   frontmatter fields Claude Code, Codex, and Hermes Agent read.
 - **Attribution.** `NOTICE.md` carries file-level provenance for the Wikipedia
-  CC BY-SA source, Simon Willison's highlighter, `ai-smell`, and
-  `avoid-ai-writing`. Preserve it and the header of `references/patterns.md` in
+  CC BY-SA source, Simon Willison's highlighter, `ai-smell`,
+  `avoid-ai-writing`, and the StoryScope paper. Preserve it and the header of `references/patterns.md` in
   any redistribution or restructuring.
 
 ## Changing things

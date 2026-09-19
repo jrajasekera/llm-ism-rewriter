@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "registry_version": "2.1.1",
+  "registry_version": "2.2.0",
   "notes": "Canonical registry for llm-ism-rewriter. references/patterns.md is the human-readable catalog; every rule here carries a `catalog` anchor into it. Detections are writing-quality signals and never evidence of authorship.",
   "tiers": {
     "fingerprint": "Standalone artifact or leaked model/tool residue. Actionable on a single occurrence.",
@@ -1077,6 +1077,115 @@
       "note": "Repetition, never authorship. Only scripts/llm_ism_project_check.py evaluates this rule."
     },
     {
+      "id": "ST.NARRATIVE_THEME_REDUNDANCY",
+      "title": "Redundant thematic explanation in narrative prose",
+      "catalog": "F1",
+      "tier": "structural",
+      "family": "narrative",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "llm_judgment",
+      "scope": "document",
+      "action": "review_in_context",
+      "reason": "Repeated interpretation can explain the same meaning without developing it.",
+      "fix": "Compress only genuinely redundant explanation. Preserve unique beliefs, irony, uncertainty, and narrative stance.",
+      "judgment_prompt": "Apply only to narrative prose fiction under the narrative-review workflow. Identify the source spans, in narration or dialogue, that state a thematic interpretation already explicit elsewhere. Say what each one adds: a distinct belief, a qualification, irony, a change of perspective, a development. Check deliberate repetition, moral instruction, unreliability, and a character's changing view before finding a problem. Return no finding when the repetition has a defensible purpose; an explicit theme is not itself redundant. Recommend the smallest source-preserving action, never a change of plot or added ambiguity. Merge with RH.LOW_INFORMATION_RESTATEMENT evidence on the same span.",
+      "exceptions": [
+        "moral_instruction_required_by_form",
+        "unreliable_narrator_rationalization",
+        "character_interpretation_changes",
+        "philosophical_fiction",
+        "refrain_doing_literary_work"
+      ]
+    },
+    {
+      "id": "ST.NARRATIVE_EMOTION_REDUNDANCY",
+      "title": "Redundant emotional explanation in narrative prose",
+      "catalog": "F2",
+      "tier": "structural",
+      "family": "narrative",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "llm_judgment",
+      "scope": "document",
+      "action": "review_in_context",
+      "reason": "Several descriptions can do one piece of emotional work, or re-explain a feeling the text already made explicit.",
+      "fix": "Compress the repeated figurative or explanatory language. Keep an effective direct emotion label, and name an emotion only when the source establishes it.",
+      "judgment_prompt": "Apply only to narrative prose fiction under the narrative-review workflow. Identify spans that do the same emotional work twice, or that explain what an already explicit emotion means. For each, say whether it adds a new stage, cause, or consequence. A bodily detail that causes an event, marks a distinct stage, belongs to a motif, or is left deliberately unexplained is not redundant. Never propose replacing a gesture with an emotion label the source does not state, and never propose adding a bodily reaction in place of a label. Return no finding when the evidence supports more than one reading.",
+      "exceptions": [
+        "symptom_with_plot_function",
+        "distinct_stages_of_a_response",
+        "bodily_motif",
+        "viewpoint_attention_to_the_body",
+        "deliberately_unresolved_emotion"
+      ]
+    },
+    {
+      "id": "ST.NARRATIVE_DECORATIVE_MIRRORING",
+      "title": "Description that repeats one emotional interpretation",
+      "catalog": "F3",
+      "tier": "structural",
+      "family": "narrative",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "llm_judgment",
+      "scope": "document",
+      "action": "review_in_context",
+      "reason": "Setting and sensory description can restate a single emotional reading of the scene without adding place, action, or a clue.",
+      "fix": "Trim the repeated interpretive gloss. Keep the environmental information and any sensory detail that carries place, action, viewpoint, a motif, or a clue.",
+      "judgment_prompt": "Apply only to narrative prose fiction under the narrative-review workflow. Identify descriptive passages whose interpretive gloss repeats an emotional reading the text has already given. Separate the gloss from the environmental facts and judge only the gloss. Judge the function of the passage, never its vocabulary: do not count sensory words or modalities. A smell that reveals danger, weather that constrains action, a sensory memory, recurring imagery, and deliberately heightened prose are not findings. Return no finding when the description contributes to place, action, viewpoint, a motif, or a clue.",
+      "exceptions": [
+        "sensory_detail_as_clue",
+        "weather_constrains_action",
+        "recurring_imagery",
+        "commissioned_heightened_style",
+        "sensory_memory"
+      ]
+    },
+    {
+      "id": "ST.NARRATIVE_FORCED_CLOSURE",
+      "title": "Closure that re-explains or overrides the ending",
+      "catalog": "F4",
+      "tier": "structural",
+      "family": "narrative",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "llm_judgment",
+      "scope": "document",
+      "action": "review_in_context",
+      "reason": "Narration after the substantive ending can explain its meaning again, or assert a resolution the story's own uncertainty does not support.",
+      "fix": "Remove a duplicate explanation only when the outcome and stance survive. Report a unique assertion of acceptance, forgiveness, certainty, or moral judgment as an author decision.",
+      "judgment_prompt": "Apply only to narrative prose fiction under the narrative-review workflow. Requires the supplied ending; on an excerpt without one, state that closure was not assessed. Locate the substantive ending. Identify later narration that only explains its meaning again, or that asserts a resolution in conflict with uncertainty the preceding story establishes. Distinguish a duplicate explanation, which may be trimmed, from a unique assertion of acceptance, forgiveness, certainty, or moral judgment, which is reported as an author decision and left in place. An epilogue that adds information, an earned reconciliation, a moral the form requires, and a quiet internal resolution are not findings. Never recommend an unresolved, cynical, or abrupt ending.",
+      "exceptions": [
+        "earned_reconciliation",
+        "moral_required_by_form",
+        "informative_epilogue",
+        "quiet_internal_resolution"
+      ]
+    },
+    {
+      "id": "ST.NARRATIVE_INFORMATION_TIMING",
+      "title": "Explanation that duplicates or pre-empts what the reader learns",
+      "catalog": "F5",
+      "tier": "structural",
+      "family": "narrative",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "llm_judgment",
+      "scope": "document",
+      "action": "report",
+      "reason": "Explanatory material can repeat information the reader already has, displace an existing reveal, or settle early what the story otherwise presents as uncertain.",
+      "fix": "Remove only a duplicate explanation. Report any change that would move unique information or a reveal; that needs explicit restructuring authority and a before/after check of knowledge and viewpoint.",
+      "judgment_prompt": "Apply only to narrative prose fiction under the narrative-review workflow. Keep three things separate: the chronological order of events, the order of presentation, and what the reader knows at each point. Identify explanation that repeats information the reader already has, displaces a reveal the text itself stages, or explains early something the story otherwise presents as uncertain. Where the early disclosure could serve dramatic irony, give both readings with source locations and recommend nothing. Clear chronological storytelling, a deliberately disclosed culprit, a retrospective narrator, and exposition a scene needs are not findings. Never recommend a flashback, a delayed reveal, or a reordering because the text lacks one.",
+      "exceptions": [
+        "dramatic_irony",
+        "deliberate_early_disclosure",
+        "retrospective_narrator",
+        "necessary_exposition",
+        "chronological_storytelling"
+      ]
+    },
+    {
       "id": "CL.WORDY_PHRASE",
       "title": "Wordy phrase",
       "catalog": "E",
@@ -1161,6 +1270,7 @@
         "layout": "full",
         "continuity": "full",
         "opening": "full",
+        "narrative": "skip",
         "clarity": "skip"
       }
     },
@@ -1196,6 +1306,7 @@
         "layout": "relaxed",
         "continuity": "skip",
         "opening": "full",
+        "narrative": "skip",
         "clarity": "full"
       }
     },
@@ -1231,6 +1342,7 @@
         "layout": "relaxed",
         "continuity": "relaxed",
         "opening": "skip",
+        "narrative": "skip",
         "clarity": "skip"
       }
     },
@@ -1265,6 +1377,7 @@
         "layout": "full",
         "continuity": "relaxed",
         "opening": "full",
+        "narrative": "skip",
         "clarity": "full"
       }
     },
@@ -1299,6 +1412,7 @@
         "layout": "full",
         "continuity": "full",
         "opening": "relaxed",
+        "narrative": "skip",
         "clarity": "skip"
       }
     },
@@ -1333,6 +1447,7 @@
         "layout": "skip",
         "continuity": "skip",
         "opening": "skip",
+        "narrative": "skip",
         "clarity": "skip"
       },
       "note": "Courtesy closers are ordinary here, so the `fingerprint` family is relaxed. Tool residue, knowledge-cutoff text, and prompt leakage are in the separate `residue` family, which stays at full strength in every profile."
@@ -1368,6 +1483,7 @@
         "layout": "relaxed",
         "continuity": "skip",
         "opening": "skip",
+        "narrative": "skip",
         "clarity": "skip"
       }
     },
@@ -1402,9 +1518,10 @@
         "layout": "skip",
         "continuity": "skip",
         "opening": "skip",
+        "narrative": "full",
         "clarity": "skip"
       },
-      "note": "Fingerprints only. Recommend detect mode and do not touch voice."
+      "note": "Deterministic checks report residue and chat courtesy only. The narrative family is judgment-only and applies to prose fiction under references/narrative-review.md, never to poetry, lyrics, or speeches by default. Do not touch voice."
     }
   }
 }

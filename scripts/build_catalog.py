@@ -38,6 +38,13 @@ VALID_PRIORITIES = {"P0", "P1", "P2"}
 VALID_STRENGTHS = {"low", "medium", "high"}
 VALID_DETECTORS = {"regex", "lexicon_cluster", "repetition", "metric", "llm_judgment"}
 PROJECT_METRICS = {"repeated_ngram_files"}
+# Keys that make a rule executable. A judgment-only rule carrying one would look
+# measurable without being measured.
+EXECUTABLE_KEYS = ("patterns", "terms", "terms_from", "metric", "threshold", "comparison",
+                   "threshold_status", "minimum_distinct", "minimum_occurrences",
+                   "minimum_total", "min_bullets", "min_sentences", "min_words")
+# Families that exist only as agent judgment, with the one profile that enables each.
+JUDGMENT_FAMILIES = {"narrative": "creative"}
 
 
 def read(path: str) -> str:
@@ -97,8 +104,10 @@ def check(registry) -> list[str]:
                 except re.error as exc:
                     problems.append(f"{rid}: pattern {pattern!r} does not compile: {exc}")
         elif detector == "llm_judgment":
-            if rule.get("patterns"):
-                problems.append(f"{rid}: judgment-only rules must not carry a pretend detector")
+            pretend = [k for k in EXECUTABLE_KEYS if k in rule]
+            if pretend:
+                problems.append(f"{rid}: judgment-only rules must not carry a pretend detector "
+                                f"({', '.join(pretend)})")
             if not rule.get("judgment_prompt"):
                 problems.append(f"{rid}: judgment-only rules need a judgment_prompt")
         elif detector == "metric":
@@ -121,6 +130,18 @@ def check(registry) -> list[str]:
                 problems.append(f"{rid}: repetition needs terms or terms_from")
             if "minimum_occurrences" not in rule:
                 problems.append(f"{rid}: repetition needs minimum_occurrences")
+
+    # judgment-only families: no executable rule, and one enabling profile
+    for family, home in JUDGMENT_FAMILIES.items():
+        for rule in registry.rules:
+            if rule["family"] == family and rule.get("detector") != "llm_judgment":
+                problems.append(f"{rule['id']}: the {family} family is judgment-only")
+        for name in registry.profile_names():
+            status = registry.profiles[name]["families"].get(family)
+            expected = "full" if name == home else "skip"
+            if status != expected:
+                problems.append(f"profile {name}: family {family} must be {expected!r}, "
+                                f"not {status!r}")
 
     # every rule id mentioned in the detector map must exist
     for rid in set(re.findall(r"`((?:FP|LX|RH|ST|CL)\.[A-Z0-9_]+)`", detector_md)):

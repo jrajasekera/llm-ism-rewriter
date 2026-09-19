@@ -98,6 +98,12 @@
       ],
       "note": "Every 'Before:' line is a clich\u00e9 on purpose, including the em-dash example."
     },
+    "references/narrative-review.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [],
+      "note": "No exemptions. Fiction examples live in examples.md; this file quotes only short spans."
+    },
     "references/voices.md": {
       "profile": "technical-docs",
       "max_findings": 0,
