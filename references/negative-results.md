@@ -168,6 +168,29 @@ experiment on this skill has been run. They are not findings either.
 - **Cross-story template analysis.** Deferred. `ST.CROSS_FILE_TEMPLATE` compares
   surface n-grams and is not a narrative-diversity measure.
 
+### Lessons from declauding v0.13.0
+
+- **Source:** the tagged skill and its register, exceptions, preservation, and
+  fresh-eyes references in `oaustegard/claude-skills`, reviewed 2026-11-11.
+- **Adopted:** a nonfiction purpose check, contextual review beyond regex
+  matches, a reading of current documentation without its change history, and
+  explicit review of qualifiers and over-compression. These extend the existing
+  editorial workflow; they introduce no detection threshold.
+- **Observed locally:** version 2.2.0 emitted no warning when a superlative was
+  weakened, simultaneous timing was dropped, or `only` moved away from `if`
+  while preserving token counts. Version 2.3.0 adds limited qualification
+  warnings, with regression cases for those losses and controls for protected
+  text and legitimate rewrites.
+- **Limits:** marker counts cannot establish what a qualifier modifies. The
+  regression suite includes that blind spot. The new agent eval cases have no
+  comparative run against the baseline, so improved editing quality is not yet
+  established. Upstream measurements were not reproduced here.
+- **Not adopted:** automatic in-place edits from a file mention, automatic
+  restructuring, model-specific corrective presets, authorship implications,
+  vocabulary bans, embeddings, API dependencies, and mandatory review hooks.
+  Those would change this project's scope or portability without evidence from
+  its own evals. The new workflow uses reader comprehension as its criterion.
+
 ## Provisional thresholds currently shipping
 
 Every number below is a starting policy calibrated against this repository's own

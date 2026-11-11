@@ -1,13 +1,14 @@
 {
   "schema_version": 1,
   "skill": "llm-ism-rewriter",
-  "version_under_test": "2.2.0",
+  "version_under_test": "2.3.0",
   "candidate_commit": "record the hash of the commit under test with the results",
-  "baseline": "2.1.1",
-  "baseline_commit": "80e776e4845add96d2f98c4194fd8711348baf39",
+  "baseline": "2.2.0",
+  "baseline_commit": "347f17a6cd7a4b104302a74022e0cdcc06cbade1",
   "runs_per_case": 3,
-  "results": "none recorded; E13 onward have not been run against either version",
+  "results": "none recorded; new nonfiction cases E39-E46 have not been run comparatively",
   "history": [
+    {"version_under_test": "2.2.0", "baseline": "2.1.1", "cases": "E01-E38", "results": "none recorded in this repository"},
     {"version_under_test": "2.0.0", "baseline": "1.0.0", "cases": "E01-E12", "results": "none recorded in this repository"}
   ],
   "note": "Evals test the behavior of an agent following the skill. tests/ tests deterministic code. Both are needed, and neither substitutes for the other. Compare this version against the baseline on the same rubric rather than judging one impressive run.",
@@ -513,6 +514,95 @@
         {"kind": "research_not_cited_as_defect"},
         {"kind": "no_authorship_claim"}
       ]
+    },
+    {
+      "id": "E39-unclear-nonfiction-purpose",
+      "file": "files/nonfiction/unclear-purpose.md",
+      "prompt": "Clean up this draft's LLM-isms. Keep its structure and do not invent a recommendation.",
+      "expected": "Report the missing basis for choosing among unrelated changes as a Gap or Decision. Preserve facts and structure; do not invent a thesis, recommendation, or supporting evidence.",
+      "assertions": [
+        {"kind": "purpose_respects_genre"},
+        {"kind": "reports_author_decision"},
+        {"kind": "no_unsupported_fact_resolution"},
+        {"kind": "validator_passes", "mode": "rewrite"}
+      ]
+    },
+    {
+      "id": "E40-reference-purpose-control",
+      "file": "files/nonfiction/reference-control.md",
+      "prompt": "Remove any AI-ish writing from this reference page.",
+      "expected": "Leave it unchanged. Its purpose is lookup, so unrelated settings do not need a thesis or transitions.",
+      "assertions": [
+        {"kind": "text_unchanged"},
+        {"kind": "purpose_respects_genre"},
+        {"kind": "no_authorship_claim"}
+      ]
+    },
+    {
+      "id": "E41-documentation-contradiction",
+      "file": "files/nonfiction/contradictory-guide.md",
+      "prompt": "Edit this guide in place to remove LLM-isms.",
+      "expected": "Report both conflicting descriptions of when progress starts as a Decision. Leave those facts unchanged; do not infer actual behavior from section order.",
+      "assertions": [
+        {"kind": "text_unchanged"},
+        {"kind": "reports_author_decision"},
+        {"kind": "no_unsupported_fact_resolution"}
+      ]
+    },
+    {
+      "id": "E42-migration-history-control",
+      "file": "files/nonfiction/migration-control.md",
+      "prompt": "Clean up the writing in this migration guide.",
+      "expected": "Leave it unchanged. Before/after context and now are useful migration instructions, not evidence of a writing defect.",
+      "assertions": [
+        {"kind": "text_unchanged"},
+        {"kind": "purpose_respects_genre"},
+        {"kind": "no_authorship_claim"}
+      ]
+    },
+    {
+      "id": "E43-qualified-claims",
+      "file": "files/nonfiction/qualifications.md",
+      "prompt": "Remove the canned phrasing. Preserve the technical meaning.",
+      "expected": "Remove the opening hook while preserving the queue ranking, necessary request condition, and simultaneous commits. Keep the second paragraph unchanged.",
+      "assertions": [
+        {"kind": "qualification_meaning_preserved"},
+        {"kind": "at_least_one_paragraph_byte_identical"},
+        {"kind": "validator_passes", "mode": "rewrite"},
+        {"kind": "single_final_text"}
+      ]
+    },
+    {
+      "id": "E44-compression-after-cleanup",
+      "file": "files/nonfiction/compression.md",
+      "prompt": "Remove the canned conclusion wording without changing my meaning.",
+      "expected": "Remove the canned opener. Do not compress the remaining claims into noun stacks or delete connectors that clarify what the logs and tests establish. Preserve the second paragraph.",
+      "assertions": [
+        {"kind": "rewrite_remains_readable"},
+        {"kind": "at_least_one_paragraph_byte_identical"},
+        {"kind": "validator_passes", "mode": "rewrite"}
+      ]
+    },
+    {
+      "id": "E45-established-terms-control",
+      "file": "files/nonfiction/vocabulary-control.md",
+      "prompt": "Remove any LLM-isms from this technical explanation.",
+      "expected": "Leave it unchanged. The domain terms and supported byte comparison and silent-exit descriptions carry precise content; they are not a vocabulary blacklist.",
+      "assertions": [
+        {"kind": "text_unchanged"},
+        {"kind": "no_authorship_claim"}
+      ]
+    },
+    {
+      "id": "E46-missing-newcomer-context",
+      "file": "files/nonfiction/missing-context.md",
+      "prompt": "Audit this setup guide for formulaic prose and unclear context. Do not edit it.",
+      "expected": "Report that the other destination has no antecedent or listed choices. Do not invent the destination or a setup step. Keep the text untouched.",
+      "assertions": [
+        {"kind": "text_unchanged"},
+        {"kind": "newcomer_gap_reported"},
+        {"kind": "no_unsupported_fact_resolution"}
+      ]
     }
   ],
   "assertion_kinds": {
@@ -549,6 +639,11 @@
       "reports_protected": "The response contains a [Protected] finding."
     },
     "agent_judge": {
+      "purpose_respects_genre": "Does the review identify the source-supported purpose or missing choice without imposing a thesis on reference material or removing useful migration history?",
+      "no_unsupported_fact_resolution": "Does the response leave disputed or missing facts unresolved, cite the relevant source spans, and avoid inventing evidence or choosing a factual winner?",
+      "qualification_meaning_preserved": "Does the revision preserve the ranking, the necessary request condition, and simultaneous timing, with the qualifiers attached to the same claims?",
+      "rewrite_remains_readable": "Does the revision preserve explicit relationships and remain easy to parse, without noun stacks or ambiguous omissions introduced to save words?",
+      "newcomer_gap_reported": "Does the audit identify the undefined destination using only the supplied guide, without inventing a referent or an instruction?",
       "response_states_profile": "Does the response name the context profile it applied?",
       "response_states_voice": "Does the response name this voice as the one applied?",
       "single_final_text": "Does the response contain exactly one final version of the text?",

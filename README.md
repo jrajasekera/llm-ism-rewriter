@@ -290,7 +290,7 @@ llm_ism_validate.py [options] BEFORE AFTER
 | `--shrink-limit RATIO` | warn below this share of retained prose words | `0.6` |
 | `--rules PATH` | an alternate `rules.json` | the bundled registry |
 
-Checks run in this order: protected spans byte-for-byte, then technical anchors (numbers with units, versions, flags, environment variables, identifiers, URLs, paths, citation keys), then semantic anchors (negation, modality, quantifiers, comparatives, proper nouns, person), then structure, then whether the rewrite added findings. That last step judges both versions under one context profile and names it in the output, as an `INFO: context profile` line or as `profile` and `profile_source` in JSON. Pass the profile the checker ran under. Under `auto` the profile is resolved from the original and reused, so a revision that loses a genre cue is not judged by stricter rules than its source.
+Checks run in this order: protected spans byte-for-byte, then technical anchors (numbers with units, versions, flags, environment variables, identifiers, URLs, paths, citation keys), then semantic anchors (negation, modality, quantifiers, comparatives, proper nouns, person), then selected claim qualifications, then structure, then whether the rewrite added findings. That last step judges both versions under one context profile and names it in the output, as an `INFO: context profile` line or as `profile` and `profile_source` in JSON. Pass the profile the checker ran under. Under `auto` the profile is resolved from the original and reused, so a revision that loses a genre cue is not judged by stricter rules than its source.
 
 Exit codes: `0` on pass, `1` on a preservation failure.
 
@@ -317,6 +317,7 @@ references/patterns.md            the catalog, A-F, with rule IDs, tiers, and fi
 references/rules.json             canonical registry: 46 rules, 8 context profiles
 references/contexts.md            genre profiles, legitimate uses, large-file policy
 references/narrative-review.md    prose fiction only: scope limits and checks F1-F5
+references/nonfiction-review.md   document purpose and newcomer comprehension
 references/rewrite-invariants.md  the preservation contract
 references/voices.md              bounded voice profiles, default `preserve`
 references/examples.md            before/after pairs, counterexamples, a worked report
@@ -346,9 +347,31 @@ A **candidate** is a deterministic match: a regex fired. A **finding** is a cand
 
 Structural findings carry their numerator, denominator, threshold, and whether that threshold is calibrated or provisional. All of them are currently provisional, and `references/negative-results.md` says so for each one.
 
+### Review nonfiction beyond stock phrases
+
+The agent reads for the document's purpose before editing its sentences. It
+checks headings and paragraph endings in context, and looks for passages that
+repeat the same claim without helping the reader. For documentation of current
+behavior, it also reads the result without relying on an earlier version or
+the editing conversation. Contradictory descriptions come back as author
+decisions with both source spans; the edit does not silently pick a winner.
+
+This procedure lives in `references/nonfiction-review.md`. It uses the existing
+catalog and preserves your requested edit scope. A reference page needs a clear
+lookup task, not a thesis. Release notes and migration guides keep useful
+before/after context. The final review checks for noun stacks and missing
+connections introduced by attempts to shorten the prose.
+
 ### What the validator can and cannot promise
 
 It does not claim semantic equivalence, and it cannot. It reports likely drift for a person to review: a hedge that disappeared, a quantifier that hardened, a measurement that changed units. The contract it enforces is written out in `references/rewrite-invariants.md`.
+
+The warning-level `claim qualifications` check covers a limited list of
+superlatives and phrases such as `only if` and `simultaneously`. It catches
+some losses that token counts miss, including moving `only` away from its
+condition. Warnings do not change the exit code. A valid paraphrase can warn;
+a qualifier moved intact to another claim can pass. Review the edited claims
+individually, even when every mechanical check passes.
 
 For fiction the gap is wider. A revision can keep every anchor and still spoil a reveal, settle an open question, or hand a thought to a character who could not have it. The same file lists these narrative commitments. The agent checks them by reading. A report on a story therefore carries two lines: mechanical checks, and narrative preservation.
 

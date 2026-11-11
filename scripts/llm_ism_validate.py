@@ -26,7 +26,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from llm_ism_core import (  # noqa: E402
     PROSE_KINDS, TOOL_VERSION, SCHEMA_VERSION, RegistryError, load_registry,
-    normalize, parse_markdown, split_sentences, words,
+    mask_inline, normalize, parse_markdown, split_sentences, words,
 )
 import llm_ism_check  # noqa: E402
 
@@ -70,6 +70,26 @@ COMPARATIVE = frozenset(
     "larger longer shorter cheaper safer".split())
 FIRST_PERSON = frozenset("i we me us my our mine ours".split())
 SECOND_PERSON = frozenset("you your yours".split())
+
+# Limited prompts for a semantic review, never equivalence tests. Keep these
+# separate from token counts: moving "only" can preserve its count and change
+# the condition. Do not guess arbitrary -est words or parse English with regex.
+SUPERLATIVES = frozenset(
+    "best worst fastest slowest largest smallest highest lowest earliest latest "
+    "cheapest safest strongest weakest longest shortest".split())
+QUALIFICATION_PATTERNS = {
+    "at least": r"\bat\s+least\b",
+    "at most": r"\bat\s+most\b",
+    "only if": r"\bonly\s+if\b",
+    "even if": r"\beven\s+if\b",
+    "provided that": r"\bprovided\s+that\b",
+    "as long as": r"\bas\s+long\s+as\b",
+    "simultaneity": r"\b(?:simultaneously|at\s+the\s+same\s+time)\b",
+}
+QUALIFICATION_PATTERNS = {
+    label: re.compile(pattern, re.I)
+    for label, pattern in QUALIFICATION_PATTERNS.items()
+}
 
 
 @dataclass
@@ -127,6 +147,28 @@ def proper_nouns(text: str) -> Counter:
 
 def token_counts(text: str, vocabulary: frozenset[str]) -> Counter:
     return Counter(w.casefold() for w in words(expand(text)) if w.casefold() in vocabulary)
+
+
+def qualification_counts(text: str) -> Counter:
+    """Count selected qualifications in editable prose, within each sentence.
+
+    Synonyms and moved qualifiers can still require a warning or escape one.
+    Protected examples are checked exactly elsewhere, so cannot compensate
+    for a qualification removed from the author's prose here.
+    """
+    found: Counter = Counter()
+    for segment in parse_markdown(text):
+        if segment.kind not in PROSE_KINDS:
+            continue
+        masked = mask_inline(segment.text)
+        # A removed code span must not join "only" and "if" into a phrase.
+        masked = "".join(c if c == original else "\0"
+                         for c, original in zip(masked, segment.text))
+        for _, sentence in split_sentences(masked):
+            found.update(token_counts(sentence, SUPERLATIVES))
+            for label, pattern in QUALIFICATION_PATTERNS.items():
+                found[label] += len(pattern.findall(sentence))
+    return +found
 
 
 def anchors(text: str) -> dict[str, Counter]:
@@ -235,6 +277,15 @@ def validate(before: str, after: str, mode: str, registry, path_before: str,
         lost = [k for k in cb if ca[k] < cb[k]]
         results.append(Result(level if lost else "warn", label,
                               "count changed: " + "; ".join(drift[:8])))
+
+    qb, qa = qualification_counts(before), qualification_counts(after)
+    drift = [f"{k}={qb[k]}→{qa[k]}" for k in sorted(set(qb) | set(qa)) if qb[k] != qa[k]]
+    if drift:
+        results.append(Result("warn", "claim qualifications",
+                              "review changed ranking, condition, or scope: " + "; ".join(drift)))
+    elif qb:
+        results.append(Result("pass", "claim qualifications",
+                              "selected marker counts unchanged; review their attachment and meaning"))
 
     # 4. proper nouns and person
     prose_b, prose_a = prose_of(before), prose_of(after)

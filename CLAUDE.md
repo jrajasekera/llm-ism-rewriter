@@ -48,6 +48,9 @@ references rather than inlining them.
   partially executable, judgment-only.
 - **`references/contexts.md`**, **`voices.md`**, **`rewrite-invariants.md`**,
   **`examples.md`**, **`negative-results.md`** — loaded at the steps that need them.
+- **`references/nonfiction-review.md`** — document purpose, contextual review of
+  headings and closers, newcomer comprehension, and overcorrection. Uses existing
+  catalog rules; no new detector or permission to restructure.
 - **`references/narrative-review.md`** — prose fiction only. Analysis scope versus
   edit scope, the working map, and the five judgment-only `ST.NARRATIVE_*` checks
   (catalog F). The scripts never run these.
@@ -58,7 +61,7 @@ references rather than inlining them.
   measure metrics, aggregate under profile thresholds, group overlaps, emit
   text/JSON/SARIF.
 - **`scripts/llm_ism_validate.py`** — protected spans exact, technical anchors,
-  semantic anchors, structure, residual findings.
+  semantic anchors, selected claim qualifications, structure, residual findings.
 
 ## The contract
 

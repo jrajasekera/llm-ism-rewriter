@@ -5,7 +5,7 @@ license: Apache-2.0
 compatibility: Agent Skills (agentskills.io) format; runs on Claude Code, Codex, Hermes Agent, and any harness that loads SKILL.md. Needs only file reading and editing. The optional checker and validator require Python 3.10+ and the standard library only.
 metadata:
   author: jrajasekera
-  version: "2.2.0"
+  version: "2.3.0"
   sources: "Wikipedia 'Signs of AI writing' (CC BY-SA 4.0); Simon Willison's llm-cliche-highlighter (Apache-2.0); structural leads from osolmaz/ai-smell; contract practices from conorbronsdon/avoid-ai-writing; narrative checks adapted from Russell et al., StoryScope (arXiv 2604.03136)"
 ---
 
@@ -67,7 +67,7 @@ A pattern inside a protected span is reported as `[Protected]`. The other report
 
 ## Meaning-preservation invariants
 
-Preserve: facts, names, dates, numbers, units, versions, and examples · negation, modality, hedges, quantifiers, comparisons, and scope · attribution and citation placement · domain terminology and recurring technical terms · the presence or absence of first person · the document's register unless a revoice was requested.
+Preserve: facts, names, dates, numbers, units, versions, and examples · negation, modality, hedges, quantifiers, comparisons, and scope · rankings, simultaneity, and conditions attached to claims · attribution and citation placement · domain terminology and recurring technical terms · the presence or absence of first person · the document's register unless a revoice was requested.
 
 Never invent specificity, sources, personal experience, reactions, humour, stakes, or opinions. When a cliché can only be repaired with a fact the source does not contain, report an editorial gap. Insert `[specify: …]` only when the missing detail blocks a usable revision; when the claim stands without it, say so in the report instead of littering the prose. Full contract: `references/rewrite-invariants.md`.
 
@@ -84,7 +84,7 @@ State whether the review covered the whole story or an excerpt.
 1. **Resolve mode, scope, context, and voice.**
    Read `references/contexts.md` when genre affects the judgment, and for the large-file policy. Read `references/voices.md` only if a voice was requested. Read `references/narrative-review.md` only for prose fiction; respect the user's statement that a text is fiction even when the checker would not infer it.
 
-2. **Segment and protect.** Mark protected spans before interpreting or editing anything. For a long file, work on the section the user named; if none was named, follow the large-file policy in `contexts.md` rather than silently rewriting the whole file.
+2. **Segment, protect, and establish the purpose.** Mark protected spans before interpreting or editing anything. For a long file, work on the section the user named; if none was named, follow the large-file policy in `contexts.md` rather than silently rewriting the whole file. Read enough context to understand what the reader should learn or do. For nonfiction with several paragraphs, or a short passage that depends on missing context, read `references/nonfiction-review.md`. An unclear purpose calls for a sourced `[Gap]` or `[Decision]`, never an invented thesis or an unauthorized rebuild.
 
 3. **Detect candidates.** Read `references/patterns.md`; for prose fiction, sections A and F are the ones that apply. On a document of any length, run the checker if Python is available:
    ```
@@ -94,17 +94,21 @@ State whether the review covered the whole story or an excerpt.
 
 4. **Judge candidates in context.** Weigh recurrence, clustering, genre, literal sense, the author's own style, and legitimate rhetorical purpose. Suppress isolated weak matches. Group overlapping candidates on one span into **one** finding with several evidence tags — never multiply severity because a phrase matched two rules. Keep clarity items out of the density judgment.
 
+   Review beyond the matches: read headings against their sections, the opening, paragraph endings, and isolated short paragraphs. Keep surrounding context visible and retain every distinct claim. Report contradictions with both source spans as a `[Decision]`; leave disputed facts unchanged unless the user supplies evidence or requests verification.
+
    Tiers, shared with `references/rules.json` and the checker's output: `fingerprint`, `cliche`, `structural`, `clarity`. Edit priority (P0/P1/P2), evidence strength, and action are separate fields; do not collapse them.
 
 5. **Choose the smallest valid action.** In `detect`, stop after this step and report. Delete residue or empty restatement · replace an inflated term with the source's own concrete wording · restate a real claim directly · merge or split only when structure is the problem · mark a gap instead of inventing the fact · leave legitimate or intentional usage unchanged, and say why.
 
-6. **Rewrite.** Change only the spans the findings require. Do not optimize for a checker score, mechanically vary sentence lengths, or add "human" mannerisms — no planted typos, slang, fragments, performative candor, or theatrical punctuation.
+6. **Rewrite.** Change only the spans the findings require. Do not optimize for a checker score, mechanically vary sentence lengths, or add "human" mannerisms — no planted typos, slang, fragments, performative candor, or theatrical punctuation. Prefer readable relationships over word-count savings: undo noun stacks, ambiguous omitted words, and unsupported certainty introduced by the edit. Preserve established terms and the author's justified confidence.
 
 7. **Validate.** Re-read the source and the revision side by side. For a file edit or a substantial rewrite:
    ```
    python3 "$SKILL_DIR/scripts/llm_ism_validate.py" --profile <profile> --mode <rewrite|edit> <before> <after>
    ```
    Pass the profile the checker ran under, so both versions are judged alike. Use `--mode restructure` only when the user asked for restructuring. Resolve every `FAIL`: rework the edit, or leave the span in place and report the edit as deferred with the check that blocked it. Never hide a failure. Review each `WARN` for semantic drift and say what you concluded. For fiction, then check narrative facts, viewpoint, uncertainty, and information timing yourself; the validator cannot.
+
+   Compare edited claims individually, including what each qualifier modifies. The same words can survive while a ranking or condition changes. The validator's limited qualification warnings do not replace this review. For documentation of current behavior, also read the result without relying on earlier versions or the editing conversation, under `nonfiction-review.md`. Report coverage limits and distinguish self-review from independent review.
 
 8. **Second audit.** Re-scan the revision with the same catalog, and repeat every review layer you used, the narrative one included: a rewrite can add a moral, a physical reaction, or an artificial resolution with no stock phrase in it. Rewrites routinely introduce new clichés: a fresh "not X but Y", a tidy triad, a new em dash, one hook swapped for another. Fix them **before** reporting, and return only the corrected text. Confirm no claim was silently dropped or strengthened; a deleted unsupported claim appears in Findings as a `[Gap]`, it does not vanish.
 
@@ -148,6 +152,7 @@ Omit the density line when there are fewer than three findings. "This passage is
 | `references/patterns.md` | Step 3 — the full catalog with rule IDs, tiers, and fixes |
 | `references/contexts.md` | Step 1 — genre profiles, legitimate uses, large-file policy |
 | `references/narrative-review.md` | Step 1, prose fiction only — scope limits, the working map, checks F1–F5 |
+| `references/nonfiction-review.md` | Steps 2, 4, and 7, nonfiction — purpose, structural review, newcomer comprehension, overcorrection |
 | `references/rewrite-invariants.md` | Step 5 or 7 — the preservation contract |
 | `references/voices.md` | Step 1, only when a voice was requested |
 | `references/examples.md` | Step 5 — before/after pairs, counterexamples, a worked report |
@@ -164,3 +169,8 @@ A result is acceptable only when every edit is supported by the source or an exp
 ## Attribution
 
 Pattern categories draw on Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (CC BY-SA 4.0; paraphrased, not copied) and the structure and interaction ideas of Simon Willison's [LLM cliché highlighter](https://tools.simonwillison.net/llm-cliche-highlighter) (Apache-2.0; no code reused). Structural leads came from [osolmaz/ai-smell](https://github.com/osolmaz/ai-smell) and the rule/detector contract practice from [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing); no code, rules, or fixtures were copied from either. The narrative checks are original editorial adaptations of findings in Russell et al., [StoryScope](https://arxiv.org/abs/2604.03136v6); no research code, data, or stories were used. Full provenance in `NOTICE.md`.
+
+The nonfiction review and qualification checks were informed by
+[declauding v0.13.0](https://github.com/oaustegard/claude-skills/releases/tag/declauding-v0.13.0).
+Instructions, examples, and code were written for this project; `NOTICE.md`
+records the scope of the adaptation.

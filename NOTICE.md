@@ -13,10 +13,11 @@ It is a provenance record, not legal advice.
 
 | Path | Origin | Relationship to source |
 |------|--------|------------------------|
-| `SKILL.md` | Original | Written for this project. |
+| `SKILL.md` | Original; see *declauding* below | Written for this project; nonfiction workflow informed by declauding. |
 | `references/patterns.md` | See *Wikipedia* below | Category names and several example words paraphrased from a CC BY-SA 4.0 source. No sentences copied. |
 | `references/contexts.md` | Original | Written for this project. |
 | `references/narrative-review.md` | See *StoryScope* below | Editorial checks adapted from published research findings. All text, definitions, and examples written for this project. |
+| `references/nonfiction-review.md` | See *declauding* below | Original instructions adapting purpose-first review, newcomer reading, and overcorrection checks. |
 | `references/examples.md` | Original | All before/after pairs written for this project. |
 | `references/voices.md` | Original | Written for this project. |
 | `references/rewrite-invariants.md` | Original | Written for this project. |
@@ -93,3 +94,17 @@ provenance manifests, and a false-positive intake workflow — which this
 repository reimplemented from scratch in Python. Its published corpus
 results are summarized in `references/negative-results.md`. No code, rules,
 or fixtures were copied.
+
+## Oskar Austegard, declauding
+
+<https://github.com/oaustegard/claude-skills/releases/tag/declauding-v0.13.0>
+(MIT, reviewed at tag `declauding-v0.13.0`).
+
+The skill and its register, exceptions, preservation, and fresh-eyes references
+informed the nonfiction workflow, the claim-by-claim review, and the safeguards
+against over-compression. Its preservation checker supplied the idea of checking
+qualifying constructions in addition to isolated words. This project's code,
+instructions, examples, and eval inputs were written independently; no upstream
+code, regex, prose, or fixture was copied. The adaptation retains this project's
+edit-scope limits, genre profiles, and ban on authorship inference. It imports
+no model profiles, API calls, embeddings, hooks, or measured performance claims.

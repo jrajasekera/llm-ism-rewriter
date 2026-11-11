@@ -7,6 +7,36 @@ incompatible CLI. `SKILL.md`'s frontmatter version, `registry_version` in
 `references/rules.json`, and `TOOL_VERSION` in the scripts are kept in sync by
 `scripts/build_catalog.py --check`.
 
+## [2.3.0]
+
+Nonfiction review and qualification preservation informed by declauding v0.13.0.
+All instructions, code, and examples were written for this project. No new
+checker rule, threshold, dependency, or edit permission was added.
+
+### Added
+
+- `references/nonfiction-review.md` covers document purpose and the contextual
+  review of openings and closers. It adds a newcomer reading for documentation
+  and separate reporting of conflicting facts. Reference material and
+  version-scoped documents retain their own purposes.
+- Warning-level `claim qualifications` in the validator for selected
+  superlatives, bounds, conditions, and simultaneity. Protected spans do not
+  supply markers. Additions and losses both warn; exit semantics are unchanged.
+- Regression tests for previously silent losses, legitimate paraphrases,
+  protected examples, and the remaining qualifier-attachment blind spot.
+- Agent cases E39–E46 for nonfiction purpose, documentation contradictions,
+  change-history context, preserved qualifications, and over-compression.
+  These cases have not been run comparatively; the eval baseline is 2.2.0.
+
+### Changed
+
+- The workflow reviews edited claims individually and repairs compression or
+  unsupported certainty introduced by the rewrite. It reports coverage and
+  distinguishes self-review from independent review.
+- Preservation guidance explains why unchanged token or marker counts do not
+  prove equivalent meaning. Provenance and measurement limits are recorded in
+  `NOTICE.md` and `references/negative-results.md`.
+
 ## [2.2.0]
 
 A narrative-review layer for prose fiction, and one profile for both sides of a

@@ -138,6 +138,68 @@ class AnchorExtraction(unittest.TestCase):
         self.assertEqual(len(spans["code"]), 1)
 
 
+class ClaimQualifications(unittest.TestCase):
+    def check_pair(self, before, after):
+        results = V.validate(before, after, "rewrite", REGISTRY, "a", "b", 0.6)
+        return [r for r in results if r.check == "claim qualifications"]
+
+    def test_losses_and_additions_warn_without_changing_exit_policy(self):
+        pairs = [
+            ("The shortest queue is selected.", "The short queue is selected."),
+            ("The nodes commit simultaneously.", "The nodes commit."),
+            ("The cache refreshes only if the client asks.",
+             "Only the cache refreshes if the client asks."),
+            ("It holds at least five entries.", "It holds at most five entries."),
+        ]
+        for before, after in pairs:
+            for source, revision in ((before, after), (after, before)):
+                with self.subTest(source=source, revision=revision):
+                    results = self.check_pair(source, revision)
+                    self.assertEqual([r.level for r in results], ["warn"])
+
+    def test_soft_wrapping_and_case_do_not_change_a_condition(self):
+        result = self.check_pair("Only\nif the flag is set, proceed.",
+                                 "Proceed only if the flag is set.")
+        self.assertEqual([r.level for r in result], ["pass"])
+
+    def test_supported_simultaneity_paraphrase_keeps_the_marker(self):
+        result = self.check_pair("The nodes commit simultaneously.",
+                                 "The nodes commit at the same time.")
+        self.assertEqual([r.level for r in result], ["pass"])
+
+    def test_different_superlatives_do_not_cancel(self):
+        result = self.check_pair("The shortest queue wins.", "The longest queue wins.")
+        self.assertEqual([r.level for r in result], ["warn"])
+        self.assertIn("shortest=1→0", result[0].message)
+
+    def test_ordinary_words_do_not_match_by_suffix_or_substring(self):
+        self.assertEqual(V.qualification_counts(
+            "The latest_record contains a forest inventory. The festival starts soon."), {})
+
+    def test_protected_material_does_not_supply_claim_markers(self):
+        text = ('---\ntitle: shortest\n---\n\n> "only if" — the manual\n\n'
+                '```text\nsimultaneously\n```\n\n'
+                '| term | meaning |\n|---|---|\n| fastest | rank |\n\n'
+                'Use `shortest` and [docs](https://example.com/fastest).\n')
+        self.assertEqual(V.qualification_counts(text), {})
+
+    def test_markers_do_not_join_across_paragraphs_or_sentences(self):
+        for text in ("It is the only\n\nIf needed, proceed.",
+                     "It is the only. If needed, proceed.",
+                     "Only `a long example` if asked."):
+            with self.subTest(text=text):
+                self.assertNotIn("only if", V.qualification_counts(text))
+
+    def test_same_marker_can_still_modify_a_different_claim(self):
+        # Document counts cannot establish attachment. This is a documented
+        # blind spot for the manual claim-by-claim review, not a passing edit.
+        result = self.check_pair(
+            "The shortest queue wins. The oldest job waits.",
+            "The oldest queue wins. The shortest job waits.")
+        self.assertEqual([r.level for r in result], ["pass"])
+        self.assertIn("attachment", result[0].message)
+
+
 class CLI(unittest.TestCase):
     def test_missing_file_exits_2(self):
         self.assertEqual(V.main(["/nonexistent/a.md", "/nonexistent/b.md"]), 2)
@@ -167,6 +229,14 @@ class CLI(unittest.TestCase):
         code, report = self.run_json("She did not go.", "She went.", "--profile", "creative")
         self.assertEqual(code, 1)
         self.assertFalse(report["passed"])
+
+    def test_qualification_warning_is_visible_in_json_and_nonfatal(self):
+        code, report = self.run_json("The nodes commit simultaneously.",
+                                     "The nodes commit.")
+        self.assertEqual(code, 0)
+        self.assertTrue(report["passed"])
+        self.assertTrue(any(r["check"] == "claim qualifications" and r["level"] == "warn"
+                            for r in report["results"]))
 
 
 if __name__ == "__main__":

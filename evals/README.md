@@ -6,11 +6,12 @@ previous version. Both are needed; neither substitutes for the other.
 
 ## Status
 
-No results are recorded here. Cases E01 to E12 came with 2.0.0. Cases E13 to E38
-came with 2.2.0 and test the narrative review for prose fiction. Neither set has
-a recorded run against the pinned baseline, `2.1.1` at the commit named in
-`evals.json`. Until one exists, the narrative checks are hypotheses, and
-`references/negative-results.md` says so.
+No comparative results are recorded here. Cases E01 to E12 came with 2.0.0;
+E13 to E38 test the narrative review added in 2.2.0. Cases E39 to E46 test the
+nonfiction review and qualification preservation added in 2.3.0. The current
+baseline is 2.2.0 at the commit named in `evals.json`. Neither the new workflow
+nor the earlier narrative hypotheses have a recorded comparative agent run.
+Deterministic validator regressions are exercised separately by `tests/`.
 
 ## How to run
 
@@ -57,6 +58,16 @@ that validates, or the sentence left in place with the cut reported as deferred.
 
 `hard_failures` in the manifest lists what fails a run outright. `protocol`
 covers pinning, partitions, blind review, and cost.
+
+## The nonfiction cases
+
+E39–E46 cover an unclear purpose, reference and migration controls, conflicting
+instructions, qualification preservation, compression introduced by editing,
+established terminology, and missing newcomer context. Their inputs are original
+fixtures. Findings must refer to the supplied text; the expected answers do not
+license invented facts or a broader edit. Keep these separate from the narrative
+cases when selecting a profile. The manifest tests check their integrity, not
+whether an agent successfully follows the workflow.
 
 ## What to compare
 

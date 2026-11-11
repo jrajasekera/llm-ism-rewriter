@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "registry_version": "2.2.0",
+  "registry_version": "2.3.0",
   "notes": "Canonical registry for llm-ism-rewriter. references/patterns.md is the human-readable catalog; every rule here carries a `catalog` anchor into it. Detections are writing-quality signals and never evidence of authorship.",
   "tiers": {
     "fingerprint": "Standalone artifact or leaked model/tool residue. Actionable on a single occurrence.",

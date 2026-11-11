@@ -1,7 +1,7 @@
 # Rewrite invariants
 
 The preservation contract. `SKILL.md` cites it, `scripts/llm_ism_validate.py`
-checks what can be checked, and `tests/fixtures/rewrite_pairs/` pins the cases.
+checks what can be checked, and `tests/fixtures/rewrite_pairs.json` pins the cases.
 One vocabulary for all three.
 
 A rewrite that removes every cliché and changes a claim is a failed rewrite.
@@ -50,6 +50,32 @@ mechanically; a reader confirms the ones it cannot.
 | Attribution | who said, measured, or reported it | Removing it orphans the claim. |
 | Scope | which system, version, environment, population, or period | An unscoped claim is a bigger claim. |
 | Proper nouns | product, person, org, and place names | Removing one loses a fact; adding one invents one. |
+
+### Qualifications inside a flagged phrase
+
+A phrase can sound formulaic and still carry a ranking, a timing requirement,
+or a condition. Removing its style does not authorize weakening its claim.
+Compare each edited proposition, including the subject and the qualifier's
+attachment, rather than checking whether the paragraph covers the same topic.
+
+- `The shortest queue is selected` ranks the queues. Selecting a short queue
+  does not preserve that ranking.
+- `The nodes commit simultaneously` says when the commits occur relative to
+  one another. Saying that they commit loses that information.
+- `The cache refreshes only if the client asks` makes the request necessary.
+  `Only the cache refreshes if the client asks` restricts the actor instead,
+  even though every word and its count survives.
+- A correlation in the source does not become a cause in the rewrite. A stated
+  limitation does not become an unconditional result.
+
+The validator adds warning-level `claim qualifications` checks for a limited
+list of superlatives and phrases expressing bounds, conditions, and simultaneity.
+It masks protected content, counts each selected marker separately, and warns
+on additions as well as losses. Equivalent paraphrases can warn, and changed
+meaning can pass: moving an intact qualifier to another claim preserves its
+count. Review warnings against the actual claims; unchanged counts establish
+neither equivalent scope nor equivalent meaning. There is no English parser or
+embedding-based equivalence test behind this check.
 
 ## Narrative commitments
 

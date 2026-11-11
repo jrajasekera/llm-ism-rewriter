@@ -143,6 +143,12 @@
         "RH.TRIAD_DENSITY"
       ],
       "note": "A changelog is an enumeration; the triad metric measures narrative prose."
+    },
+    "references/nonfiction-review.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [],
+      "note": "Nonfiction review instructions; examples are protected inline."
     }
   }
 }

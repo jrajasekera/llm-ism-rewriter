@@ -18,6 +18,7 @@ from llm_ism_core import load_registry
 EVALS = os.path.join(ROOT, "evals")
 EVALUATORS = ("machine", "agent_judge", "human")
 NARRATIVE_FIRST = 13
+NARRATIVE_LAST = 38
 
 
 def load():
@@ -91,7 +92,7 @@ class Manifest(unittest.TestCase):
 
 class NarrativeCases(unittest.TestCase):
     def setUp(self):
-        self.cases = [c for c in load()["cases"] if number(c) >= NARRATIVE_FIRST]
+        self.cases = [c for c in load()["cases"] if NARRATIVE_FIRST <= number(c) <= NARRATIVE_LAST]
         self.registry = load_registry()
 
     def test_inputs_are_editable_prose(self):

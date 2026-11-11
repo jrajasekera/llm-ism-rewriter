@@ -104,6 +104,13 @@ Related judgments with no rule at all, because they are properties of the
 - Whether the author's first-person voice should stay (it should, by default).
 - Whether two paragraphs could be reordered without breaking the argument.
 - Whether a technical word is being used literally or promotionally.
+- Whether the revision compresses a relationship until it is harder to read.
+- Whether a qualifier now modifies a different claim despite unchanged counts.
+
+`nonfiction-review.md` applies the existing catalog to document purpose and to
+headings, openings, and closers in context. Its newcomer reading and contradiction
+review require the current text; no phrase list determines whether the reader
+has enough context. These are review procedures, not new checker rules.
 
 ## The contract
 
