@@ -191,6 +191,43 @@ experiment on this skill has been run. They are not findings either.
   Those would change this project's scope or portability without evidence from
   its own evals. The new workflow uses reader comprehension as its criterion.
 
+### Short-form register devices (2.4.0)
+
+- **Rules:** `RH.SELF_ANSWERED_QUESTION`, `RH.MIRRORED_PAIR`,
+  `RH.ELABORATING_FRAGMENT`, and new patterns in `LX.ENGAGEMENT_HOOK`
+  (`the more I sit with it`, a verbless announced count), `LX.PERFORMATIVE_HONESTY`
+  (the question form), `RH.APHORISM_CLOSER` (`It's that simple`,
+  `That changes everything`), and `RH.FALSE_CONTRAST` (a closed list of stock
+  idioms).
+- **Motivation:** two short posts, written in a punchy opinion register,
+  produced only false-contrast candidates under 2.3.1 although nearly every
+  paragraph used one of these devices. That is an editorial observation about
+  two texts. It is not a measurement, and it says nothing about who writes
+  this way: every device here is ordinary in speeches, columns, and FAQs.
+- **Basis:** editorial argument only. No corpus measurement has been run for
+  any of these rules. A register-balanced measurement is being prepared
+  separately; until its results are recorded here, the rules are unvalidated
+  hypotheses.
+- **Precision measures taken instead:** the question and mirror rules count
+  recurrence across a document rather than firing on one use; the creative
+  profile skips all three new rules; the patterns exclude FAQ shapes
+  (question-word and auxiliary openers, bolded labels, question headings,
+  `Q:`/`A:` transcripts), parallel sentences that report different facts, list
+  items, single fragments, and plain "not X but Y" corrections. Each exclusion
+  has a negative fixture. Over this repository's Markdown and the 39 eval
+  input files that predate 2.4.0, the 2.4.0 checker produced no candidate from the
+  new rules or patterns, under the detected profile or under forced
+  `general-prose`. The new short-form controls under `evals/files/short-form/`
+  produce no finding from them either; a test holds that.
+- **Rejected:** a bare "not X but Y" detector, which would flag ordinary
+  corrections; lowering `ST.FRAGMENT_RUN`'s 40-word paragraph floor, which would
+  start flagging terse status notes and steps; and any count of question marks
+  or short sentences per post.
+- **Decision:** **adopted as editorial hypotheses, 2026-11-13, version 2.4.0.**
+  The agent cases E47–E51 in `evals/evals.json` exist to test them and have not
+  been run. A rule that over-flags a register gets narrowed, relaxed in that
+  profile, or removed, and the result is recorded here.
+
 ## Provisional thresholds currently shipping
 
 Every number below is a starting policy calibrated against this repository's own
@@ -202,6 +239,8 @@ corpus. Each is marked `"threshold_status": "provisional"` in the registry.
 | `RH.TRIAD_DENSITY` | > 0.25 triads per sentence | Editorial judgment | Rates across ≥ 50 documents in ≥ 3 registers |
 | `RH.PHRASE_TRIAD` | ≥ 2 per document | Lead from `ai-smell` | Same, plus a human-labeled filler/not-filler set |
 | `RH.FORCED_SYMMETRY` | ≥ 3 consecutive same-opener sentences | Editorial judgment | Speech and marketing controls |
+| `RH.MIRRORED_PAIR` | ≥ 2 mirrored pairs per document; echo halves 3–12 words and equal length, half the positions shared; negated replies ≤ 20 words | Editorial judgment | Speech, essay, and documentation controls; a labeled device/not-device set |
+| `RH.SELF_ANSWERED_QUESTION` | ≥ 2 per document; question of 1–3 words after a determiner or conjunction | Editorial judgment | FAQ, tutorial, column, and transcript controls |
 | `ST.HEADING_DENSITY` | < 60 prose words per heading | Editorial judgment | Reference-doc controls |
 | `ST.HEADING_FRAME_REPEAT` | ≥ 3 same-level headings sharing a first word | Lead from `ai-smell` | Same-level sibling sampling across doc sets |
 | `ST.LABELED_BULLET_RUN` | > 0.5 labeled bullets per section, ≥ 4 bullets | Lead from `ai-smell` | Glossary and API-reference controls |

@@ -8,9 +8,11 @@ previous version. Both are needed; neither substitutes for the other.
 
 No comparative results are recorded here. Cases E01 to E12 came with 2.0.0;
 E13 to E38 test the narrative review added in 2.2.0. Cases E39 to E46 test the
-nonfiction review and qualification preservation added in 2.3.0. The current
-baseline is 2.2.0 at the commit named in `evals.json`. Neither the new workflow
-nor the earlier narrative hypotheses have a recorded comparative agent run.
+nonfiction review and qualification preservation added in 2.3.0. Cases E47 to
+E51 test the short-form rules added in 2.4.0. The current baseline is 2.3.1 at
+the commit named in `evals.json`; E39 to E46 were written against 2.2.0, as the
+manifest's `history` records. No case in this file has a recorded agent run,
+comparative or otherwise, the short-form cases included.
 Deterministic validator regressions are exercised separately by `tests/`.
 
 ## How to run
@@ -68,6 +70,24 @@ fixtures. Findings must refer to the supplied text; the expected answers do not
 license invented facts or a broader edit. Keep these separate from the narrative
 cases when selecting a profile. The manifest tests check their integrity, not
 whether an agent successfully follows the workflow.
+
+## Short-form cases
+
+E47–E51 cover the punchy opinion register: staged questions, mirrored slogans,
+relabelling fragments, announced counts, and stock closers. Two cases plant
+those devices, one for a rewrite and one for an audit. Three are leave-alone
+controls: an FAQ whose questions are the reader's, a speech whose devices are
+written for a room, and an incident note with a real correction and a real
+three-step procedure. The inputs under `files/short-form/` were written for this
+project.
+
+The rewrite case's input has no negation, so a revision that keeps its claims
+can pass the validator without deferring an edit. The speech control fires the
+checker under `general-prose` on purpose: it tests whether the agent applies
+the speech context rather than the raw output. `tests/test_evals_manifest.py`
+holds that every planted rule is visible to the checker, that the controls
+raise no short-form finding in their own context, and that controls are at
+least as many as planted cases. None of these cases has been run.
 
 ## What to compare
 

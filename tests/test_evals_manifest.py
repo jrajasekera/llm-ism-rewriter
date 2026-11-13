@@ -19,6 +19,11 @@ EVALS = os.path.join(ROOT, "evals")
 EVALUATORS = ("machine", "agent_judge", "human")
 NARRATIVE_FIRST = 13
 NARRATIVE_LAST = 38
+SHORT_FORM_FIRST = 47
+SHORT_FORM_LAST = 51
+SHORT_FORM_RULES = {"RH.SELF_ANSWERED_QUESTION", "RH.MIRRORED_PAIR", "RH.ELABORATING_FRAGMENT",
+                    "LX.ENGAGEMENT_HOOK", "LX.PERFORMATIVE_HONESTY", "RH.APHORISM_CLOSER",
+                    "RH.FALSE_CONTRAST"}
 
 
 def load():
@@ -134,6 +139,46 @@ class NarrativeCases(unittest.TestCase):
         for name in ("story-plain-long.md", "story-ornate-long.md", "story-clean-nonlinear.md"):
             with open(os.path.join(EVALS, "files", name), encoding="utf-8") as fh:
                 self.assertGreater(len(fh.read().split()), 2000, name)
+
+
+class ShortFormCases(unittest.TestCase):
+    """The short-form register: planted devices the checker can see, and
+    controls where the same devices are the genre's job or are absent."""
+
+    def setUp(self):
+        self.cases = [c for c in load()["cases"] if SHORT_FORM_FIRST <= number(c) <= SHORT_FORM_LAST]
+        self.registry = load_registry()
+        kinds = lambda c: {a["kind"] for a in c["assertions"]}  # noqa: E731
+        self.planted = [c for c in self.cases if "reports_rule" in kinds(c)]
+        self.controls = [c for c in self.cases
+                         if "text_unchanged" in kinds(c) and "reports_rule" not in kinds(c)]
+
+    def fired(self, case, profile):
+        report = llm_ism_check.analyze(source(case), case["file"], self.registry, profile, False)
+        return {rid for f in report["findings"] for rid in f["rule_ids"]}
+
+    def test_at_least_one_control_per_planted_case(self):
+        self.assertTrue(self.planted)
+        self.assertGreaterEqual(len(self.controls), len(self.planted))
+
+    def test_the_checker_sees_the_planted_devices(self):
+        for case in self.planted:
+            fired = self.fired(case, "general-prose")
+            for assertion in case["assertions"]:
+                if assertion["kind"] == "reports_rule":
+                    self.assertIn(assertion["value"], fired, case["id"])
+
+    def test_controls_raise_no_short_form_finding_in_their_context(self):
+        for case in self.controls:
+            fired = self.fired(case, case.get("profile", "auto"))
+            self.assertEqual(fired & SHORT_FORM_RULES, set(), case["id"])
+
+    def test_no_change_cases_validate_against_themselves(self):
+        for case in self.controls:
+            text = source(case)
+            results = llm_ism_validate.validate(text, text, "rewrite", self.registry,
+                                                "a", "b", 0.6, case.get("profile", "general-prose"))
+            self.assertFalse([r for r in results if r.level == "fail"], case["id"])
 
 
 if __name__ == "__main__":

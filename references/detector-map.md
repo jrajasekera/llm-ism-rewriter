@@ -57,8 +57,11 @@ The script reports these; recurrence, genre, and literal sense decide them.
 | `RH.TRIAD_DENSITY` | metric | Whether there are exactly three real items. |
 | `RH.PHRASE_TRIAD` | regex | Whether the third clause carries a fact. |
 | `RH.FORCED_SYMMETRY` | metric | Whether the anaphora is deliberate rhetoric. |
+| `RH.MIRRORED_PAIR` | metric | Whether each half of the pair carries a fact, or the pair says one thing twice. |
 | `RH.APHORISM_CLOSER` | regex | Whether the closer lands a point the paragraph earned. |
 | `RH.GENERIC_INTRO` / `RH.GENERIC_OUTRO` | regex | Whether a conventional section is mandated by the genre. |
+| `RH.SELF_ANSWERED_QUESTION` | regex (counted per document) | Whether the reader would genuinely ask the question, as in an FAQ. |
+| `RH.ELABORATING_FRAGMENT` | regex | Whether the fragment carries a qualification the sentence could not. |
 | `ST.HEADING_DENSITY` | metric | Whether the document is reference material. |
 | `ST.HEADING_FRAME_REPEAT` | metric | Whether parallel headings are an intentional outline. |
 | `ST.HEADING_RHETORIC` | regex | Whether the section under the heading delivers content. |
@@ -106,6 +109,12 @@ Related judgments with no rule at all, because they are properties of the
 - Whether a technical word is being used literally or promotionally.
 - Whether the revision compresses a relationship until it is harder to read.
 - Whether a qualifier now modifies a different claim despite unchanged counts.
+- Whether a plain "not X but Y" corrects a belief someone held. `RH.FALSE_CONTRAST`
+  matches the negated reframe and a short list of stock idioms; a bare
+  correction is ordinary English, and a broad pattern would flag every one.
+- Whether a short-form post is built from setup-and-punchline paragraphs, or
+  opens on a canned personal hook. No pattern reaches either without also
+  reaching the plain writing it imitates.
 
 `nonfiction-review.md` applies the existing catalog to document purpose and to
 headings, openings, and closers in context. Its newcomer reading and contradiction

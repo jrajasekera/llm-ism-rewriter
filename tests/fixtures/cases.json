@@ -869,6 +869,323 @@
         "RH.GENERIC_OUTRO"
       ],
       "note": "an unattributed admonition is a callout, not a protected quotation"
+    },
+    {
+      "id": "POS-SHORTFORM-SAMPLE",
+      "profile": "general-prose",
+      "text": "I've been thinking a lot about remote work lately. And the more I sit with it, the clearer it becomes: the debate was never really about location. It was about trust.\n\nManagers who measure hours get hours. Managers who measure outcomes get outcomes. It's that simple.\n\nThis isn't about productivity. It's about autonomy. The quiet kind. The kind that lets people do their best work without someone watching over their shoulder.\n\nSo what does this mean for leaders? Three things. First, stop tracking activity. Second, start defining results. Third, get out of the way.\n\nThe companies that figure this out will thrive. The ones that don't will be left wondering where their best people went.\n",
+      "expect_present": [
+        "LX.ENGAGEMENT_HOOK",
+        "RH.FALSE_CONTRAST",
+        "RH.MIRRORED_PAIR",
+        "RH.APHORISM_CLOSER",
+        "RH.ELABORATING_FRAGMENT"
+      ],
+      "expect_absent": [
+        "RH.SELF_ANSWERED_QUESTION"
+      ],
+      "note": "the 2.4.0 motivating sample; its one self-answered question stays a suppressed candidate below the document threshold of 2"
+    },
+    {
+      "id": "POS-RH-SELF-ANSWERED",
+      "profile": "general-prose",
+      "text": "The result? A smaller deploy and a shorter freeze.\n\nBut the rollback? It still takes most of an hour.",
+      "expect_present": [
+        "RH.SELF_ANSWERED_QUESTION"
+      ],
+      "note": "two clipped questions answered at once, counted across paragraphs"
+    },
+    {
+      "id": "POS-RH-SELF-ANSWERED-CURLY",
+      "profile": "general-prose",
+      "text": "And the cost? It’s lower than last year. So what does this mean for the team? We can stop batching releases.",
+      "expect_present": [
+        "RH.SELF_ANSWERED_QUESTION"
+      ]
+    },
+    {
+      "id": "NEG-RH-SELF-ANSWERED-ISOLATED",
+      "profile": "general-prose",
+      "text": "We moved the cache to the edge in March. The result? Most reads never reach the origin now, which is what the capacity plan assumed.",
+      "expect_absent": [
+        "RH.SELF_ANSWERED_QUESTION"
+      ],
+      "note": "one occurrence is a device; the threshold is two per document"
+    },
+    {
+      "id": "NEG-RH-SELF-ANSWERED-FAQ",
+      "profile": "general-prose",
+      "text": "How do I reset my password? Open Settings and choose Reset.\n\nDoes the app work offline? Yes, after the first sync.\n\nIs there a free tier? Yes, for personal projects.\n\nWhy was my export cancelled? Exports stop after an hour; split large projects first.",
+      "expect_absent": [
+        "RH.SELF_ANSWERED_QUESTION"
+      ],
+      "note": "FAQ questions open with a question word or an auxiliary and are not matched"
+    },
+    {
+      "id": "NEG-RH-SELF-ANSWERED-FAQ-BOLD",
+      "profile": "general-prose",
+      "text": "- **The price?** Free for individuals and small teams.\n- **The limit?** Five projects per account.\n- **The catch?** Exports are capped at one gigabyte.",
+      "expect_absent": [
+        "RH.SELF_ANSWERED_QUESTION"
+      ],
+      "note": "a bolded FAQ label closes before the answer, so it is not read as a self-answered question"
+    },
+    {
+      "id": "NEG-RH-SELF-ANSWERED-HEADINGS",
+      "profile": "general-prose",
+      "text": "## The result?\n\nA smaller deploy.\n\n## The cost?\n\nAn hour of downtime on the first run.",
+      "expect_absent": [
+        "RH.SELF_ANSWERED_QUESTION"
+      ],
+      "note": "a question heading is answered by its section, not by the next sentence"
+    },
+    {
+      "id": "NEG-RH-SELF-ANSWERED-TRANSCRIPT",
+      "profile": "general-prose",
+      "text": "Q: And the cost?\nA: About five dollars a month.\n\nQ: And the limit?\nA: Five projects.",
+      "expect_absent": [
+        "RH.SELF_ANSWERED_QUESTION"
+      ],
+      "note": "an interview transcript labels each turn"
+    },
+    {
+      "id": "NEG-RH-SELF-ANSWERED-SPEECH",
+      "profile": "creative",
+      "text": "The result? A city that keeps its promises. The cost? Less than a year of doing nothing. And the reward? Children who grow up trusting the place they live.",
+      "expect_absent": [
+        "RH.SELF_ANSWERED_QUESTION"
+      ],
+      "note": "deliberate rhetoric in a speech; the creative profile skips the family"
+    },
+    {
+      "id": "POS-RH-MIRRORED-PAIR",
+      "profile": "general-prose",
+      "text": "Managers who measure hours get hours. Managers who measure outcomes get outcomes.\n\nThe teams that write things down will scale. The ones that don't will relearn every lesson.",
+      "expect_present": [
+        "RH.MIRRORED_PAIR"
+      ]
+    },
+    {
+      "id": "POS-RH-MIRRORED-PAIR-ONE-LINE-PARAGRAPHS",
+      "profile": "general-prose",
+      "text": "Bad data, bad decisions.\n\nGood data, good decisions.\n\nThose who document will onboard quickly.\n\nThose who don't won't.",
+      "expect_present": [
+        "RH.MIRRORED_PAIR"
+      ],
+      "note": "a one-sentence-per-paragraph post is read as one run"
+    },
+    {
+      "id": "NEG-RH-MIRRORED-PAIR-ISOLATED",
+      "profile": "general-prose",
+      "text": "Managers who measure hours get hours. Managers who measure outcomes get outcomes. The survey asked forty managers which they track, and most said both.",
+      "expect_absent": [
+        "RH.MIRRORED_PAIR"
+      ],
+      "note": "one mirror is a device; the threshold is two per document"
+    },
+    {
+      "id": "NEG-RH-MIRRORED-PAIR-PARALLEL-DOCS",
+      "profile": "general-prose",
+      "text": "The left pane shows the source. The right pane shows the output. The top bar holds the run button. The bottom bar shows the build status.",
+      "expect_absent": [
+        "RH.MIRRORED_PAIR",
+        "RH.FORCED_SYMMETRY"
+      ],
+      "note": "parallel sentences that report different facts do not echo themselves"
+    },
+    {
+      "id": "NEG-RH-MIRRORED-PAIR-NOT-ELLIPTICAL",
+      "profile": "general-prose",
+      "text": "The team that wrote the parser maintains it. The team that didn't review it was not consulted. The people who run the nightly job read its logs. The people who don't read them miss the warnings.",
+      "expect_absent": [
+        "RH.MIRRORED_PAIR"
+      ],
+      "note": "a negated relative clause with its own verb is an ordinary sentence"
+    },
+    {
+      "id": "NEG-RH-MIRRORED-PAIR-BULLETS",
+      "profile": "general-prose",
+      "text": "- Teams that test ship.\n- Teams that don't, don't.\n- Small changes, small risks.\n- Large changes, large risks.",
+      "expect_absent": [
+        "RH.MIRRORED_PAIR"
+      ],
+      "note": "parallel list items are a list's job; adjacency never crosses items"
+    },
+    {
+      "id": "NEG-RH-MIRRORED-PAIR-TECHNICAL",
+      "profile": "technical-docs",
+      "text": "Set debug to true to enable debug logging. Set trace to true to enable trace logging.\n\nRun lint before you commit lint fixes. Run tests before you commit test fixes.",
+      "expect_absent": [
+        "RH.MIRRORED_PAIR"
+      ],
+      "note": "relaxed in technical-docs; two option descriptions stay below the doubled threshold"
+    },
+    {
+      "id": "NEG-RH-MIRRORED-PAIR-SPEECH",
+      "profile": "creative",
+      "text": "Those who build will be remembered. Those who don't won't. Small hands, small tasks. Strong hands, strong tasks.",
+      "expect_absent": [
+        "RH.MIRRORED_PAIR"
+      ],
+      "note": "antithesis is a speech's job; the creative profile skips the family"
+    },
+    {
+      "id": "POS-RH-ELABORATING-FRAGMENT",
+      "profile": "general-prose",
+      "text": "This isn't a tooling problem. It's about autonomy. The quiet kind. The kind that lets people work without being watched.",
+      "expect_present": [
+        "RH.ELABORATING_FRAGMENT"
+      ]
+    },
+    {
+      "id": "POS-RH-ELABORATING-FRAGMENT-ECHO",
+      "profile": "general-prose",
+      "text": "The rollout needs trust. Real trust.",
+      "expect_present": [
+        "RH.ELABORATING_FRAGMENT"
+      ]
+    },
+    {
+      "id": "NEG-RH-ELABORATING-FRAGMENT-SINGLE",
+      "profile": "general-prose",
+      "text": "Migrating the scheduler was a hard problem. The good kind. We learned how the queue behaves under load.",
+      "expect_absent": [
+        "RH.ELABORATING_FRAGMENT"
+      ],
+      "note": "one fragment after a sentence is ordinary emphasis"
+    },
+    {
+      "id": "NEG-RH-ELABORATING-FRAGMENT-KIND-OF",
+      "profile": "general-prose",
+      "text": "This kind of test is slow. The kind of fix we need is a smaller fixture.",
+      "expect_absent": [
+        "RH.ELABORATING_FRAGMENT"
+      ],
+      "note": "'kind of' as a noun phrase is not a relabelling fragment"
+    },
+    {
+      "id": "NEG-RH-ELABORATING-FRAGMENT-FICTION",
+      "profile": "creative",
+      "text": "She wanted quiet. The deep kind. The kind that settles on a house after the guests have gone.",
+      "expect_absent": [
+        "RH.ELABORATING_FRAGMENT"
+      ],
+      "note": "fiction keeps its fragments"
+    },
+    {
+      "id": "POS-LX-HOOK-SIT-WITH-IT",
+      "profile": "general-prose",
+      "text": "And the more I sit with it, the clearer it gets: the queue is the bottleneck.",
+      "expect_present": [
+        "LX.ENGAGEMENT_HOOK"
+      ]
+    },
+    {
+      "id": "POS-LX-HOOK-ANNOUNCED-LIST",
+      "profile": "general-prose",
+      "text": "What should change? Three things. First, cap retries. Second, alert on depth. Third, shed load early.",
+      "expect_present": [
+        "LX.ENGAGEMENT_HOOK"
+      ]
+    },
+    {
+      "id": "NEG-LX-HOOK-REAL-THREE-STEPS",
+      "profile": "general-prose",
+      "text": "There are three steps. First, install the package. Second, run the migration. Third, restart the service.",
+      "expect_absent": [
+        "LX.ENGAGEMENT_HOOK",
+        "RH.SELF_ANSWERED_QUESTION"
+      ],
+      "note": "a full sentence introduces a real procedure"
+    },
+    {
+      "id": "NEG-LX-HOOK-THREE-THINGS-STAND-OUT",
+      "profile": "general-prose",
+      "text": "Three things stand out in the logs: the retry storm, the slow disk, and the expired token.",
+      "expect_absent": [
+        "LX.ENGAGEMENT_HOOK"
+      ]
+    },
+    {
+      "id": "POS-RH-APHORISM-THAT-SIMPLE",
+      "profile": "general-prose",
+      "text": "Point the client at the new endpoint. It's that simple.",
+      "expect_present": [
+        "RH.APHORISM_CLOSER"
+      ]
+    },
+    {
+      "id": "POS-RH-APHORISM-CHANGES-EVERYTHING",
+      "profile": "general-prose",
+      "text": "The index now fits in memory. That changes everything.",
+      "expect_present": [
+        "RH.APHORISM_CLOSER"
+      ]
+    },
+    {
+      "id": "NEG-RH-APHORISM-NOT-THAT-SIMPLE",
+      "profile": "general-prose",
+      "text": "It's not that simple. The migration also rewrites the index, and the rewrite takes an hour on the largest tenant.",
+      "expect_absent": [
+        "RH.APHORISM_CLOSER"
+      ]
+    },
+    {
+      "id": "NEG-RH-APHORISM-CHANGES-EVERYTHING-LITERAL",
+      "profile": "general-prose",
+      "text": "The reset command changes everything in the cache directory, so back it up first.",
+      "expect_absent": [
+        "RH.APHORISM_CLOSER"
+      ]
+    },
+    {
+      "id": "POS-RH-CONTRAST-STOCK-DESTINATION",
+      "profile": "general-prose",
+      "text": "We now think the journey toward observability is not a destination but an ongoing process.",
+      "expect_present": [
+        "RH.FALSE_CONTRAST"
+      ]
+    },
+    {
+      "id": "POS-RH-CONTRAST-STOCK-MARATHON",
+      "profile": "general-prose",
+      "text": "Treat the migration as a marathon, not a sprint.",
+      "expect_present": [
+        "RH.FALSE_CONTRAST"
+      ]
+    },
+    {
+      "id": "NEG-RH-CONTRAST-GENUINE-CORRECTION",
+      "profile": "general-prose",
+      "text": "The second postmortem found the outage was not a capacity problem but a misconfigured cache, which reversed the first report's conclusion.",
+      "expect_absent": [
+        "RH.FALSE_CONTRAST"
+      ],
+      "note": "a plain 'not X but Y' correction is left to judgment; only stock idioms are matched"
+    },
+    {
+      "id": "NEG-RH-CONTRAST-PLAIN-NOT-BUT",
+      "profile": "general-prose",
+      "text": "The limit is not a lack of data but a lack of time to read it.",
+      "expect_absent": [
+        "RH.FALSE_CONTRAST"
+      ]
+    },
+    {
+      "id": "POS-LX-HONESTY-QUESTION",
+      "profile": "general-prose",
+      "text": "And honestly? The retry cap is too high.",
+      "expect_present": [
+        "LX.PERFORMATIVE_HONESTY"
+      ]
+    },
+    {
+      "id": "NEG-LX-HONESTY-ADVERB",
+      "profile": "general-prose",
+      "text": "She answered honestly, and the audit agreed with her.",
+      "expect_absent": [
+        "LX.PERFORMATIVE_HONESTY"
+      ]
     }
   ]
 }

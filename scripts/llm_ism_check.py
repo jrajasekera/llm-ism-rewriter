@@ -41,6 +41,7 @@ IMPLEMENTED_METRICS = frozenset({
     "triads_per_sentence", "em_dashes_per_word", "sentence_len_stdev",
     "words_per_heading", "repeated_heading_frames", "low_continuity_ratio",
     "labeled_bullet_ratio", "anaphora_run_length", "consecutive_short_sentences",
+    "mirrored_sentence_pairs",
 })
 
 STRENGTH_ORDER = ("low", "medium", "high")
@@ -54,6 +55,16 @@ LABELED_BULLET_RE = re.compile(
     r"|(?:\*\*|__)[^*_\n]{1,40}(?:\*\*|__)\s*[:：]"     # **Label**:
     r"|[A-Z][\w /-]{1,30}[:：])"                          # Label:
     r"\s+\S")
+# A mirrored pair's second half: "The ones that don't will…", "Those who don't,
+# don't." The negation must stand in for the first sentence's verb, so only an
+# auxiliary or punctuation may follow it; "The team that didn't review it" is
+# an ordinary sentence.
+MIRROR_OPEN_RE = re.compile(r"^(?:the\s+)?([\w'-]+)\s+(?:that|who)\s+\S", re.I)
+MIRROR_NEGATED_RE = re.compile(
+    r"^(?:the\s+)?([\w'-]+)\s+(?:that|who)\s+"
+    r"(?:don't|do not|didn't|did not|won't|will not|can't|cannot|doesn't|does not)"
+    r"(?:\s*[,.;:!]|\s+(?:will|won't|would|wouldn't|can|can't|could|should|are|were|get|end|"
+    r"tend|risk|lose|fall|pay|stay|struggle)\b)", re.I)
 ANAPHORIC_OPENERS = frozenset("this that these those it they so but however instead meanwhile therefore then there here".split())
 STOPWORDS = frozenset("""
 a an the and or but if then than that this these those of in on at to for from by with
@@ -190,8 +201,9 @@ def collect_candidates(segments: list[Segment], text: str, registry: Registry) -
             else:
                 if seg.kind == "heading":
                     targets = [(0, masked.lstrip("# ").rjust(len(masked)))]
-                elif scope == "paragraph":
+                elif scope in ("paragraph", "document"):
                     # The patterns bound themselves; a two-sentence form spans a boundary.
+                    # `document` matches the same way and counts across the document.
                     targets = [(0, masked)]
                 else:
                     targets = units
@@ -326,6 +338,50 @@ def _paragraph_runs(segments: list[Segment]):
                 yield seg, sents
 
 
+def _adjacent_sentences(segments: list[Segment]):
+    """Yield (sentence, next sentence, segment) for adjacent unprotected prose.
+
+    Adjacency crosses a paragraph break only between two consecutive plain
+    paragraphs, so a one-sentence-per-paragraph post is read as one run. List
+    items never pair across items: parallel bullets are a list's job.
+    """
+    prev: tuple[Segment, str] | None = None
+    for seg in segments:
+        if seg.kind not in PROSE_KINDS or seg.protected:
+            prev = None
+            continue
+        sents = [s for _, s in split_sentences(match_text(seg.text)) if words(s)]
+        if prev and seg.kind == "paragraph" and prev[0].kind == "paragraph" and sents:
+            yield prev[1], sents[0], prev[0]
+        for a, b in zip(sents, sents[1:]):
+            yield a, b, seg
+        prev = (seg, sents[-1]) if sents else None
+
+
+def _mirrored(a: str, b: str) -> bool:
+    """Two short sentences built on one skeleton that echoes itself.
+
+    Either each sentence repeats its own varied word in a shared slot ("Managers
+    who measure hours get hours. Managers who measure outcomes get outcomes."),
+    or the second answers the first with an elliptical negation ("The companies
+    that adapt will thrive. The ones that don't will…"). Parallel sentences that
+    simply report two facts ("The left pane shows the source. The right pane
+    shows the output.") are neither.
+    """
+    ta = [w.casefold() for w in words(a)]
+    tb = [w.casefold() for w in words(b)]
+    if 3 <= len(ta) <= 12 and len(ta) == len(tb) and ta != tb:
+        diff = [i for i in range(len(ta)) if ta[i] != tb[i]]
+        if len(ta) - len(diff) >= len(ta) / 2 and any(
+                ta[i] == ta[j] and tb[i] == tb[j] for i in diff for j in diff if i < j):
+            return True
+    if len(ta) <= 20 and len(tb) <= 20:
+        opener, negated = MIRROR_OPEN_RE.match(a.strip()), MIRROR_NEGATED_RE.match(b.strip())
+        if opener and negated:
+            return negated.group(1).casefold() in (opener.group(1).casefold(), "ones", "those")
+    return False
+
+
 def metric_observations(rule: dict, segments: list[Segment], metrics: dict) -> list[tuple[float, dict, Segment | None]]:
     """Return (value, evidence, anchor_segment) triples for one metric rule."""
     name = rule["metric"]
@@ -359,6 +415,13 @@ def metric_observations(rule: dict, segments: list[Segment], metrics: dict) -> l
                 out.append((best, {"run_length": best, "sentences": len(sents),
                                    "scope": f"paragraph {seg.paragraph_id}"}, seg))
         return out
+    if name == "mirrored_sentence_pairs":
+        pairs = [(a, b, seg) for a, b, seg in _adjacent_sentences(segments) if _mirrored(a, b)]
+        if not pairs:
+            return []
+        return [(len(pairs), {"mirrored_pairs": len(pairs), "scope": "document",
+                              "pairs": [" ".join(f"{a} {b}".split())[:160] for a, b, _ in pairs[:3]]},
+                 pairs[0][2])]
     if name == "consecutive_short_sentences":
         out = []
         for seg, sents in _paragraph_runs(segments):

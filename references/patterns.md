@@ -103,10 +103,11 @@ Clauses tacked onto a fact: "…, highlighting the importance of X", "…, under
 ### B7. Engagement hooks and canned reactions
 `LX.ENGAGEMENT_HOOK`, `LX.SYCOPHANCY`, `LX.PERFORMATIVE_HONESTY` — P1 / P0 / P1.
 
-- Hooks: "Have you ever wondered…?", "Picture this:", "Let's dive in", "Buckle up", "Here's the thing", "Here's the twist", "The punchline is", "Sit with that for a moment", "That's the part nobody talks about", "X is dead", "Let that sink in".
+- Hooks: "Have you ever wondered…?", "Picture this:", "Let's dive in", "Buckle up", "Here's the thing", "Here's the twist", "The punchline is", "Sit with that for a moment", "That's the part nobody talks about", "X is dead", "Let that sink in", `the more I sit with it`.
+- Announced enumeration: a verbless count standing as its own sentence before the list it announces, as in `Three things. First, …`. A full sentence that introduces a real procedure (`There are three steps.`) or a count with a verb (`Three things stand out:`) is not matched.
 - Sycophancy: "What a fantastic point", "You're absolutely right", "Excellent choice".
-- Performative honesty: "Honestly,", "Let me be real with you", "I'll be blunt".
-- **Fix:** delete. Start with the content.
+- Performative honesty: "Honestly,", "Let me be real with you", "I'll be blunt", and the question form `And honestly?`.
+- **Fix:** delete. Start with the content. For an announced list, keep the items and drop the count.
 
 ### B8. Association vagueness
 `LX.ASSOCIATION_VAGUENESS` — P2, low evidence.
@@ -126,8 +127,10 @@ Clauses tacked onto a fact: "…, highlighting the importance of X", "…, under
 "It's not X, it's Y", "not just X but Y", "not only… but also", "X isn't about A. It's about B", "no X, no Y, just Z".
 
 - **Why:** manufactures a straw position nobody held so the real claim reads as a reveal.
+- **Stock idioms:** a fixed pair whose rejected half nobody proposed: `not a destination but a journey`, `a marathon, not a sprint`, `an investment, not a cost`, `not a problem but an opportunity`, `not if, but when`, `a feature, not a bug`. The checker matches these pairs and no others.
+- **Plain "not X but Y" is judgment-only.** `The outage was not a capacity problem but a misconfigured cache` is how English states a correction. No regex separates it from a manufactured one, so the checker does not try; read it under the test below.
 - **Legitimate use:** when the reader plausibly believes X *and the text names it*: "The bottleneck isn't the database, as the earlier profile suggested; it's serialization."
-- **Fix:** "Y." Keep the contrast only when X is a real prior belief.
+- **Fix:** "Y." Keep the contrast only when X is a real prior belief. For a stock idiom, say what the thing is (`an ongoing process`) and drop the idiom.
 
 ### C2. Rule of three
 `RH.TRIAD_DENSITY`, `RH.PHRASE_TRIAD` — P1, structural.
@@ -143,13 +146,20 @@ Triads of adjectives, nouns, or clauses ("fast, reliable, and scalable"), three 
 
 Consecutive sentences with the same skeleton ("X is a Y. Z is a Y. W is a Y."), sentence-initial anaphora across three or more sentences, question stacks, chiasmus for its own sake.
 
+`RH.MIRRORED_PAIR` — P1, structural, low evidence — covers the two-sentence form that a three-sentence run misses. The checker counts two shapes:
+
+- an equal-length pair that repeats its own varied word in a shared slot: `Managers who measure hours get hours. Managers who measure outcomes get outcomes.`
+- a reply with an elliptical negation: `The companies that adapt will thrive. The ones that don't will…`
+
+Parallel sentences reporting different facts (`The left pane shows the source. The right pane shows the output.`) match neither. Adjacency crosses a paragraph break between two plain paragraphs, never between list items. **Evidence:** one mirror is a device; two in a document is the finding. Relaxed wherever forced symmetry is.
+
 - **Legitimate use:** deliberate rhetoric in speeches, ads, poetry. Skipped in `creative`.
-- **Fix:** merge into one sentence with a list, or vary the structure. Do not manufacture variation elsewhere to compensate.
+- **Fix:** merge into one sentence with a list, or vary the structure. Do not manufacture variation elsewhere to compensate. A mirrored pair usually says one thing twice: state it once (`Managers get what they measure.`), or keep both halves when each carries a fact the reader needs.
 
 ### C4. Stranded-auxiliary contrasts and aphorism closers
 `RH.APHORISM_CLOSER` — P1, high evidence.
 
-"…and it does.", "It wasn't. It isn't.", "That's the whole point.", "That's the entire game.", "And that matters.", "X is real, and it's here."
+"…and it does.", "It wasn't. It isn't.", "That's the whole point.", "That's the entire game.", "And that matters.", "X is real, and it's here.", and as standalone sentences `It's that simple.`, `Simple as that.`, `That changes everything.`
 
 - **Fix:** cut. The preceding sentence already said it.
 
@@ -171,6 +181,31 @@ Intros: "In today's fast-paced world", "Since the dawn of time", "X has become i
 Conclusions: "In conclusion", "Overall", "As we have seen", "The future looks bright", "Only time will tell", "Despite these challenges, X remains…".
 
 - **Fix:** start with the first concrete claim; end with the last one. If the piece needs a summary, summarize the actual findings.
+
+### C7. Self-answered questions
+`RH.SELF_ANSWERED_QUESTION` — P1, low evidence, review in context.
+
+A clipped question the writer answers in the next breath: `The result? A smaller deploy.`, `But observability? It shows you why.`, `So what does this mean for leaders? Three things.`
+
+- **Why:** it stages a reveal where a statement would do. Short-form posts lean on it until every point arrives as a riddle.
+- **What the checker matches:** a verbless question of one to three words, opened by a determiner (`The`, `Our`) or a conjunction (`And`, `But`, `So`), or `So what does this mean…?`, followed in the same paragraph by a declarative answer. Questions opening with *who, what, why, how* or an auxiliary (`Does it work offline?`) are not matched, nor are question headings, bolded FAQ labels, or `Q:`/`A:` transcripts.
+- **Evidence:** one is a device that columnists use on purpose. **Two or more in a document** is the finding.
+- **Legitimate use:** an FAQ or tutorial answering the reader's real question; an interview; a speech (`creative`, skipped). Relaxed in technical, academic, marketing, email, and legal profiles.
+- **Fix:** state the answer as the claim: `The deploy is smaller.` Keep the question only when a reader would actually ask it.
+
+### C8. Elaborating fragments
+`RH.ELABORATING_FRAGMENT` — P1, low evidence, review in context.
+
+A fragment that relabels the word before it and then qualifies the relabel: `It's about autonomy. The quiet kind. The kind that lets people work unwatched.` Also `Not the loud kind. The quiet kind.` and the echo `We need trust. Real trust.`
+
+- **Why:** the qualification the first sentence needed arrives two beats late, dressed as emphasis.
+- **What the checker matches:** the doubled form (`The X kind. The kind that…`), the negated pair of kinds, and a word echoed with *real*, *true*, or *genuine*. A single fragment (`It was a hard problem. The good kind.`) is ordinary emphasis and is not matched.
+- **Legitimate use:** fiction, poetry, speeches, and dialogue (skipped in `creative`). `ST.FRAGMENT_RUN` covers longer runs of short sentences; when both describe one span, report one finding.
+- **Fix:** fold the qualification into the sentence it modifies: `It's about the autonomy to work without being watched.` If the fragment adds nothing, cut it. Never add a detail to make the fragment earn its place.
+
+### Short-form register: what stays judgment
+
+Every device in C1, C3, C4, C7, and C8 is ordinary in a speech, a column, or a single deliberate sentence. The checker counts their recurrence; it does not decide intent. A thought-leadership post can also carry its formula in moves no pattern reaches: a canned personal opener (`I've been thinking a lot about X lately`), a closing threat aimed at whoever disagrees, or each paragraph built as setup and punchline. Read those under C5 and the nonfiction review, and report them with the span.
 
 ---
 
@@ -344,10 +379,13 @@ Generated from `references/rules.json` by `scripts/build_catalog.py --write`. Do
 | `RH.PHRASE_TRIAD` | C2 | structural | triads | P1 | regex | review_in_context |
 | `RH.TRIAD_DENSITY` | C2 | structural | triads | P1 | metric | review_in_context |
 | `RH.FORCED_SYMMETRY` | C3 | structural | symmetry | P1 | metric | merge |
+| `RH.MIRRORED_PAIR` | C3 | structural | symmetry | P1 | metric | review_in_context |
 | `RH.APHORISM_CLOSER` | C4 | cliche | closers | P1 | regex | remove |
 | `RH.LOW_INFORMATION_RESTATEMENT` | C5 | structural | restatement | P1 | llm_judgment | remove |
 | `RH.GENERIC_INTRO` | C6 | cliche | intro_outro | P1 | regex | remove |
 | `RH.GENERIC_OUTRO` | C6 | cliche | intro_outro | P1 | regex | remove |
+| `RH.SELF_ANSWERED_QUESTION` | C7 | cliche | questions | P1 | regex | review_in_context |
+| `RH.ELABORATING_FRAGMENT` | C8 | cliche | cadence | P1 | regex | review_in_context |
 | `ST.CROSS_FILE_TEMPLATE` | D1 | structural | headings | P2 | metric | review_in_context |
 | `ST.HEADING_DENSITY` | D1 | structural | headings | P2 | metric | merge |
 | `ST.HEADING_FRAME_REPEAT` | D1 | structural | headings | P2 | metric | review_in_context |

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "registry_version": "2.3.1",
+  "registry_version": "2.4.0",
   "notes": "Canonical registry for llm-ism-rewriter. references/patterns.md is the human-readable catalog; every rule here carries a `catalog` anchor into it. Detections are writing-quality signals and never evidence of authorship.",
   "tiers": {
     "fingerprint": "Standalone artifact or leaked model/tool residue. Actionable on a single occurrence.",
@@ -518,7 +518,9 @@
         "\\bhave you ever wondered\\b",
         "\\bthat's the part (?:nobody|no one|few people)\\b",
         "\\bis dead\\.",
-        "\\bwhat if I told you\\b"
+        "\\bwhat if I told you\\b",
+        "\\bthe more (?:I|we|you) sit with (?:it|this|that)\\b",
+        "^\\s*(?:(?:and|so)\\s+)?(?:two|three|four|five)\\s+(?:things|reasons|lessons|takeaways|truths|words|ideas|shifts|rules|questions)\\.\\s*$"
       ],
       "exceptions": [
         "quoted_example",
@@ -565,7 +567,7 @@
       "reason": "Announcing candor instead of being direct.",
       "fix": "Delete the announcement and keep the direct statement.",
       "patterns": [
-        "^\\s*(?:honestly|frankly|truthfully),",
+        "^\\s*(?:(?:and|but|so)\\s+)?(?:honestly|frankly|truthfully)[,?]",
         "\\blet me be (?:real|honest|blunt) with you\\b",
         "\\bi(?:'ll| will) be blunt\\b",
         "\\bto be (?:completely|totally) honest\\b"
@@ -622,7 +624,17 @@
         "\\bisn(?:'t|ot) (?:just )?an? [^.;:!?]{1,40}?[—–-]\\s*it(?:'s| is)\\b",
         "\\bno [\\w-]+, no [\\w-]+, just\\b",
         "\\b(?:is|are|was|were|'s|'re)(?:\\s+not|n't|\\s+never)(?:\\s+(?:just|really|simply|only|ever))?\\s+about\\s+[^.;:!?]{1,60}?\\.\\s+(?:it|this|that|they)(?:'s|'re|\\s+(?:is|are|was|were))(?:\\s+(?:really|actually))?\\s+about\\b(?!\\s+time\\b)",
-        "\\b(?:it|this|that)(?:'s|\\s+(?:is|was))(?:\\s+not|n't|\\s+never)(?:\\s+(?:just|really|simply|only|ever))?\\s+an?\\s+[^.;:!?]{1,40}?\\.\\s+(?:it|this|that)(?:'s|\\s+(?:is|was))\\s+an?\\b"
+        "\\b(?:it|this|that)(?:'s|\\s+(?:is|was))(?:\\s+not|n't|\\s+never)(?:\\s+(?:just|really|simply|only|ever))?\\s+an?\\s+[^.;:!?]{1,40}?\\.\\s+(?:it|this|that)(?:'s|\\s+(?:is|was))\\s+an?\\b",
+        "\\bnot\\s+(?:just\\s+|simply\\s+|merely\\s+)?a\\s+destination,?\\s+but\\b",
+        "\\b(?:journey|process),?\\s+not\\s+a\\s+destination\\b",
+        "\\bnot\\s+a\\s+sprint,?\\s+but\\b",
+        "\\ba\\s+marathon,?\\s+not\\s+a\\s+sprint\\b",
+        "\\bnot\\s+an?\\s+(?:cost|expense),?\\s+but\\s+an\\s+investment\\b",
+        "\\ban\\s+investment,?\\s+not\\s+an?\\s+(?:cost|expense)\\b",
+        "\\bnot\\s+an?\\s+(?:problem|threat|challenge|obstacle),?\\s+but\\s+an\\s+opportunity\\b",
+        "\\ban\\s+opportunity,?\\s+not\\s+an?\\s+(?:problem|threat|challenge|obstacle)\\b",
+        "\\bnot\\s+(?:a\\s+question\\s+of\\s+)?if,?\\s+but\\s+when\\b",
+        "\\ba\\s+feature,?\\s+not\\s+a\\s+bug\\b"
       ],
       "exceptions": [
         "real_prior_belief_named",
@@ -704,6 +716,31 @@
       ]
     },
     {
+      "id": "RH.MIRRORED_PAIR",
+      "title": "Mirrored sentence pair",
+      "catalog": "C3",
+      "tier": "structural",
+      "family": "symmetry",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "metric",
+      "scope": "document",
+      "metric": "mirrored_sentence_pairs",
+      "comparison": "gte",
+      "threshold": 2,
+      "threshold_status": "provisional",
+      "action": "review_in_context",
+      "reason": "Two adjacent sentences on one self-echoing skeleton, or a reply of the 'the ones that don't' kind, turn a claim into a slogan. One is a device; a document that keeps doing it is leaning on the shape.",
+      "fix": "State the claim once, in the author's terms. Keep both sentences when each carries a fact the reader needs. Never add a fact to fill the second half.",
+      "exceptions": [
+        "deliberate_rhetoric",
+        "speech",
+        "creative",
+        "parallel_documentation"
+      ],
+      "note": "Two shapes only: an equal-length pair that repeats its own varied word in a shared slot, and an elliptical negated reply. Threshold provisional; see references/negative-results.md."
+    },
+    {
       "id": "RH.APHORISM_CLOSER",
       "title": "Aphorism closer and stranded auxiliary",
       "catalog": "C4",
@@ -724,7 +761,10 @@
         "\\bit wasn't\\. it isn't\\.",
         "\\b(?:is|are) real, and it(?:'s| is) here\\b",
         "\\bfull stop\\.",
-        "\\bperiod\\.$"
+        "\\bperiod\\.$",
+        "^\\s*(?:and\\s+)?(?:it(?:'s| is)|it really is)(?:\\s+(?:really|just|honestly))?\\s+that simple[.!]\\s*$",
+        "^\\s*(?:it's\\s+)?(?:as\\s+)?simple as that[.!]\\s*$",
+        "^\\s*(?:and\\s+)?(?:that|this)\\s+changes everything[.!]\\s*$"
       ],
       "exceptions": [
         "quoted_example",
@@ -804,6 +844,60 @@
         "quoted_example",
         "academic_conclusion_section",
         "mandated_summary_section"
+      ]
+    },
+    {
+      "id": "RH.SELF_ANSWERED_QUESTION",
+      "title": "Self-answered question",
+      "catalog": "C7",
+      "tier": "cliche",
+      "family": "questions",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "regex",
+      "scope": "document",
+      "minimum_occurrences": 2,
+      "action": "review_in_context",
+      "reason": "A clipped question the writer answers at once stages a reveal instead of stating the point. Once is a device; a habit is a template.",
+      "fix": "State the answer as the claim. Keep a question the reader would genuinely ask, as in an FAQ.",
+      "patterns": [
+        "(?:^|(?<=[.!?]\\s)|(?<=[.!?][\"')]\\s))(?:(?:and|but|so|yet)\\s+)?(?:the|my|our|your|their|its)\\s+(?:[\\w'-]+\\s+)?[\\w'-]+\\?(?=\\s+[\"'(]?[A-Z0-9][^?]{0,200}?[.!](?:\\s|$))",
+        "(?:^|(?<=[.!?]\\s)|(?<=[.!?][\"')]\\s))(?:and|but|so|yet)\\s+(?:[\\w'-]+\\s+)?[\\w'-]+\\?(?=\\s+[\"'(]?[A-Z0-9][^?]{0,200}?[.!](?:\\s|$))",
+        "(?:^|(?<=[.!?]\\s)|(?<=[.!?][\"')]\\s))so\\s+what\\s+does\\s+(?:this|that|it|all\\s+(?:of\\s+)?this)\\s+mean(?:\\s+for\\s+[\\w' -]{1,30})?\\?(?=\\s+[\"'(]?[A-Z0-9][^?]{0,200}?[.!](?:\\s|$))"
+      ],
+      "exceptions": [
+        "faq",
+        "interview_transcript",
+        "dialogue",
+        "quoted_example",
+        "deliberate_rhetoric"
+      ],
+      "note": "Only verbless fragment questions of one to three words and 'So what does this mean?' are matched; questions opening with who, what, why, how, or an auxiliary are not. Counted across the document. Threshold provisional; see references/negative-results.md."
+    },
+    {
+      "id": "RH.ELABORATING_FRAGMENT",
+      "title": "Elaborating fragment",
+      "catalog": "C8",
+      "tier": "cliche",
+      "family": "cadence",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "regex",
+      "scope": "paragraph",
+      "minimum_occurrences": 1,
+      "action": "review_in_context",
+      "reason": "A fragment that relabels the word before it delays the qualification the sentence needed.",
+      "fix": "Fold the qualification into the sentence it modifies. If the fragment adds nothing, cut it.",
+      "patterns": [
+        "\\b(?:the|a)\\s+[\\w-]+\\s+(kind|sort|type)\\.\\s+(?:the|a)\\s+\\1\\s+(?:that|of|where|which|who|you)\\b",
+        "\\bnot\\s+the\\s+[\\w-]+\\s+(kind|sort|type)[.,;]\\s+(?:but\\s+)?the\\s+[\\w-]+\\s+\\1\\b",
+        "\\b([a-z][\\w-]{2,})\\.\\s+(?:real|true|genuine)\\s+\\1[.!]"
+      ],
+      "exceptions": [
+        "creative",
+        "deliberate_rhetoric",
+        "dialogue",
+        "quoted_example"
       ]
     },
     {
@@ -1260,6 +1354,7 @@
         "hooks": "full",
         "association": "full",
         "contrast": "full",
+        "questions": "full",
         "triads": "full",
         "symmetry": "full",
         "closers": "full",
@@ -1296,6 +1391,7 @@
         "hooks": "full",
         "association": "relaxed",
         "contrast": "relaxed",
+        "questions": "relaxed",
         "triads": "relaxed",
         "symmetry": "relaxed",
         "closers": "full",
@@ -1332,6 +1428,7 @@
         "hooks": "full",
         "association": "relaxed",
         "contrast": "relaxed",
+        "questions": "relaxed",
         "triads": "relaxed",
         "symmetry": "relaxed",
         "closers": "full",
@@ -1367,6 +1464,7 @@
         "hooks": "full",
         "association": "full",
         "contrast": "relaxed",
+        "questions": "relaxed",
         "triads": "relaxed",
         "symmetry": "relaxed",
         "closers": "full",
@@ -1402,6 +1500,7 @@
         "hooks": "full",
         "association": "full",
         "contrast": "full",
+        "questions": "full",
         "triads": "full",
         "symmetry": "relaxed",
         "closers": "full",
@@ -1437,6 +1536,7 @@
         "hooks": "relaxed",
         "association": "skip",
         "contrast": "relaxed",
+        "questions": "relaxed",
         "triads": "relaxed",
         "symmetry": "skip",
         "closers": "relaxed",
@@ -1473,6 +1573,7 @@
         "hooks": "full",
         "association": "skip",
         "contrast": "relaxed",
+        "questions": "relaxed",
         "triads": "relaxed",
         "symmetry": "relaxed",
         "closers": "full",
@@ -1508,6 +1609,7 @@
         "hooks": "skip",
         "association": "skip",
         "contrast": "skip",
+        "questions": "skip",
         "triads": "skip",
         "symmetry": "skip",
         "closers": "skip",

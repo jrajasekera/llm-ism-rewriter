@@ -1,13 +1,14 @@
 {
   "schema_version": 1,
   "skill": "llm-ism-rewriter",
-  "version_under_test": "2.3.1",
+  "version_under_test": "2.4.0",
   "candidate_commit": "record the hash of the commit under test with the results",
-  "baseline": "2.2.0",
-  "baseline_commit": "347f17a6cd7a4b104302a74022e0cdcc06cbade1",
+  "baseline": "2.3.1",
+  "baseline_commit": "539ade1a6802eea4373e2c2e9a9454a93f6af98e",
   "runs_per_case": 3,
-  "results": "none recorded; new nonfiction cases E39-E46 have not been run comparatively",
+  "results": "none recorded; the short-form cases E47-E51 added in 2.4.0 have not been run, comparatively or otherwise",
   "history": [
+    {"version_under_test": "2.3.1", "baseline": "2.2.0", "cases": "E01-E46", "results": "none recorded in this repository"},
     {"version_under_test": "2.2.0", "baseline": "2.1.1", "cases": "E01-E38", "results": "none recorded in this repository"},
     {"version_under_test": "2.0.0", "baseline": "1.0.0", "cases": "E01-E12", "results": "none recorded in this repository"}
   ],
@@ -21,7 +22,8 @@
       "Edit post.md in place and remove the canned phrasing.",
       "The prose is too polished and repetitive. Preserve my voice.",
       "Clean up all the 'not X, but Y' constructions.",
-      "Make this sound less like ChatGPT without adding fake personality."
+      "Make this sound less like ChatGPT without adding fake personality.",
+      "My LinkedIn post reads like every other thought-leadership post. Cut the template moves and keep my point."
     ],
     "should_not_trigger": [
       "Fix spelling mistakes in this sentence.",
@@ -603,6 +605,73 @@
         {"kind": "newcomer_gap_reported"},
         {"kind": "no_unsupported_fact_resolution"}
       ]
+    },
+    {
+      "id": "E47-short-form-post-rewrite",
+      "file": "files/short-form/handoff-post.md",
+      "prompt": "This is a LinkedIn post I wrote. Make it less formulaic, but keep my point and my recommendations.",
+      "expected": "Removes or rewrites the hook, the closer, both staged questions, the relabelling fragment, the announced count, and the two mirrored slogans. Keeps that a year of on-call notes was read last week, that the worst incidents started at shift handoffs, that written handoffs are the habit, and all three recommendations: a mandatory note, one page, read aloud at the start of each shift. Adds no figure, team, incident, or outcome. The source has no negation, so a revision that validates needs none either.",
+      "assertions": [
+        {"kind": "reports_rule", "value": "RH.SELF_ANSWERED_QUESTION"},
+        {"kind": "reports_rule", "value": "RH.MIRRORED_PAIR"},
+        {"kind": "substring_removed", "value": "It's that simple."},
+        {"kind": "substring_removed", "value": "Three things."},
+        {"kind": "short_form_claims_preserved"},
+        {"kind": "no_new_catalog_device"},
+        {"kind": "no_new_number_with_unit"},
+        {"kind": "no_new_proper_noun"},
+        {"kind": "single_final_text"},
+        {"kind": "no_authorship_claim"},
+        {"kind": "validator_passes", "mode": "rewrite"}
+      ]
+    },
+    {
+      "id": "E48-short-form-update-audit",
+      "file": "files/short-form/tracing-update.md",
+      "prompt": "Audit this team update for formulaic phrasing. Do not change it.",
+      "expected": "Reports the three staged questions as one recurring device, the performative candour and the closer on the fourth paragraph, and the stock idiom 'not a destination but'. The single mirrored pair in the last paragraph is below the document threshold; mentioning it as a device is fine, and treating one use as a pattern is not required. Text untouched.",
+      "assertions": [
+        {"kind": "text_unchanged"},
+        {"kind": "reports_rule", "value": "RH.SELF_ANSWERED_QUESTION"},
+        {"kind": "reports_rule", "value": "RH.FALSE_CONTRAST"},
+        {"kind": "reports_rule", "value": "RH.APHORISM_CLOSER"},
+        {"kind": "response_states_profile"},
+        {"kind": "no_authorship_claim"}
+      ]
+    },
+    {
+      "id": "E49-faq-control",
+      "file": "files/short-form/faq.md",
+      "prompt": "Remove the AI-isms from this FAQ.",
+      "expected": "Leaves it unchanged. Every question is one a reader asks, each answer is direct, and the two bolded labels are an FAQ's format rather than staged reveals.",
+      "assertions": [
+        {"kind": "text_unchanged"},
+        {"kind": "no_authorship_claim"}
+      ]
+    },
+    {
+      "id": "E50-speech-control",
+      "file": "files/short-form/awards-speech.md",
+      "profile": "creative",
+      "prompt": "This is a speech I'm giving at our volunteer awards night. Remove anything that sounds AI-generated.",
+      "expected": "Applies the speech context: the staged questions, the antithesis, and the fragment are rhetoric written for a room, and contexts.md skips structural rules for speeches. No change, and the response says why. Under general-prose the checker reports these devices; the case tests that the agent applies the context rather than the raw output.",
+      "assertions": [
+        {"kind": "text_unchanged"},
+        {"kind": "profile_detected", "value": "creative"},
+        {"kind": "response_explains_a_leave_decision"},
+        {"kind": "no_authorship_claim"}
+      ]
+    },
+    {
+      "id": "E51-incident-note-control",
+      "file": "files/short-form/incident-note.md",
+      "prompt": "Edit incident-note.md in place to remove any AI-isms.",
+      "expected": "Leaves the file unchanged. The 'not the traffic spike but a cache misconfiguration' contrast overturns a belief the first report actually held and names, and the three steps are a real procedure introduced by a full sentence.",
+      "assertions": [
+        {"kind": "text_unchanged"},
+        {"kind": "response_explains_a_leave_decision"},
+        {"kind": "no_authorship_claim"}
+      ]
     }
   ],
   "assertion_kinds": {
@@ -644,6 +713,8 @@
       "qualification_meaning_preserved": "Does the revision preserve the ranking, the necessary request condition, and simultaneous timing, with the qualifiers attached to the same claims?",
       "rewrite_remains_readable": "Does the revision preserve explicit relationships and remain easy to parse, without noun stacks or ambiguous omissions introduced to save words?",
       "newcomer_gap_reported": "Does the audit identify the undefined destination using only the supplied guide, without inventing a referent or an instruction?",
+      "short_form_claims_preserved": "Does the revision keep every claim and recommendation the post makes, in the author's terms, and add no figure, example, team, incident, or outcome the post lacks?",
+      "no_new_catalog_device": "Is the revision free of any staged question, mirrored pair, relabelling fragment, announced count, stock closer, or other catalog device that the source did not have at that point?",
       "response_states_profile": "Does the response name the context profile it applied?",
       "response_states_voice": "Does the response name this voice as the one applied?",
       "single_final_text": "Does the response contain exactly one final version of the text?",

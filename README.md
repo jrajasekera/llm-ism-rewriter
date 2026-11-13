@@ -242,7 +242,7 @@ Stock vocabulary clusters (`delve`, `testament`, `ever-evolving landscape`), fal
 
 For prose fiction, five judgment-only checks cover narrative construction: redundant thematic explanation, redundant emotional explanation, decorative psychological mirroring, forced closure, and information timing. The agent applies them; the scripts do not.
 
-The human-readable catalog is `references/patterns.md`. The machine-readable registry is `references/rules.json`: 46 rules across 8 context profiles, canonical for every threshold the checker applies.
+The human-readable catalog is `references/patterns.md`. The machine-readable registry is `references/rules.json`: 49 rules across 8 context profiles, canonical for every threshold the checker applies.
 
 ### Limits
 
@@ -314,7 +314,7 @@ llm_ism_project_check.py [options] PATH [PATH...]
 ```
 SKILL.md                          entry point: trust boundary, modes, 8-step procedure
 references/patterns.md            the catalog, A-F, with rule IDs, tiers, and fixes
-references/rules.json             canonical registry: 46 rules, 8 context profiles
+references/rules.json             canonical registry: 49 rules, 8 context profiles
 references/contexts.md            genre profiles, legitimate uses, large-file policy
 references/narrative-review.md    prose fiction only: scope limits and checks F1-F5
 references/nonfiction-review.md   document purpose and newcomer comprehension

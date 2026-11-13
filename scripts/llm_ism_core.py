@@ -16,7 +16,7 @@ import re
 import unicodedata
 from dataclasses import dataclass
 
-TOOL_VERSION = "2.3.1"
+TOOL_VERSION = "2.4.0"
 SCHEMA_VERSION = 1
 
 _HERE = os.path.dirname(os.path.abspath(__file__))

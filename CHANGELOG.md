@@ -7,6 +7,56 @@ incompatible CLI. `SKILL.md`'s frontmatter version, `registry_version` in
 `references/rules.json`, and `TOOL_VERSION` in the scripts are kept in sync by
 `scripts/build_catalog.py --check`.
 
+## [2.4.0]
+
+Coverage for the punchy short-form opinion register. Three new rules, new
+patterns in four existing rules, one new profile family, and one metric. No
+renamed rule, changed output field, or new dependency. Every new rule rests on
+editorial argument; none has a corpus measurement yet (see
+`references/negative-results.md`).
+
+### Added
+
+- `RH.SELF_ANSWERED_QUESTION` (catalog C7, family `questions`): a verbless
+  question of one to three words after a determiner or conjunction, or
+  `So what does this mean…?`, answered in the same paragraph. Counted across
+  the document; two or more is a finding, `provisional`. Question-word and
+  auxiliary openers, question headings, bolded FAQ labels, and `Q:`/`A:`
+  transcripts are not matched. The new `questions` family takes the `contrast`
+  family's tolerances: full in general prose and essays, relaxed in five
+  profiles, skipped in `creative`.
+- `RH.MIRRORED_PAIR` (catalog C3, family `symmetry`): the two-sentence mirror
+  that `RH.FORCED_SYMMETRY`'s three-sentence run misses. The new
+  `mirrored_sentence_pairs` metric counts equal-length pairs that repeat their
+  own varied word in a shared slot, and elliptical negated replies such as
+  `The ones that don't will…`. Two per document, `provisional`. Adjacency
+  crosses a break between plain paragraphs and never between list items.
+- `RH.ELABORATING_FRAGMENT` (catalog C8, family `cadence`):
+  `The quiet kind. The kind that…`, `Not the loud kind. The quiet kind.`, and
+  `trust. Real trust.` A single fragment is not matched.
+- Regex rules accept `scope: document`. Patterns run over whole segments, as
+  at paragraph scope, while `minimum_occurrences` counts across the document.
+- Catalog notes on what stays judgment in this register, examples EX-RH-08,
+  EX-RH-09, EX-FP-07, and EX-FP-08, and context notes for FAQs, corrections,
+  and short-form posts.
+- Agent eval cases E47–E51 with original inputs under `evals/files/short-form/`:
+  two planted cases and three leave-alone controls (an FAQ, a speech, and an
+  incident note with a real correction and a real three-step list). Not run.
+
+### Changed
+
+- `LX.ENGAGEMENT_HOOK` matches `the more I sit with it` and a verbless
+  announced count standing alone (`Three things.`). A count with a verb, or a
+  full sentence introducing a procedure, is not matched.
+- `LX.PERFORMATIVE_HONESTY` matches `And honestly?` and a leading `and`, `but`,
+  or `so`.
+- `RH.APHORISM_CLOSER` matches standalone `It's that simple.`,
+  `Simple as that.`, and `That changes everything.`; `It's not that simple`
+  does not match.
+- `RH.FALSE_CONTRAST` matches a closed list of stock idioms
+  (`not a destination but…`, `a marathon, not a sprint`, and four more). A
+  plain "not X but Y" stays judgment-only, and the catalog now says so.
+
 ## [2.3.1]
 
 Two detector fixes. No new rule, threshold, profile, output field, or

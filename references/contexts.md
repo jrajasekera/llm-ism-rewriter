@@ -36,15 +36,16 @@ Context profiles are data. `references/rules.json` carries the same eight profil
 | Hooks and canned reactions | full | full | full | full | full | relaxed | full | skip |
 | Association vagueness | full | relaxed | relaxed | full | full | skip | skip | skip |
 | False contrast | full | relaxed | relaxed | relaxed | full | relaxed | relaxed | skip |
+| Self-answered questions (`questions`) | full | relaxed | relaxed | relaxed | full | relaxed | relaxed | skip |
 | Triads | full | relaxed | relaxed | relaxed | full | relaxed | relaxed | skip |
-| Forced symmetry | full | relaxed | relaxed | relaxed | relaxed | skip | relaxed | skip |
+| Forced symmetry and mirrored pairs | full | relaxed | relaxed | relaxed | relaxed | skip | relaxed | skip |
 | Aphorism closers | full | full | full | full | full | relaxed | full | skip |
 | Restatement | full | full | relaxed | full | full | relaxed | skip | skip |
 | Generic intro/outro | full | full | relaxed | full | full | relaxed | relaxed | skip |
 | Headings | full | relaxed | relaxed | relaxed | full | skip | relaxed | skip |
 | Labeled bullets | full | relaxed | relaxed | full | full | skip | relaxed | skip |
 | Em-dash density | full | relaxed | relaxed | relaxed | relaxed | skip | relaxed | skip |
-| Cadence and fragments | full | relaxed | relaxed | full | full | skip | relaxed | skip |
+| Cadence, fragment runs, elaborating fragments | full | relaxed | relaxed | full | full | skip | relaxed | skip |
 | Layout and tables | full | relaxed | relaxed | full | full | skip | relaxed | skip |
 | Sentence continuity | full | skip | relaxed | relaxed | full | skip | skip | skip |
 | Opening identity | full | full | skip | full | relaxed | skip | skip | skip |
@@ -88,7 +89,10 @@ The layer never travels the other way. A README, a research summary, or an incid
 
 - **False contrast** is fine when the reader plausibly holds the rejected belief and the text names it: "The bottleneck isn't the database, as the earlier profile suggested; it's serialization."
 - **Rule of three** is fine when there are exactly three real items ("the CLI, the SDK, and the web console"), and when three is what the API requires.
-- **Anaphora and echo** are fine when the author is clearly building rhythm in a persuasive passage.
+- **Anaphora and echo** are fine when the author is clearly building rhythm in a persuasive passage. A single mirrored pair is a device, not a finding; the checker waits for two.
+- **A question answered at once** is fine in an FAQ, a tutorial, or an interview, where the reader really would ask it. The checker ignores questions that open with a question word or an auxiliary, question headings, and bolded FAQ labels, and it waits for two clipped ones before reporting.
+- **Plain "not X but Y"** is how a correction is written. The checker matches only stock idioms; a bare correction is the reader's call under C1.
+- **Short-form posts** have no profile of their own. They usually fall back to `general-prose`, where the short-form rules apply at full strength. A post published as an essay can be run under `essay-blog`, which relaxes mirrored pairs.
 - **"Delve", "landscape", "robust"** are fine in their literal or field-specific senses — archaeology, geography, robust standard errors.
 - **Em dashes** are fine when the author uses them consistently at a sane rate throughout, including in unflagged paragraphs. Compare against the author, not an absolute.
 - **Bold lead-ins on bullets** are fine in reference lists, glossaries, parameter tables, release notes, and definition lists.

@@ -5,7 +5,7 @@ license: Apache-2.0
 compatibility: Agent Skills (agentskills.io) format; runs on Claude Code, Codex, Hermes Agent, and any harness that loads SKILL.md. Needs only file reading and editing. The optional checker and validator require Python 3.10+ and the standard library only.
 metadata:
   author: jrajasekera
-  version: "2.3.1"
+  version: "2.4.0"
   sources: "Wikipedia 'Signs of AI writing' (CC BY-SA 4.0); Simon Willison's llm-cliche-highlighter (Apache-2.0); structural leads from osolmaz/ai-smell; contract practices from conorbronsdon/avoid-ai-writing; narrative checks adapted from Russell et al., StoryScope (arXiv 2604.03136)"
 ---
 

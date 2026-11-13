@@ -60,6 +60,16 @@ Examples carry stable IDs. Where an ID appears in `tests/fixtures/`, the behavio
 - Method: write down each paragraph's distinct contribution in a few words. Paragraphs that come out the same are one paragraph. Repeated words are not the test, and neither is their absence.
 - Leave alone: an executive summary above a detailed section, and a teaching recap at the end of a lesson. Each repeats on purpose for a reader who needs it, and each has a job the body does not do.
 
+**EX-RH-08 — a short-form post, device by device** (`RH.SELF_ANSWERED_QUESTION`, `RH.MIRRORED_PAIR`, `RH.ELABORATING_FRAGMENT`, `LX.ENGAGEMENT_HOOK`, `RH.APHORISM_CLOSER`)
+- Before: *Managers who measure hours get hours. Managers who measure outcomes get outcomes. It's that simple. It's about autonomy. The quiet kind. The kind that lets people work without someone watching. So what does this mean for leaders? Three things. First, stop tracking activity. Second, start defining results. Third, get out of the way.*
+- After: *Managers get what they measure, so measuring hours yields hours rather than outcomes. What people need is the autonomy to work without someone watching. Leaders should stop tracking activity, define results, and get out of the way.*
+- Kept: every claim and all three recommendations, in the author's words. Cut: the closer, the relabelling fragment, the staged question, and the announced count. Nothing was added: no study, no figure, no example the post did not have.
+- Why the mirror became one sentence: both halves made one claim. Deleting a half would lose the contrast the post relies on; keeping both would keep the slogan. The three recommendations stay a list because they are three real items.
+
+**EX-RH-09 — a stock idiom** (`RH.FALSE_CONTRAST`)
+- Before: *The journey toward observability is not a destination but an ongoing process.*
+- After: *Observability is ongoing work.* — or, if the paragraph says what the work is, that.
+
 **EX-RH-06 — generic intro and outro** (`RH.GENERIC_INTRO`, `RH.GENERIC_OUTRO`)
 - Before, intro: *In today's fast-paced digital world, monitoring has become increasingly important for organizations of all sizes.*
 - After: delete; begin with the first specific sentence.
@@ -131,6 +141,15 @@ The correct output is byte-identical text. A rewrite here is a failure.
 **EX-FP-06 — a speech** (`RH.FORCED_SYMMETRY`, `RH.TRIAD_DENSITY`)
 > We will not yield. We will not retreat. We will not forget.
 > `creative` and speech contexts skip structural rules entirely. Fingerprints only.
+
+**EX-FP-07 — an FAQ** (`RH.SELF_ANSWERED_QUESTION`)
+> Does the app work offline? Yes, after the first sync.
+> Why was my export cancelled? Exports stop after an hour.
+> The reader asks these. The checker does not match question-word or auxiliary openers, and nothing should change.
+
+**EX-FP-08 — a correction** (`RH.FALSE_CONTRAST`)
+> The second postmortem found the outage was not a capacity problem but a misconfigured cache.
+> A real prior belief, overturned by a named document. Keep it.
 
 ## Overlapping evidence
 
