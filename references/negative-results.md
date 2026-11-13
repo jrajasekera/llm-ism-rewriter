@@ -101,6 +101,39 @@ project's framing: these are readability and editing signals, and nothing else.
   `AI_ONLY`, or 0–100 field appears in any output schema in this repository.
   The JSON schema is checked for their absence in `tests/test_catalog_contract.py`.
 
+### First corpus baseline: human prose written before November 2022
+
+- **Hypothesis:** the provisional thresholds, set against this repository's own
+  prose, stay quiet on human prose that predates the habits they target.
+- **Corpus:** 48 documents, 88,656 scanned prose words, captured 2026-11-13:
+  13 `technical-docs`, 12 `essay-blog`, 13 `legal-policy`, 10 `general-prose`.
+  Provenance and checksums are in `corpus/manifest.json`. Eight of the ten
+  general-prose documents are Wikipedia articles. There is no academic,
+  marketing, creative, or generated sample.
+- **Implementation:** `scripts/corpus_measure.py`, run on the 2.4.0 detectors.
+  Full tables and example spans are in `corpus/results/2026-11-13-baseline.md`.
+- **Result:** findings per 1,000 words were 1.96 in essays, 1.79 in general
+  prose, 0.80 in legal text, and 0.68 in technical documentation.
+  `RH.PHRASE_TRIAD` produced 72 of the 117 findings; its trigger of two per
+  document was met by 26 of the 48 documents. `ST.HEADING_DENSITY`,
+  `ST.DASH_DENSITY`, `ST.UNIFORM_RHYTHM`, and `ST.SENTENCE_CONTINUITY` crossed
+  no threshold. The three rules added in 2.4.0 produced no candidate, which
+  shows they are quiet on this sample and nothing about what they catch.
+- **Known false positives:** serial clauses under `RH.PHRASE_TRIAD`; a
+  sentence-opening `Of course,` under `FP.META_NARRATION` at P0, in four
+  documents; the `period.` pattern of `RH.APHORISM_CLOSER`, a noun in all three
+  matches; template syntax such as `{{ page.title }}` under
+  `FP.UNFILLED_PLACEHOLDER`; runs of sentences opening with `The` under
+  `RH.FORCED_SYMMETRY` in five of ten general-prose documents; and FAQ or API
+  sibling headings under `ST.HEADING_FRAME_REPEAT`.
+- **Decision:** **no threshold changed, 2026-11-13, version 2.4.0.** No
+  register reaches the 50 documents asked for below, so every threshold stays
+  `provisional`. The false positives above are open: each needs a narrower
+  detector with a test, a profile carve-out with a test, or a recorded decision
+  to keep it. The write-up recommends tightening `RH.PHRASE_TRIAD`,
+  `RH.FORCED_SYMMETRY` in general prose, and the `ST.HEADING_FRAME_REPEAT`
+  detector, and holding the rest.
+
 ## Unvalidated editorial hypotheses
 
 Rules adopted on an editorial argument, with a research association behind them

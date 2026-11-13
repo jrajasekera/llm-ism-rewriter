@@ -83,7 +83,9 @@ class CatalogContract(unittest.TestCase):
         import ast
         allowed = {"__future__", "argparse", "ast", "collections", "contextlib",
                    "dataclasses", "io", "json", "math", "os", "re", "statistics",
-                   "sys", "typing", "unicodedata"}
+                   "sys", "typing", "unicodedata",
+                   # corpus_measure.py: fetch, decompress, and checksum the corpus
+                   "gzip", "hashlib", "html", "time", "urllib"}
         scripts = os.path.join(ROOT, "scripts")
         local = {f[:-3] for f in os.listdir(scripts) if f.endswith(".py")}
         bad = []

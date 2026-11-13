@@ -1,0 +1,2237 @@
+{
+  "tool_version": "2.4.0",
+  "registry_version": "2.4.0",
+  "manifest_schema_version": 1,
+  "capture_dates": [
+    "2026-11-13"
+  ],
+  "documents_measured": 48,
+  "prose_words_measured": 88656,
+  "registers": {
+    "essay-blog": {
+      "documents": 12,
+      "prose_words": 22994,
+      "docs_with_finding": 12,
+      "findings": 45,
+      "findings_per_1k_words": 1.957,
+      "docs_with_candidate": 11,
+      "candidates": 55,
+      "candidates_per_1k_words": 2.392,
+      "protected_candidates": 0,
+      "rules": [
+        {
+          "rule_id": "RH.PHRASE_TRIAD",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 10,
+          "findings": 35,
+          "findings_per_1k_words": 1.522,
+          "docs_with_candidate": 10,
+          "candidates": 35,
+          "candidates_per_1k_words": 1.522,
+          "examples": [
+            {
+              "document": "eb-stevenson-idlers",
+              "excerpt": "a decree in absence convicting them of _lèse_-respectabilit…"
+            },
+            {
+              "document": "eb-stevenson-idlers",
+              "excerpt": "takes his determination, votes for the sixpences, and in th…"
+            },
+            {
+              "document": "eb-emerson-self-reliance",
+              "excerpt": "Their mind being whole, their eye is as yet unconquered, an…"
+            }
+          ]
+        },
+        {
+          "rule_id": "RH.FALSE_CONTRAST",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 3,
+          "findings": 4,
+          "findings_per_1k_words": 0.174,
+          "docs_with_candidate": 3,
+          "candidates": 4,
+          "candidates_per_1k_words": 0.174,
+          "examples": [
+            {
+              "document": "eb-chesterton-trifles",
+              "excerpt": "It is not a mere absence of colour; it is"
+            },
+            {
+              "document": "eb-pg-love",
+              "excerpt": "not merely be bad for your career to say that you despised …"
+            },
+            {
+              "document": "eb-pg-hwh",
+              "excerpt": "not merely getting worse results, but"
+            }
+          ]
+        },
+        {
+          "rule_id": "LX.PERFORMATIVE_HONESTY",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 2,
+          "findings": 2,
+          "findings_per_1k_words": 0.087,
+          "docs_with_candidate": 2,
+          "candidates": 2,
+          "candidates_per_1k_words": 0.087,
+          "examples": [
+            {
+              "document": "eb-pg-love",
+              "excerpt": "Honestly,"
+            },
+            {
+              "document": "eb-joel-never-rewrite",
+              "excerpt": "Frankly,"
+            }
+          ]
+        },
+        {
+          "rule_id": "FP.META_NARRATION",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 1,
+          "findings": 1,
+          "findings_per_1k_words": 0.043,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.043,
+          "examples": [
+            {
+              "document": "eb-pg-hwh",
+              "excerpt": "Of course,"
+            }
+          ]
+        },
+        {
+          "rule_id": "FP.UNFILLED_PLACEHOLDER",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 1,
+          "findings": 1,
+          "findings_per_1k_words": 0.043,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.043,
+          "examples": [
+            {
+              "document": "eb-mojombo-rdd",
+              "excerpt": "{{ page.title }}"
+            }
+          ]
+        },
+        {
+          "rule_id": "LX.INFLATED_SIGNIFICANCE",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 1,
+          "findings": 1,
+          "findings_per_1k_words": 0.043,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.043,
+          "examples": [
+            {
+              "document": "eb-mojombo-rdd",
+              "excerpt": "a testament to"
+            }
+          ]
+        },
+        {
+          "rule_id": "ST.FRAGMENT_RUN",
+          "detector": "metric",
+          "profile_status": "full",
+          "docs_with_finding": 1,
+          "findings": 1,
+          "findings_per_1k_words": 0.043,
+          "docs_with_candidate": 0,
+          "candidates": 0,
+          "candidates_per_1k_words": 0.0,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.STOCK_VOCAB_CLUSTER",
+          "detector": "lexicon_cluster",
+          "profile_status": "full",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 3,
+          "candidates": 4,
+          "candidates_per_1k_words": 0.174,
+          "examples": []
+        },
+        {
+          "rule_id": "CL.WORDY_PHRASE",
+          "detector": "regex",
+          "profile_status": "skip",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 3,
+          "candidates": 3,
+          "candidates_per_1k_words": 0.13,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.STOCK_VOCAB_REPEAT",
+          "detector": "repetition",
+          "profile_status": "full",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 3,
+          "candidates": 3,
+          "candidates_per_1k_words": 0.13,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.STOCK_TRANSITION",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.043,
+          "examples": []
+        }
+      ],
+      "metrics": [
+        {
+          "rule_id": "RH.TRIAD_DENSITY",
+          "metric": "triads_per_sentence",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.25,
+          "profile_status": "full",
+          "effective_threshold": 0.25,
+          "docs_with_observations": 12,
+          "observations": 12,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0074,
+            "p10": 0.0143,
+            "p25": 0.0217,
+            "median": 0.033,
+            "p75": 0.0414,
+            "p90": 0.0545,
+            "max": 0.0568
+          }
+        },
+        {
+          "rule_id": "RH.FORCED_SYMMETRY",
+          "metric": "anaphora_run_length",
+          "scope": "paragraph",
+          "observation_unit": "paragraph whose longest same-opener run is at least 2",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "relaxed",
+          "effective_threshold": 6.0,
+          "docs_with_observations": 11,
+          "observations": 34,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 2.0,
+            "p10": 2.0,
+            "p25": 2.0,
+            "median": 2.0,
+            "p75": 2.0,
+            "p90": 3.0,
+            "max": 5.0
+          }
+        },
+        {
+          "rule_id": "RH.MIRRORED_PAIR",
+          "metric": "mirrored_sentence_pairs",
+          "scope": "document",
+          "observation_unit": "document with at least one mirrored sentence pair",
+          "comparison": "gte",
+          "threshold": 2,
+          "profile_status": "relaxed",
+          "effective_threshold": 4.0,
+          "docs_with_observations": 0,
+          "observations": 0,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": null
+        },
+        {
+          "rule_id": "ST.HEADING_DENSITY",
+          "metric": "words_per_heading",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "lt",
+          "threshold": 60,
+          "profile_status": "full",
+          "effective_threshold": 60,
+          "docs_with_observations": 3,
+          "observations": 3,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 371.4,
+            "p10": 371.4,
+            "p25": 371.4,
+            "median": 450.0,
+            "p75": 759.0,
+            "p90": 759.0,
+            "max": 759.0
+          }
+        },
+        {
+          "rule_id": "ST.HEADING_FRAME_REPEAT",
+          "metric": "repeated_heading_frames",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "full",
+          "effective_threshold": 3,
+          "docs_with_observations": 12,
+          "observations": 12,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 1.0,
+            "max": 2.0
+          }
+        },
+        {
+          "rule_id": "ST.LABELED_BULLET_RUN",
+          "metric": "labeled_bullet_ratio",
+          "scope": "section",
+          "observation_unit": "section with at least min_bullets list items",
+          "comparison": "gt",
+          "threshold": 0.5,
+          "profile_status": "full",
+          "effective_threshold": 0.5,
+          "docs_with_observations": 4,
+          "observations": 5,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "max": 0.0
+          }
+        },
+        {
+          "rule_id": "ST.DASH_DENSITY",
+          "metric": "em_dashes_per_word",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.00833,
+          "profile_status": "relaxed",
+          "effective_threshold": 0.01666,
+          "docs_with_observations": 12,
+          "observations": 12,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.002,
+            "p75": 0.0024,
+            "p90": 0.0034,
+            "max": 0.0042
+          }
+        },
+        {
+          "rule_id": "ST.UNIFORM_RHYTHM",
+          "metric": "sentence_len_stdev",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "lt",
+          "threshold": 4,
+          "profile_status": "full",
+          "effective_threshold": 4,
+          "docs_with_observations": 12,
+          "observations": 12,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 6.8,
+            "p10": 8.1,
+            "p25": 10.1,
+            "median": 11.5,
+            "p75": 12.8,
+            "p90": 14.1,
+            "max": 16.5
+          }
+        },
+        {
+          "rule_id": "ST.FRAGMENT_RUN",
+          "metric": "consecutive_short_sentences",
+          "scope": "paragraph",
+          "observation_unit": "paragraph containing at least one sentence of 5 words or fewer",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "full",
+          "effective_threshold": 3,
+          "docs_with_observations": 11,
+          "observations": 41,
+          "crossing_effective_threshold": 1,
+          "docs_crossing": 1,
+          "distribution": {
+            "min": 1.0,
+            "p10": 1.0,
+            "p25": 1.0,
+            "median": 1.0,
+            "p75": 1.0,
+            "p90": 2.0,
+            "max": 3.0
+          }
+        },
+        {
+          "rule_id": "ST.SENTENCE_CONTINUITY",
+          "metric": "low_continuity_ratio",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.75,
+          "profile_status": "full",
+          "effective_threshold": 0.75,
+          "docs_with_observations": 12,
+          "observations": 12,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.349,
+            "p10": 0.384,
+            "p25": 0.396,
+            "median": 0.418,
+            "p75": 0.563,
+            "p90": 0.616,
+            "max": 0.638
+          }
+        }
+      ],
+      "cross_file_template": {
+        "files": 12,
+        "ngram_size": 5,
+        "minimum_files": 3,
+        "repeated_phrases": 0,
+        "top_phrases": [],
+        "repeated_openings": 0,
+        "repeated_heading_frames": 0
+      }
+    },
+    "general-prose": {
+      "documents": 10,
+      "prose_words": 21848,
+      "docs_with_finding": 7,
+      "findings": 39,
+      "findings_per_1k_words": 1.785,
+      "docs_with_candidate": 9,
+      "candidates": 36,
+      "candidates_per_1k_words": 1.648,
+      "protected_candidates": 0,
+      "rules": [
+        {
+          "rule_id": "RH.PHRASE_TRIAD",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 5,
+          "findings": 25,
+          "findings_per_1k_words": 1.144,
+          "docs_with_candidate": 8,
+          "candidates": 28,
+          "candidates_per_1k_words": 1.282,
+          "examples": [
+            {
+              "document": "gp-wiki-sourdough",
+              "excerpt": "Sourdough cultures contain communities of living organisms,…"
+            },
+            {
+              "document": "gp-wiki-sourdough",
+              "excerpt": "grown into large, homogeneous populations in fermentors, an…"
+            },
+            {
+              "document": "gp-wiki-pencil",
+              "excerpt": "two wooden halves were carved, a graphite stick inserted, a…"
+            }
+          ]
+        },
+        {
+          "rule_id": "RH.FORCED_SYMMETRY",
+          "detector": "metric",
+          "profile_status": "full",
+          "docs_with_finding": 5,
+          "findings": 8,
+          "findings_per_1k_words": 0.366,
+          "docs_with_candidate": 0,
+          "candidates": 0,
+          "candidates_per_1k_words": 0.0,
+          "examples": []
+        },
+        {
+          "rule_id": "ST.HEADING_FRAME_REPEAT",
+          "detector": "metric",
+          "profile_status": "full",
+          "docs_with_finding": 2,
+          "findings": 2,
+          "findings_per_1k_words": 0.092,
+          "docs_with_candidate": 0,
+          "candidates": 0,
+          "candidates_per_1k_words": 0.0,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.INFLATED_SIGNIFICANCE",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 1,
+          "findings": 1,
+          "findings_per_1k_words": 0.046,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.046,
+          "examples": [
+            {
+              "document": "gp-wiki-pencil",
+              "excerpt": "indelible mark"
+            }
+          ]
+        },
+        {
+          "rule_id": "LX.VAGUE_AUTHORITY",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 1,
+          "findings": 1,
+          "findings_per_1k_words": 0.046,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.046,
+          "examples": [
+            {
+              "document": "gp-wiki-tide-pool",
+              "excerpt": "studies have shown"
+            }
+          ]
+        },
+        {
+          "rule_id": "RH.APHORISM_CLOSER",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 1,
+          "findings": 1,
+          "findings_per_1k_words": 0.046,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.046,
+          "examples": [
+            {
+              "document": "gp-wiki-umbrella",
+              "excerpt": "period."
+            }
+          ]
+        },
+        {
+          "rule_id": "RH.FALSE_CONTRAST",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 1,
+          "findings": 1,
+          "findings_per_1k_words": 0.046,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.046,
+          "examples": [
+            {
+              "document": "gp-huxley-chalk",
+              "excerpt": "Not only here, but"
+            }
+          ]
+        },
+        {
+          "rule_id": "CL.WORDY_PHRASE",
+          "detector": "regex",
+          "profile_status": "skip",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 2,
+          "candidates": 2,
+          "candidates_per_1k_words": 0.092,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.ASSOCIATION_VAGUENESS",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 2,
+          "candidates": 2,
+          "candidates_per_1k_words": 0.092,
+          "examples": []
+        }
+      ],
+      "metrics": [
+        {
+          "rule_id": "RH.TRIAD_DENSITY",
+          "metric": "triads_per_sentence",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.25,
+          "profile_status": "full",
+          "effective_threshold": 0.25,
+          "docs_with_observations": 10,
+          "observations": 10,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.069,
+            "p10": 0.0763,
+            "p25": 0.082,
+            "median": 0.0854,
+            "p75": 0.1321,
+            "p90": 0.1398,
+            "max": 0.1408
+          }
+        },
+        {
+          "rule_id": "RH.FORCED_SYMMETRY",
+          "metric": "anaphora_run_length",
+          "scope": "paragraph",
+          "observation_unit": "paragraph whose longest same-opener run is at least 2",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "full",
+          "effective_threshold": 3,
+          "docs_with_observations": 10,
+          "observations": 53,
+          "crossing_effective_threshold": 8,
+          "docs_crossing": 5,
+          "distribution": {
+            "min": 2.0,
+            "p10": 2.0,
+            "p25": 2.0,
+            "median": 2.0,
+            "p75": 2.0,
+            "p90": 3.0,
+            "max": 4.0
+          }
+        },
+        {
+          "rule_id": "RH.MIRRORED_PAIR",
+          "metric": "mirrored_sentence_pairs",
+          "scope": "document",
+          "observation_unit": "document with at least one mirrored sentence pair",
+          "comparison": "gte",
+          "threshold": 2,
+          "profile_status": "full",
+          "effective_threshold": 2,
+          "docs_with_observations": 0,
+          "observations": 0,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": null
+        },
+        {
+          "rule_id": "ST.HEADING_DENSITY",
+          "metric": "words_per_heading",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "lt",
+          "threshold": 60,
+          "profile_status": "full",
+          "effective_threshold": 60,
+          "docs_with_observations": 8,
+          "observations": 8,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 81.4,
+            "p10": 136.9,
+            "p25": 175.3,
+            "median": 253.8,
+            "p75": 297.0,
+            "p90": 345.3,
+            "max": 419.8
+          }
+        },
+        {
+          "rule_id": "ST.HEADING_FRAME_REPEAT",
+          "metric": "repeated_heading_frames",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "full",
+          "effective_threshold": 3,
+          "docs_with_observations": 10,
+          "observations": 10,
+          "crossing_effective_threshold": 2,
+          "docs_crossing": 2,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 1.0,
+            "median": 1.0,
+            "p75": 2.0,
+            "p90": 4.0,
+            "max": 6.0
+          }
+        },
+        {
+          "rule_id": "ST.LABELED_BULLET_RUN",
+          "metric": "labeled_bullet_ratio",
+          "scope": "section",
+          "observation_unit": "section with at least min_bullets list items",
+          "comparison": "gt",
+          "threshold": 0.5,
+          "profile_status": "full",
+          "effective_threshold": 0.5,
+          "docs_with_observations": 3,
+          "observations": 3,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "max": 0.0
+          }
+        },
+        {
+          "rule_id": "ST.DASH_DENSITY",
+          "metric": "em_dashes_per_word",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.00833,
+          "profile_status": "full",
+          "effective_threshold": 0.00833,
+          "docs_with_observations": 10,
+          "observations": 10,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0004,
+            "p75": 0.0016,
+            "p90": 0.003,
+            "max": 0.0069
+          }
+        },
+        {
+          "rule_id": "ST.UNIFORM_RHYTHM",
+          "metric": "sentence_len_stdev",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "lt",
+          "threshold": 4,
+          "profile_status": "full",
+          "effective_threshold": 4,
+          "docs_with_observations": 10,
+          "observations": 10,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 9.0,
+            "p10": 9.0,
+            "p25": 10.2,
+            "median": 11.1,
+            "p75": 14.8,
+            "p90": 17.8,
+            "max": 23.5
+          }
+        },
+        {
+          "rule_id": "ST.FRAGMENT_RUN",
+          "metric": "consecutive_short_sentences",
+          "scope": "paragraph",
+          "observation_unit": "paragraph containing at least one sentence of 5 words or fewer",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "full",
+          "effective_threshold": 3,
+          "docs_with_observations": 7,
+          "observations": 10,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 1.0,
+            "p10": 1.0,
+            "p25": 1.0,
+            "median": 1.0,
+            "p75": 1.0,
+            "p90": 1.0,
+            "max": 1.0
+          }
+        },
+        {
+          "rule_id": "ST.SENTENCE_CONTINUITY",
+          "metric": "low_continuity_ratio",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.75,
+          "profile_status": "full",
+          "effective_threshold": 0.75,
+          "docs_with_observations": 10,
+          "observations": 10,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.243,
+            "p10": 0.261,
+            "p25": 0.286,
+            "median": 0.308,
+            "p75": 0.333,
+            "p90": 0.35,
+            "max": 0.394
+          }
+        }
+      ],
+      "cross_file_template": {
+        "files": 10,
+        "ngram_size": 5,
+        "minimum_files": 3,
+        "repeated_phrases": 0,
+        "top_phrases": [],
+        "repeated_openings": 0,
+        "repeated_heading_frames": 1
+      }
+    },
+    "legal-policy": {
+      "documents": 13,
+      "prose_words": 26146,
+      "docs_with_finding": 6,
+      "findings": 21,
+      "findings_per_1k_words": 0.803,
+      "docs_with_candidate": 13,
+      "candidates": 59,
+      "candidates_per_1k_words": 2.257,
+      "protected_candidates": 1,
+      "rules": [
+        {
+          "rule_id": "RH.PHRASE_TRIAD",
+          "detector": "regex",
+          "profile_status": "relaxed",
+          "docs_with_finding": 3,
+          "findings": 12,
+          "findings_per_1k_words": 0.459,
+          "docs_with_candidate": 10,
+          "candidates": 25,
+          "candidates_per_1k_words": 0.956,
+          "examples": [
+            {
+              "document": "lp-apache-2.0",
+              "excerpt": "not limited to communication on electronic mailing lists, s…"
+            },
+            {
+              "document": "lp-apache-2.0",
+              "excerpt": "Work or Derivative Works thereof in any medium, with or wit…"
+            },
+            {
+              "document": "lp-github-tos",
+              "excerpt": "accepts the Terms on behalf of the Account, provides a vali…"
+            }
+          ]
+        },
+        {
+          "rule_id": "RH.TRIAD_DENSITY",
+          "detector": "metric",
+          "profile_status": "relaxed",
+          "docs_with_finding": 3,
+          "findings": 3,
+          "findings_per_1k_words": 0.115,
+          "docs_with_candidate": 0,
+          "candidates": 0,
+          "candidates_per_1k_words": 0.0,
+          "examples": []
+        },
+        {
+          "rule_id": "RH.APHORISM_CLOSER",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 2,
+          "findings": 2,
+          "findings_per_1k_words": 0.076,
+          "docs_with_candidate": 2,
+          "candidates": 2,
+          "candidates_per_1k_words": 0.076,
+          "examples": [
+            {
+              "document": "lp-contributor-covenant-2.0",
+              "excerpt": "period."
+            },
+            {
+              "document": "lp-rfc2026",
+              "excerpt": "period."
+            }
+          ]
+        },
+        {
+          "rule_id": "RH.FORCED_SYMMETRY",
+          "detector": "metric",
+          "profile_status": "relaxed",
+          "docs_with_finding": 2,
+          "findings": 2,
+          "findings_per_1k_words": 0.076,
+          "docs_with_candidate": 0,
+          "candidates": 0,
+          "candidates_per_1k_words": 0.0,
+          "examples": []
+        },
+        {
+          "rule_id": "FP.META_NARRATION",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 1,
+          "findings": 1,
+          "findings_per_1k_words": 0.038,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.038,
+          "examples": [
+            {
+              "document": "lp-github-privacy",
+              "excerpt": "Of course,"
+            }
+          ]
+        },
+        {
+          "rule_id": "FP.UNFILLED_PLACEHOLDER",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 1,
+          "findings": 1,
+          "findings_per_1k_words": 0.038,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.038,
+          "examples": [
+            {
+              "document": "lp-contributor-covenant-2.0",
+              "excerpt": "[INSERT CONTACT METHOD]"
+            }
+          ]
+        },
+        {
+          "rule_id": "LX.ASSOCIATION_VAGUENESS",
+          "detector": "regex",
+          "profile_status": "skip",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 6,
+          "candidates": 19,
+          "candidates_per_1k_words": 0.727,
+          "examples": []
+        },
+        {
+          "rule_id": "CL.WORDY_PHRASE",
+          "detector": "regex",
+          "profile_status": "skip",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 5,
+          "candidates": 6,
+          "candidates_per_1k_words": 0.229,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.STOCK_TRANSITION",
+          "detector": "regex",
+          "profile_status": "relaxed",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 2,
+          "candidates": 2,
+          "candidates_per_1k_words": 0.076,
+          "examples": []
+        },
+        {
+          "rule_id": "RH.FALSE_CONTRAST",
+          "detector": "regex",
+          "profile_status": "relaxed",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 2,
+          "candidates": 2,
+          "candidates_per_1k_words": 0.076,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.COPULA_AVOIDANCE",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.038,
+          "examples": []
+        }
+      ],
+      "metrics": [
+        {
+          "rule_id": "RH.TRIAD_DENSITY",
+          "metric": "triads_per_sentence",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.25,
+          "profile_status": "relaxed",
+          "effective_threshold": 0.5,
+          "docs_with_observations": 13,
+          "observations": 13,
+          "crossing_effective_threshold": 3,
+          "docs_crossing": 3,
+          "distribution": {
+            "min": 0.1,
+            "p10": 0.1125,
+            "p25": 0.1477,
+            "median": 0.1915,
+            "p75": 0.3939,
+            "p90": 0.5882,
+            "max": 0.6222
+          }
+        },
+        {
+          "rule_id": "RH.FORCED_SYMMETRY",
+          "metric": "anaphora_run_length",
+          "scope": "paragraph",
+          "observation_unit": "paragraph whose longest same-opener run is at least 2",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "relaxed",
+          "effective_threshold": 6.0,
+          "docs_with_observations": 10,
+          "observations": 30,
+          "crossing_effective_threshold": 2,
+          "docs_crossing": 2,
+          "distribution": {
+            "min": 2.0,
+            "p10": 2.0,
+            "p25": 2.0,
+            "median": 2.0,
+            "p75": 2.0,
+            "p90": 3.0,
+            "max": 12.0
+          }
+        },
+        {
+          "rule_id": "RH.MIRRORED_PAIR",
+          "metric": "mirrored_sentence_pairs",
+          "scope": "document",
+          "observation_unit": "document with at least one mirrored sentence pair",
+          "comparison": "gte",
+          "threshold": 2,
+          "profile_status": "relaxed",
+          "effective_threshold": 4.0,
+          "docs_with_observations": 0,
+          "observations": 0,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": null
+        },
+        {
+          "rule_id": "ST.HEADING_DENSITY",
+          "metric": "words_per_heading",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "lt",
+          "threshold": 60,
+          "profile_status": "relaxed",
+          "effective_threshold": 30.0,
+          "docs_with_observations": 6,
+          "observations": 6,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 54.8,
+            "p10": 54.8,
+            "p25": 87.7,
+            "median": 119.0,
+            "p75": 222.4,
+            "p90": 222.4,
+            "max": 223.3
+          }
+        },
+        {
+          "rule_id": "ST.HEADING_FRAME_REPEAT",
+          "metric": "repeated_heading_frames",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "relaxed",
+          "effective_threshold": 6.0,
+          "docs_with_observations": 13,
+          "observations": 13,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 1.0,
+            "p90": 2.0,
+            "max": 3.0
+          }
+        },
+        {
+          "rule_id": "ST.LABELED_BULLET_RUN",
+          "metric": "labeled_bullet_ratio",
+          "scope": "section",
+          "observation_unit": "section with at least min_bullets list items",
+          "comparison": "gt",
+          "threshold": 0.5,
+          "profile_status": "relaxed",
+          "effective_threshold": 1.0,
+          "docs_with_observations": 11,
+          "observations": 15,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "max": 0.0
+          }
+        },
+        {
+          "rule_id": "ST.DASH_DENSITY",
+          "metric": "em_dashes_per_word",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.00833,
+          "profile_status": "relaxed",
+          "effective_threshold": 0.01666,
+          "docs_with_observations": 13,
+          "observations": 13,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0004,
+            "p75": 0.0016,
+            "p90": 0.0034,
+            "max": 0.0082
+          }
+        },
+        {
+          "rule_id": "ST.UNIFORM_RHYTHM",
+          "metric": "sentence_len_stdev",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "lt",
+          "threshold": 4,
+          "profile_status": "relaxed",
+          "effective_threshold": 2.0,
+          "docs_with_observations": 13,
+          "observations": 13,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 13.3,
+            "p10": 14.7,
+            "p25": 18.8,
+            "median": 28.8,
+            "p75": 35.5,
+            "p90": 45.5,
+            "max": 51.5
+          }
+        },
+        {
+          "rule_id": "ST.FRAGMENT_RUN",
+          "metric": "consecutive_short_sentences",
+          "scope": "paragraph",
+          "observation_unit": "paragraph containing at least one sentence of 5 words or fewer",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "relaxed",
+          "effective_threshold": 6.0,
+          "docs_with_observations": 8,
+          "observations": 29,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 1.0,
+            "p10": 1.0,
+            "p25": 1.0,
+            "median": 1.0,
+            "p75": 1.0,
+            "p90": 1.0,
+            "max": 2.0
+          }
+        },
+        {
+          "rule_id": "ST.SENTENCE_CONTINUITY",
+          "metric": "low_continuity_ratio",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.75,
+          "profile_status": "skip",
+          "effective_threshold": null,
+          "docs_with_observations": 13,
+          "observations": 13,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.043,
+            "p10": 0.108,
+            "p25": 0.172,
+            "median": 0.256,
+            "p75": 0.295,
+            "p90": 0.342,
+            "max": 0.35
+          }
+        }
+      ],
+      "cross_file_template": {
+        "files": 13,
+        "ngram_size": 5,
+        "minimum_files": 3,
+        "repeated_phrases": 4,
+        "top_phrases": [
+          {
+            "phrase": "including but not limited to",
+            "file_count": 4
+          },
+          {
+            "phrase": "a copy of this license",
+            "file_count": 3
+          },
+          {
+            "phrase": "of the possibility of such",
+            "file_count": 3
+          },
+          {
+            "phrase": "you are solely responsible for",
+            "file_count": 3
+          }
+        ],
+        "repeated_openings": 0,
+        "repeated_heading_frames": 4
+      }
+    },
+    "technical-docs": {
+      "documents": 13,
+      "prose_words": 17668,
+      "docs_with_finding": 6,
+      "findings": 12,
+      "findings_per_1k_words": 0.679,
+      "docs_with_candidate": 9,
+      "candidates": 43,
+      "candidates_per_1k_words": 2.434,
+      "protected_candidates": 5,
+      "rules": [
+        {
+          "rule_id": "CL.WORDY_PHRASE",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 2,
+          "findings": 7,
+          "findings_per_1k_words": 0.396,
+          "docs_with_candidate": 2,
+          "candidates": 7,
+          "candidates_per_1k_words": 0.396,
+          "examples": [
+            {
+              "document": "td-rust-book-ownership",
+              "excerpt": "in order to"
+            },
+            {
+              "document": "td-redis-readme",
+              "excerpt": "in order to"
+            },
+            {
+              "document": "td-redis-readme",
+              "excerpt": "In order to"
+            }
+          ]
+        },
+        {
+          "rule_id": "FP.META_NARRATION",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 2,
+          "findings": 2,
+          "findings_per_1k_words": 0.113,
+          "docs_with_candidate": 2,
+          "candidates": 2,
+          "candidates_per_1k_words": 0.113,
+          "examples": [
+            {
+              "document": "td-homebrew-faq",
+              "excerpt": "Of course,"
+            },
+            {
+              "document": "td-ts-handbook-basics",
+              "excerpt": "Of course,"
+            }
+          ]
+        },
+        {
+          "rule_id": "ST.HEADING_FRAME_REPEAT",
+          "detector": "metric",
+          "profile_status": "relaxed",
+          "docs_with_finding": 2,
+          "findings": 2,
+          "findings_per_1k_words": 0.113,
+          "docs_with_candidate": 0,
+          "candidates": 0,
+          "candidates_per_1k_words": 0.0,
+          "examples": []
+        },
+        {
+          "rule_id": "FP.UNFILLED_PLACEHOLDER",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 1,
+          "findings": 1,
+          "findings_per_1k_words": 0.057,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.057,
+          "examples": [
+            {
+              "document": "td-k8s-what-is",
+              "excerpt": "{{% heading \"whatsnext\" %}}"
+            }
+          ]
+        },
+        {
+          "rule_id": "RH.PHRASE_TRIAD",
+          "detector": "regex",
+          "profile_status": "relaxed",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 5,
+          "candidates": 10,
+          "candidates_per_1k_words": 0.566,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.STOCK_TRANSITION",
+          "detector": "regex",
+          "profile_status": "relaxed",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 5,
+          "candidates": 7,
+          "candidates_per_1k_words": 0.396,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.STOCK_VOCAB_CLUSTER",
+          "detector": "lexicon_cluster",
+          "profile_status": "relaxed",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 5,
+          "candidates": 5,
+          "candidates_per_1k_words": 0.283,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.STOCK_VOCAB_REPEAT",
+          "detector": "repetition",
+          "profile_status": "relaxed",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 5,
+          "candidates": 5,
+          "candidates_per_1k_words": 0.283,
+          "examples": []
+        },
+        {
+          "rule_id": "RH.FALSE_CONTRAST",
+          "detector": "regex",
+          "profile_status": "relaxed",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 3,
+          "candidates": 3,
+          "candidates_per_1k_words": 0.17,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.ASSOCIATION_VAGUENESS",
+          "detector": "regex",
+          "profile_status": "relaxed",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 2,
+          "candidates": 2,
+          "candidates_per_1k_words": 0.113,
+          "examples": []
+        },
+        {
+          "rule_id": "LX.COPULA_AVOIDANCE",
+          "detector": "regex",
+          "profile_status": "full",
+          "docs_with_finding": 0,
+          "findings": 0,
+          "findings_per_1k_words": 0.0,
+          "docs_with_candidate": 1,
+          "candidates": 1,
+          "candidates_per_1k_words": 0.057,
+          "examples": []
+        }
+      ],
+      "metrics": [
+        {
+          "rule_id": "RH.TRIAD_DENSITY",
+          "metric": "triads_per_sentence",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.25,
+          "profile_status": "relaxed",
+          "effective_threshold": 0.5,
+          "docs_with_observations": 12,
+          "observations": 12,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 0.0102,
+            "median": 0.0183,
+            "p75": 0.0303,
+            "p90": 0.0909,
+            "max": 0.3696
+          }
+        },
+        {
+          "rule_id": "RH.FORCED_SYMMETRY",
+          "metric": "anaphora_run_length",
+          "scope": "paragraph",
+          "observation_unit": "paragraph whose longest same-opener run is at least 2",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "relaxed",
+          "effective_threshold": 6.0,
+          "docs_with_observations": 5,
+          "observations": 16,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 2.0,
+            "p10": 2.0,
+            "p25": 2.0,
+            "median": 2.0,
+            "p75": 2.0,
+            "p90": 3.0,
+            "max": 3.0
+          }
+        },
+        {
+          "rule_id": "RH.MIRRORED_PAIR",
+          "metric": "mirrored_sentence_pairs",
+          "scope": "document",
+          "observation_unit": "document with at least one mirrored sentence pair",
+          "comparison": "gte",
+          "threshold": 2,
+          "profile_status": "relaxed",
+          "effective_threshold": 4.0,
+          "docs_with_observations": 0,
+          "observations": 0,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": null
+        },
+        {
+          "rule_id": "ST.HEADING_DENSITY",
+          "metric": "words_per_heading",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "lt",
+          "threshold": 60,
+          "profile_status": "relaxed",
+          "effective_threshold": 30.0,
+          "docs_with_observations": 10,
+          "observations": 10,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 49.6,
+            "p10": 59.3,
+            "p25": 92.9,
+            "median": 126.9,
+            "p75": 262.4,
+            "p90": 312.0,
+            "max": 379.5
+          }
+        },
+        {
+          "rule_id": "ST.HEADING_FRAME_REPEAT",
+          "metric": "repeated_heading_frames",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "relaxed",
+          "effective_threshold": 6.0,
+          "docs_with_observations": 11,
+          "observations": 11,
+          "crossing_effective_threshold": 2,
+          "docs_crossing": 2,
+          "distribution": {
+            "min": 0.0,
+            "p10": 1.0,
+            "p25": 1.0,
+            "median": 2.0,
+            "p75": 5.0,
+            "p90": 9.0,
+            "max": 12.0
+          }
+        },
+        {
+          "rule_id": "ST.LABELED_BULLET_RUN",
+          "metric": "labeled_bullet_ratio",
+          "scope": "section",
+          "observation_unit": "section with at least min_bullets list items",
+          "comparison": "gt",
+          "threshold": 0.5,
+          "profile_status": "relaxed",
+          "effective_threshold": 1.0,
+          "docs_with_observations": 10,
+          "observations": 18,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "max": 0.5
+          }
+        },
+        {
+          "rule_id": "ST.DASH_DENSITY",
+          "metric": "em_dashes_per_word",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.00833,
+          "profile_status": "relaxed",
+          "effective_threshold": 0.01666,
+          "docs_with_observations": 12,
+          "observations": 12,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "median": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "max": 0.0138
+          }
+        },
+        {
+          "rule_id": "ST.UNIFORM_RHYTHM",
+          "metric": "sentence_len_stdev",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "lt",
+          "threshold": 4,
+          "profile_status": "relaxed",
+          "effective_threshold": 2.0,
+          "docs_with_observations": 11,
+          "observations": 11,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 9.7,
+            "p10": 9.9,
+            "p25": 10.7,
+            "median": 14.9,
+            "p75": 17.5,
+            "p90": 23.6,
+            "max": 28.8
+          }
+        },
+        {
+          "rule_id": "ST.FRAGMENT_RUN",
+          "metric": "consecutive_short_sentences",
+          "scope": "paragraph",
+          "observation_unit": "paragraph containing at least one sentence of 5 words or fewer",
+          "comparison": "gte",
+          "threshold": 3,
+          "profile_status": "relaxed",
+          "effective_threshold": 6.0,
+          "docs_with_observations": 9,
+          "observations": 14,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 1.0,
+            "p10": 1.0,
+            "p25": 1.0,
+            "median": 1.0,
+            "p75": 1.0,
+            "p90": 3.0,
+            "max": 3.0
+          }
+        },
+        {
+          "rule_id": "ST.SENTENCE_CONTINUITY",
+          "metric": "low_continuity_ratio",
+          "scope": "document",
+          "observation_unit": "document meeting the rule's min_words and min_sentences",
+          "comparison": "gt",
+          "threshold": 0.75,
+          "profile_status": "skip",
+          "effective_threshold": null,
+          "docs_with_observations": 11,
+          "observations": 11,
+          "crossing_effective_threshold": 0,
+          "docs_crossing": 0,
+          "distribution": {
+            "min": 0.171,
+            "p10": 0.222,
+            "p25": 0.291,
+            "median": 0.372,
+            "p75": 0.432,
+            "p90": 0.451,
+            "max": 0.606
+          }
+        }
+      ],
+      "cross_file_template": {
+        "files": 13,
+        "ngram_size": 5,
+        "minimum_files": 3,
+        "repeated_phrases": 2,
+        "top_phrases": [
+          {
+            "phrase": "at the top of the",
+            "file_count": 3
+          },
+          {
+            "phrase": "let's take a look at",
+            "file_count": 3
+          }
+        ],
+        "repeated_openings": 0,
+        "repeated_heading_frames": 1
+      }
+    }
+  },
+  "documents": [
+    {
+      "id": "td-requests-readme",
+      "register": "technical-docs",
+      "source_type": "git-tag",
+      "written": "2020-12-16",
+      "words_scanned": 145,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 2
+    },
+    {
+      "id": "td-ripgrep-guide",
+      "register": "technical-docs",
+      "source_type": "git-tag",
+      "written": "2021-06-12",
+      "words_scanned": 1809,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 4
+    },
+    {
+      "id": "td-rust-book-ownership",
+      "register": "technical-docs",
+      "source_type": "git-commit",
+      "written": "2021-11-19",
+      "words_scanned": 2277,
+      "findings": 1,
+      "findings_by_rule": {
+        "CL.WORDY_PHRASE": 1
+      },
+      "candidates": 3
+    },
+    {
+      "id": "td-react-thinking",
+      "register": "technical-docs",
+      "source_type": "git-commit",
+      "written": "2021-10-13",
+      "words_scanned": 1628,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 0
+    },
+    {
+      "id": "td-k8s-what-is",
+      "register": "technical-docs",
+      "source_type": "git-commit",
+      "written": "2021-07-23",
+      "words_scanned": 1248,
+      "findings": 1,
+      "findings_by_rule": {
+        "FP.UNFILLED_PLACEHOLDER": 1
+      },
+      "candidates": 4
+    },
+    {
+      "id": "td-node-events",
+      "register": "technical-docs",
+      "source_type": "git-tag",
+      "written": "2020-04-21",
+      "words_scanned": 1423,
+      "findings": 1,
+      "findings_by_rule": {
+        "ST.HEADING_FRAME_REPEAT": 1
+      },
+      "candidates": 0
+    },
+    {
+      "id": "td-homebrew-faq",
+      "register": "technical-docs",
+      "source_type": "git-tag",
+      "written": "2021-02-01",
+      "words_scanned": 1240,
+      "findings": 2,
+      "findings_by_rule": {
+        "FP.META_NARRATION": 1,
+        "ST.HEADING_FRAME_REPEAT": 1
+      },
+      "candidates": 6
+    },
+    {
+      "id": "td-jekyll-structure",
+      "register": "technical-docs",
+      "source_type": "git-tag",
+      "written": "2020-12-14",
+      "words_scanned": 58,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 0
+    },
+    {
+      "id": "td-vue-introduction",
+      "register": "technical-docs",
+      "source_type": "git-commit",
+      "written": "2021-12-19",
+      "words_scanned": 960,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 4
+    },
+    {
+      "id": "td-ts-handbook-basics",
+      "register": "technical-docs",
+      "source_type": "git-commit",
+      "written": "2021-10-15",
+      "words_scanned": 1837,
+      "findings": 1,
+      "findings_by_rule": {
+        "FP.META_NARRATION": 1
+      },
+      "candidates": 4
+    },
+    {
+      "id": "td-curl-cookies",
+      "register": "technical-docs",
+      "source_type": "git-tag",
+      "written": "2021-11-10",
+      "words_scanned": 743,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 0
+    },
+    {
+      "id": "td-redis-readme",
+      "register": "technical-docs",
+      "source_type": "git-tag",
+      "written": "2021-02-22",
+      "words_scanned": 2157,
+      "findings": 6,
+      "findings_by_rule": {
+        "CL.WORDY_PHRASE": 6
+      },
+      "candidates": 11
+    },
+    {
+      "id": "td-rfc1958",
+      "register": "technical-docs",
+      "source_type": "rfc",
+      "written": "1996-06",
+      "words_scanned": 2143,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 5
+    },
+    {
+      "id": "eb-stevenson-idlers",
+      "register": "essay-blog",
+      "source_type": "wayback-snapshot",
+      "written": "1877",
+      "words_scanned": 2265,
+      "findings": 7,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 7
+      },
+      "candidates": 8
+    },
+    {
+      "id": "eb-emerson-self-reliance",
+      "register": "essay-blog",
+      "source_type": "wayback-snapshot",
+      "written": "1841",
+      "words_scanned": 2438,
+      "findings": 2,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 2
+      },
+      "candidates": 2
+    },
+    {
+      "id": "eb-chesterton-trifles",
+      "register": "essay-blog",
+      "source_type": "wayback-snapshot",
+      "written": "1909",
+      "words_scanned": 2493,
+      "findings": 3,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 2,
+        "RH.FALSE_CONTRAST": 1
+      },
+      "candidates": 4
+    },
+    {
+      "id": "eb-twain-cooper",
+      "register": "essay-blog",
+      "source_type": "wayback-snapshot",
+      "written": "1895",
+      "words_scanned": 2330,
+      "findings": 7,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 7
+      },
+      "candidates": 7
+    },
+    {
+      "id": "eb-pg-love",
+      "register": "essay-blog",
+      "source_type": "wayback-snapshot",
+      "written": "2006-01",
+      "words_scanned": 2450,
+      "findings": 5,
+      "findings_by_rule": {
+        "RH.FALSE_CONTRAST": 1,
+        "RH.PHRASE_TRIAD": 3,
+        "LX.PERFORMATIVE_HONESTY": 1
+      },
+      "candidates": 5
+    },
+    {
+      "id": "eb-pg-ds",
+      "register": "essay-blog",
+      "source_type": "wayback-snapshot",
+      "written": "2013-07",
+      "words_scanned": 2394,
+      "findings": 2,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 2
+      },
+      "candidates": 5
+    },
+    {
+      "id": "eb-pg-hwh",
+      "register": "essay-blog",
+      "source_type": "wayback-snapshot",
+      "written": "2021-06",
+      "words_scanned": 2479,
+      "findings": 7,
+      "findings_by_rule": {
+        "FP.META_NARRATION": 1,
+        "RH.PHRASE_TRIAD": 4,
+        "RH.FALSE_CONTRAST": 2
+      },
+      "candidates": 8
+    },
+    {
+      "id": "eb-joel-never-rewrite",
+      "register": "essay-blog",
+      "source_type": "wayback-snapshot",
+      "written": "2000-04-06",
+      "words_scanned": 1427,
+      "findings": 3,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 2,
+        "LX.PERFORMATIVE_HONESTY": 1
+      },
+      "candidates": 5
+    },
+    {
+      "id": "eb-overreacted-clean-code",
+      "register": "essay-blog",
+      "source_type": "wayback-snapshot",
+      "written": "2020-01-11",
+      "words_scanned": 900,
+      "findings": 1,
+      "findings_by_rule": {
+        "ST.FRAGMENT_RUN": 1
+      },
+      "candidates": 0
+    },
+    {
+      "id": "eb-overreacted-dont-know",
+      "register": "essay-blog",
+      "source_type": "wayback-snapshot",
+      "written": "2018-12-28",
+      "words_scanned": 1202,
+      "findings": 3,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 3
+      },
+      "candidates": 3
+    },
+    {
+      "id": "eb-mojombo-rdd",
+      "register": "essay-blog",
+      "source_type": "git-commit",
+      "written": "2010-08-23",
+      "words_scanned": 759,
+      "findings": 2,
+      "findings_by_rule": {
+        "FP.UNFILLED_PLACEHOLDER": 1,
+        "LX.INFLATED_SIGNIFICANCE": 1
+      },
+      "candidates": 5
+    },
+    {
+      "id": "eb-rust-fearless-concurrency",
+      "register": "essay-blog",
+      "source_type": "git-commit",
+      "written": "2015-04-10",
+      "words_scanned": 1857,
+      "findings": 3,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 3
+      },
+      "candidates": 3
+    },
+    {
+      "id": "lp-apache-2.0",
+      "register": "legal-policy",
+      "source_type": "git-tag",
+      "written": "2004-01",
+      "words_scanned": 1584,
+      "findings": 5,
+      "findings_by_rule": {
+        "RH.TRIAD_DENSITY": 1,
+        "RH.PHRASE_TRIAD": 4
+      },
+      "candidates": 5
+    },
+    {
+      "id": "lp-gpl-3.0",
+      "register": "legal-policy",
+      "source_type": "git-tag",
+      "written": "2007-06-29",
+      "words_scanned": 2421,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 2
+    },
+    {
+      "id": "lp-mpl-2.0",
+      "register": "legal-policy",
+      "source_type": "git-tag",
+      "written": "2012-01",
+      "words_scanned": 2403,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 4
+    },
+    {
+      "id": "lp-cc-by-4.0",
+      "register": "legal-policy",
+      "source_type": "git-tag",
+      "written": "2013-11",
+      "words_scanned": 2439,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 3
+    },
+    {
+      "id": "lp-github-tos",
+      "register": "legal-policy",
+      "source_type": "git-commit",
+      "written": "2021-12-14",
+      "words_scanned": 1838,
+      "findings": 4,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 4
+      },
+      "candidates": 6
+    },
+    {
+      "id": "lp-github-privacy",
+      "register": "legal-policy",
+      "source_type": "git-commit",
+      "written": "2021-12-14",
+      "words_scanned": 1666,
+      "findings": 6,
+      "findings_by_rule": {
+        "FP.META_NARRATION": 1,
+        "RH.TRIAD_DENSITY": 1,
+        "RH.PHRASE_TRIAD": 4
+      },
+      "candidates": 8
+    },
+    {
+      "id": "lp-github-aup",
+      "register": "legal-policy",
+      "source_type": "git-commit",
+      "written": "2021-07-14",
+      "words_scanned": 1190,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 1
+    },
+    {
+      "id": "lp-contributor-covenant-2.0",
+      "register": "legal-policy",
+      "source_type": "git-tag",
+      "written": "2020",
+      "words_scanned": 658,
+      "findings": 3,
+      "findings_by_rule": {
+        "FP.UNFILLED_PLACEHOLDER": 1,
+        "RH.TRIAD_DENSITY": 1,
+        "RH.APHORISM_CLOSER": 1
+      },
+      "candidates": 3
+    },
+    {
+      "id": "lp-fr-ftc-petitions",
+      "register": "legal-policy",
+      "source_type": "wayback-snapshot",
+      "written": "2021-10-29",
+      "words_scanned": 2142,
+      "findings": 1,
+      "findings_by_rule": {
+        "RH.FORCED_SYMMETRY": 1
+      },
+      "candidates": 3
+    },
+    {
+      "id": "lp-fr-copyright-secure-tests",
+      "register": "legal-policy",
+      "source_type": "wayback-snapshot",
+      "written": "2021-02-19",
+      "words_scanned": 2427,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 4
+    },
+    {
+      "id": "lp-uk-tenant-fees-act",
+      "register": "legal-policy",
+      "source_type": "wayback-snapshot",
+      "written": "2019-02-12",
+      "words_scanned": 2446,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 12
+    },
+    {
+      "id": "lp-rfc2026",
+      "register": "legal-policy",
+      "source_type": "rfc",
+      "written": "1996-10",
+      "words_scanned": 2476,
+      "findings": 2,
+      "findings_by_rule": {
+        "RH.FORCED_SYMMETRY": 1,
+        "RH.APHORISM_CLOSER": 1
+      },
+      "candidates": 5
+    },
+    {
+      "id": "lp-wikipedia-npov",
+      "register": "legal-policy",
+      "source_type": "wikipedia-oldid",
+      "written": "2022-05-31",
+      "words_scanned": 2456,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 3
+    },
+    {
+      "id": "gp-wiki-lighthouse",
+      "register": "general-prose",
+      "source_type": "wikipedia-oldid",
+      "written": "2022-03-22",
+      "words_scanned": 2470,
+      "findings": 1,
+      "findings_by_rule": {
+        "RH.FORCED_SYMMETRY": 1
+      },
+      "candidates": 1
+    },
+    {
+      "id": "gp-wiki-sourdough",
+      "register": "general-prose",
+      "source_type": "wikipedia-oldid",
+      "written": "2022-05-30",
+      "words_scanned": 2376,
+      "findings": 4,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 2,
+        "RH.FORCED_SYMMETRY": 2
+      },
+      "candidates": 3
+    },
+    {
+      "id": "gp-wiki-pencil",
+      "register": "general-prose",
+      "source_type": "wikipedia-oldid",
+      "written": "2022-05-07",
+      "words_scanned": 2442,
+      "findings": 7,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 4,
+        "RH.FORCED_SYMMETRY": 1,
+        "LX.INFLATED_SIGNIFICANCE": 1,
+        "ST.HEADING_FRAME_REPEAT": 1
+      },
+      "candidates": 5
+    },
+    {
+      "id": "gp-wiki-paper-clip",
+      "register": "general-prose",
+      "source_type": "wikipedia-oldid",
+      "written": "2022-05-31",
+      "words_scanned": 2030,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 2
+    },
+    {
+      "id": "gp-wiki-typewriter",
+      "register": "general-prose",
+      "source_type": "wikipedia-oldid",
+      "written": "2022-05-18",
+      "words_scanned": 2417,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 0
+    },
+    {
+      "id": "gp-wiki-tide-pool",
+      "register": "general-prose",
+      "source_type": "wikipedia-oldid",
+      "written": "2022-04-27",
+      "words_scanned": 1052,
+      "findings": 2,
+      "findings_by_rule": {
+        "RH.FORCED_SYMMETRY": 1,
+        "LX.VAGUE_AUTHORITY": 1
+      },
+      "candidates": 1
+    },
+    {
+      "id": "gp-wiki-umbrella",
+      "register": "general-prose",
+      "source_type": "wikipedia-oldid",
+      "written": "2022-05-11",
+      "words_scanned": 2465,
+      "findings": 9,
+      "findings_by_rule": {
+        "RH.FORCED_SYMMETRY": 3,
+        "RH.PHRASE_TRIAD": 4,
+        "RH.APHORISM_CLOSER": 1,
+        "ST.HEADING_FRAME_REPEAT": 1
+      },
+      "candidates": 5
+    },
+    {
+      "id": "gp-wiki-dry-stone",
+      "register": "general-prose",
+      "source_type": "wikipedia-oldid",
+      "written": "2022-03-30",
+      "words_scanned": 2099,
+      "findings": 0,
+      "findings_by_rule": {},
+      "candidates": 3
+    },
+    {
+      "id": "gp-faraday-candle",
+      "register": "general-prose",
+      "source_type": "wayback-snapshot",
+      "written": "1861",
+      "words_scanned": 2186,
+      "findings": 12,
+      "findings_by_rule": {
+        "RH.PHRASE_TRIAD": 12
+      },
+      "candidates": 12
+    },
+    {
+      "id": "gp-huxley-chalk",
+      "register": "general-prose",
+      "source_type": "wayback-snapshot",
+      "written": "1868",
+      "words_scanned": 2311,
+      "findings": 4,
+      "findings_by_rule": {
+        "RH.FALSE_CONTRAST": 1,
+        "RH.PHRASE_TRIAD": 3
+      },
+      "candidates": 4
+    }
+  ],
+  "warnings": [],
+  "disclaimer": "Rates of writing-quality signals on a named sample of human-written prose from before November 2022. Never evidence of authorship."
+}

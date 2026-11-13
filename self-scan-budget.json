@@ -149,6 +149,18 @@
       "max_findings": 0,
       "exempt_rules": [],
       "note": "Nonfiction review instructions; examples are protected inline."
+    },
+    "corpus/README.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [],
+      "note": "No exemptions."
+    },
+    "corpus/results/2026-11-13-baseline.md": {
+      "profile": "technical-docs",
+      "max_findings": 0,
+      "exempt_rules": [],
+      "note": "No exemptions. Quoted corpus spans sit in code spans and tables, which are protected."
     }
   }
 }

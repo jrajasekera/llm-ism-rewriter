@@ -17,6 +17,11 @@ editorial argument; none has a corpus measurement yet (see
 
 ### Added
 
+- `scripts/corpus_measure.py` and a populated `corpus/manifest.json`: 48
+  human-written documents from before November 2022 in four registers, pinned
+  by URL and checksum, with no third-party text committed. The first baseline
+  is in `corpus/results/`, and `references/negative-results.md` records it. No
+  threshold changed.
 - `RH.SELF_ANSWERED_QUESTION` (catalog C7, family `questions`): a verbless
   question of one to three words after a determiner or conjunction, or
   `So what does this mean…?`, answered in the same paragraph. Counted across

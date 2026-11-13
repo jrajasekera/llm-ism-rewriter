@@ -329,6 +329,8 @@ scripts/llm_ism_validate.py       original-versus-rewrite preservation
 scripts/llm_ism_project_check.py  cross-file template repetition
 scripts/build_catalog.py          the registry/catalog/code anti-drift contract
 scripts/self_scan.py              this repository's prose against a committed budget
+scripts/corpus_measure.py         finding rates on the provenance corpus, per register
+corpus/                           provenance manifest and dated measurement results
 tests/                            unit tests and fixtures
 evals/                            agent evals against the previous version
 ```

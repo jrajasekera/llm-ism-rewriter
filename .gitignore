@@ -7,3 +7,5 @@ __pycache__/
 .coverage
 htmlcov/
 .DS_Store
+# Third-party corpus text fetched by scripts/corpus_measure.py; never committed.
+corpus/cache/
