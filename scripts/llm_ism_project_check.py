@@ -23,8 +23,8 @@ from collections import Counter, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from llm_ism_core import (  # noqa: E402
-    LABELED_BULLET_RE, PROSE_KINDS, TOOL_VERSION, SCHEMA_VERSION, mask_inline, normalize,
-    parse_markdown, split_sentences, words,
+    LABELED_BULLET_RE, PROSE_KINDS, TOOL_VERSION, SCHEMA_VERSION, fold_quotes, mask_inline,
+    normalize, parse_markdown, split_sentences, words,
 )
 
 SCAFFOLDING = frozenset(normalize(p) for p in (
@@ -57,9 +57,11 @@ def collect(paths: list[str], extensions: tuple[str, ...], ignore: list[str]) ->
 
 def document_features(text: str) -> dict:
     segments = parse_markdown(text)
-    prose = [mask_inline(s.text) for s in segments if s.kind in PROSE_KINDS and not s.protected]
+    # Curly and straight apostrophes must not split one template into two.
+    prose = [fold_quotes(mask_inline(s.text))
+             for s in segments if s.kind in PROSE_KINDS and not s.protected]
     sentences = [s.strip() for block in prose for _, s in split_sentences(block) if words(s)]
-    headings = [(s.heading_level or 0, " ".join(s.text.strip().lstrip("#").split()))
+    headings = [(s.heading_level or 0, " ".join(fold_quotes(s.text).strip().lstrip("#").split()))
                 for s in segments if s.kind == "heading"]
     bullets = [s.text for s in segments if s.kind == "list_item"]
     return {

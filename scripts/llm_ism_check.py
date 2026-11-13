@@ -30,7 +30,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from llm_ism_core import (  # noqa: E402
     LABELED_BULLET_RE, PROSE_KINDS, SCHEMA_VERSION, TOOL_VERSION, Registry,
-    RegistryError, Segment, compiled_patterns, line_col, line_offsets,
+    RegistryError, Segment, compiled_patterns, fold_quotes, line_col, line_offsets,
     load_registry, mask_inline, mask_quote_markers, parse_markdown, split_sentences,
     words,
 )
@@ -165,6 +165,11 @@ def compare(value: float, comparison: str, threshold: float) -> bool:
 
 # --- Candidate detection -----------------------------------------------------
 
+def match_text(text: str) -> str:
+    """The text detectors read: inline spans masked, typographic quotes folded."""
+    return fold_quotes(mask_inline(text))
+
+
 def collect_candidates(segments: list[Segment], text: str, registry: Registry) -> list[Candidate]:
     offsets = line_offsets(text)
     out: list[Candidate] = []
@@ -172,7 +177,7 @@ def collect_candidates(segments: list[Segment], text: str, registry: Registry) -
     for seg in segments:
         if seg.kind in ("break", "html"):
             continue
-        masked = mask_quote_markers(mask_inline(seg.text))
+        masked = mask_quote_markers(match_text(seg.text))
         # Sentence-scope rules anchor `^` at each sentence, not just each line.
         units = ([(0, masked)] if seg.kind == "heading"
                  else split_sentences(masked) or [(0, masked)])
@@ -185,6 +190,9 @@ def collect_candidates(segments: list[Segment], text: str, registry: Registry) -
             else:
                 if seg.kind == "heading":
                     targets = [(0, masked.lstrip("# ").rjust(len(masked)))]
+                elif scope == "paragraph":
+                    # The patterns bound themselves; a two-sentence form spans a boundary.
+                    targets = [(0, masked)]
                 else:
                     targets = units
             for base, unit in targets:
@@ -209,7 +217,7 @@ def collect_candidates(segments: list[Segment], text: str, registry: Registry) -
         for seg in segments:
             if seg.kind not in PROSE_KINDS:
                 continue
-            found = [w for w in words(mask_inline(seg.text)) if w.casefold() in terms]
+            found = [w for w in words(match_text(seg.text)) if w.casefold() in terms]
             if not found:
                 continue
             sl, sc = line_col(offsets, seg.start_offset)
@@ -229,14 +237,14 @@ def collect_candidates(segments: list[Segment], text: str, registry: Registry) -
         for seg in segments:
             if seg.kind not in PROSE_KINDS or seg.protected:
                 continue
-            masked = mask_inline(seg.text)
+            masked = match_text(seg.text)
             for m in re.finditer(r"[A-Za-z][\w'-]*", masked):
                 if m.group(0).casefold() in terms:
                     sl, sc = line_col(offsets, seg.start_offset + m.start())
                     el, ec = line_col(offsets, seg.start_offset + m.end())
                     hits[m.group(0).casefold()].append(Candidate(
                         rule_id=rule["id"], start_line=sl, start_column=sc,
-                        end_line=el, end_column=ec, excerpt=m.group(0),
+                        end_line=el, end_column=ec, excerpt=seg.text[m.start():m.end()],
                         segment_kind=seg.kind, paragraph_id=seg.paragraph_id,
                         protected=False, evidence={"term": m.group(0).casefold()}))
         for term, cands in hits.items():
@@ -251,7 +259,7 @@ def collect_candidates(segments: list[Segment], text: str, registry: Registry) -
 
 def compute_metrics(segments: list[Segment], text: str) -> dict:
     prose_segs = [s for s in segments if s.kind in PROSE_KINDS and not s.protected]
-    prose_text = "\n\n".join(mask_inline(s.text) for s in prose_segs)
+    prose_text = "\n\n".join(match_text(s.text) for s in prose_segs)
     prose_words = words(prose_text)
     sentences = [s for _, s in split_sentences(prose_text) if words(s)]
     lengths = [len(words(s)) for s in sentences]
@@ -288,7 +296,8 @@ def _heading_frames(headings: list[Segment]) -> int:
     for h in headings:
         title = h.text.strip().lstrip("#").strip()
         toks = [t.casefold() for t in words(title)]
-        if len(toks) >= 2:
+        # A leading version or step number is a label, not a rhetorical frame.
+        if len(toks) >= 2 and toks[0].isalpha():
             by_level[h.heading_level or 0][toks[0]] += 1
     return max((c.most_common(1)[0][1] for c in by_level.values() if c), default=0)
 
@@ -312,7 +321,7 @@ def _paragraph_runs(segments: list[Segment]):
     """Yield (segment, sentences) for unprotected prose segments."""
     for seg in segments:
         if seg.kind in PROSE_KINDS and not seg.protected:
-            sents = [s for _, s in split_sentences(mask_inline(seg.text)) if words(s)]
+            sents = [s for _, s in split_sentences(match_text(seg.text)) if words(s)]
             if sents:
                 yield seg, sents
 

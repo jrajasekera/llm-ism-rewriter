@@ -115,6 +115,28 @@ class Aggregation(unittest.TestCase):
                                        "t.md", REGISTRY, "general-prose", False)
         self.assertIn("scanned prose words", report["summary"]["density_evidence"])
 
+    def test_curly_match_reports_the_source_characters_and_columns(self):
+        text = "Fine.\n\nWe ship it. It\u2019s not a bug \u2014 it\u2019s a feature."
+        report = llm_ism_check.analyze(text, "t.md", REGISTRY, "general-prose", False)
+        hit = [c for c in report["candidates"] if c["rule_id"] == "RH.FALSE_CONTRAST"]
+        self.assertEqual(len(hit), 1)
+        self.assertEqual(hit[0]["excerpt"], "It\u2019s not a bug \u2014 it\u2019s")
+        self.assertEqual((hit[0]["start_line"], hit[0]["start_column"]), (3, 13))
+
+    def test_cross_sentence_contrast_stays_a_judgment_call(self):
+        text = "The 2019 postmortem argued the outage was not about load. It was about a stale cache."
+        report = llm_ism_check.analyze(text, "t.md", REGISTRY, "general-prose", False)
+        hit = [f for f in report["findings"] if "RH.FALSE_CONTRAST" in f["rule_ids"]]
+        self.assertEqual(len(hit), 1)
+        self.assertEqual(hit[0]["action"], "review_in_context")
+        self.assertEqual(hit[0]["evidence_strength"], "medium")
+        self.assertEqual((hit[0]["location"]["start_line"], hit[0]["location"]["end_line"]), (1, 1))
+
+    def test_one_sentence_contrast_is_one_candidate(self):
+        text = "This isn't about productivity; it's about autonomy."
+        report = llm_ism_check.analyze(text, "t.md", REGISTRY, "general-prose", False)
+        self.assertEqual(sum(c["rule_id"] == "RH.FALSE_CONTRAST" for c in report["candidates"]), 1)
+
     def test_clarity_findings_do_not_raise_density(self):
         text = "In order to rebuild the index, run the migration. " * 3
         report = llm_ism_check.analyze(text, "t.md", REGISTRY, "technical-docs", False)

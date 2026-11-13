@@ -7,6 +7,43 @@ incompatible CLI. `SKILL.md`'s frontmatter version, `registry_version` in
 `references/rules.json`, and `TOOL_VERSION` in the scripts are kept in sync by
 `scripts/build_catalog.py --check`.
 
+## [2.3.1]
+
+Two detector fixes. No new rule, threshold, profile, output field, or
+dependency.
+
+### Fixed
+
+- Typographic apostrophes and quotation marks (`’ ‘ “ ”` and their low, reversed,
+  modifier, and fullwidth forms) are folded to ASCII in the text the checker's
+  detectors read. Every contraction-based pattern had missed curly text:
+  `This isn’t about productivity; it’s about autonomy.` produced no candidate.
+  The fold is one character for one, so lines, columns, and excerpts still show
+  the author's characters. Protection is decided on the source text, as before.
+- The validator expands curly contractions before counting negation and
+  modality, so a rewrite from `is not` to `isn’t` no longer fails `negation`.
+  Protected spans are still compared byte for byte; a straightened or curled
+  apostrophe inside a quotation still fails.
+- The project checker folds the same characters before comparing phrases,
+  openings, closings, and headings. Apostrophe style no longer splits one
+  template into two.
+- `RH.FALSE_CONTRAST` detects the two-sentence form that catalog C1 already
+  listed, including past-tense, `never`, and article variants such as
+  `The debate was never really about location. It was about trust.` The rule's
+  scope is now `paragraph` so a pattern can see the sentence boundary; each
+  pattern still bounds itself. A cross-sentence match needs a negated first
+  half and a second sentence that reopens with a pronoun. Both halves must also
+  share an `about` or article frame. `It isn't raining. It's Tuesday's report
+  that matters.` and the idiom `it's about time` do not match. The rule is
+  still `review_in_context`.
+- `RH.FALSE_CONTRAST` accepts a spaced en dash between the halves, as it already
+  accepted an em dash. The in-sentence pattern no longer treats a full stop as a
+  separator; the cross-sentence patterns own that case.
+- `ST.HEADING_FRAME_REPEAT` no longer counts a leading version or step number
+  as a heading frame. Adding this entry's `## [2.3.1]` heading made the
+  repository's own changelog trip the metric, a false positive the rule's
+  `changelog` exception already named.
+
 ## [2.3.0]
 
 Nonfiction review and qualification preservation informed by declauding v0.13.0.

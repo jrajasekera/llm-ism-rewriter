@@ -74,8 +74,8 @@ project's framing: these are readability and editing signals, and nothing else.
 - **Source:** `ai-smell`.
 - **Result:** too rare to measure in that corpus.
 - **Decision:** **rejected.** No rule. The rhetorical pattern worth catching is
-  the false contrast itself, which `RH.FALSE_CONTRAST` handles at the sentence
-  level and marks as requiring judgment.
+  the false contrast itself, which `RH.FALSE_CONTRAST` handles within a
+  sentence or across an adjacent pair, and marks as requiring judgment.
 
 ### Embedding-based sentence cohesion
 

@@ -16,7 +16,7 @@ import re
 import unicodedata
 from dataclasses import dataclass
 
-TOOL_VERSION = "2.3.0"
+TOOL_VERSION = "2.3.1"
 SCHEMA_VERSION = 1
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
@@ -406,6 +406,23 @@ def _protected_period(text: str, cut: int, before: str) -> bool:
 
 def words(text: str) -> list[str]:
     return WORD_RE.findall(text)
+
+
+# Typographic apostrophes and quotation marks, folded to ASCII one character for
+# one so that offsets survive. Registry patterns are written with ASCII `'`.
+_QUOTE_FOLD = str.maketrans({
+    **dict.fromkeys("‘’‚‛ʼ＇", "'"),  # ‘ ’ ‚ ‛ ʼ ＇
+    **dict.fromkeys("“”„‟＂", '"'),        # “ ” „ ‟ ＂
+})
+
+
+def fold_quotes(text: str) -> str:
+    """Fold curly apostrophes and quotes to ASCII for matching, never for output.
+
+    Length-preserving, so a column found in the folded text is a column of the
+    source; excerpts are always cut from the source.
+    """
+    return text.translate(_QUOTE_FOLD)
 
 
 def normalize(text: str) -> str:

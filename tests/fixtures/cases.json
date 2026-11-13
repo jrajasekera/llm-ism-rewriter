@@ -325,6 +325,176 @@
       ]
     },
     {
+      "id": "POS-RH-CONTRAST-CURLY",
+      "profile": "general-prose",
+      "text": "This isn’t about productivity; it’s about autonomy.",
+      "expect_present": [
+        "RH.FALSE_CONTRAST"
+      ],
+      "note": "typographic apostrophes are folded before matching"
+    },
+    {
+      "id": "POS-RH-CONTRAST-CURLY-EM-DASH",
+      "profile": "general-prose",
+      "text": "It’s not a bug — it’s a feature of the design.",
+      "expect_present": [
+        "RH.FALSE_CONTRAST"
+      ]
+    },
+    {
+      "id": "POS-RH-CONTRAST-EN-DASH",
+      "profile": "general-prose",
+      "text": "It's not a bug – it's a feature of the design.",
+      "expect_present": [
+        "RH.FALSE_CONTRAST"
+      ],
+      "note": "a spaced en dash separates the halves as an em dash does"
+    },
+    {
+      "id": "POS-RH-CONTRAST-ACROSS-SENTENCES",
+      "profile": "general-prose",
+      "text": "This isn't about productivity. It's about autonomy.",
+      "expect_present": [
+        "RH.FALSE_CONTRAST"
+      ],
+      "note": "catalog C1: X isn't about A. It's about B"
+    },
+    {
+      "id": "POS-RH-CONTRAST-ACROSS-PAST-NEVER",
+      "profile": "general-prose",
+      "text": "The debate was never really about location. It was about trust.",
+      "expect_present": [
+        "RH.FALSE_CONTRAST"
+      ]
+    },
+    {
+      "id": "POS-RH-CONTRAST-ACROSS-WRAPPED-CURLY",
+      "profile": "general-prose",
+      "text": "They weren’t about speed. They’re\nabout trust, and the survey says so.",
+      "expect_present": [
+        "RH.FALSE_CONTRAST"
+      ],
+      "note": "hard-wrapped and curly; the pair still reads as one construction"
+    },
+    {
+      "id": "POS-RH-CONTRAST-ACROSS-ARTICLE",
+      "profile": "general-prose",
+      "text": "It’s not a bug. It’s a feature.",
+      "expect_present": [
+        "RH.FALSE_CONTRAST"
+      ]
+    },
+    {
+      "id": "POS-RH-CONTRAST-NAMED-BELIEF",
+      "profile": "general-prose",
+      "text": "The 2019 postmortem argued the outage was not about load. It was about a misconfigured cache.",
+      "expect_present": [
+        "RH.FALSE_CONTRAST"
+      ],
+      "note": "a real correction of a named prior belief still surfaces; the rule's review_in_context action leaves the keep-or-cut call to judgment"
+    },
+    {
+      "id": "NEG-RH-CONTRAST-ADJACENT-UNRELATED",
+      "profile": "general-prose",
+      "text": "It isn't raining. It's Tuesday's report that matters.",
+      "expect_absent": [
+        "RH.FALSE_CONTRAST"
+      ],
+      "note": "two pronoun sentences with no shared about/article frame are not a contrast"
+    },
+    {
+      "id": "NEG-RH-CONTRAST-ACROSS-NEW-SUBJECT",
+      "profile": "general-prose",
+      "text": "The guide isn't about installation. Installation is covered in the README.",
+      "expect_absent": [
+        "RH.FALSE_CONTRAST"
+      ],
+      "note": "the second sentence must reopen with a pronoun"
+    },
+    {
+      "id": "NEG-RH-CONTRAST-ABOUT-TIME",
+      "profile": "general-prose",
+      "text": "This isn't about blame. It's about time we fixed the alarm.",
+      "expect_absent": [
+        "RH.FALSE_CONTRAST"
+      ],
+      "note": "the idiom 'about time' is not a reframe"
+    },
+    {
+      "id": "NEG-RH-CONTRAST-AFFIRMATIVE-PAIR",
+      "profile": "general-prose",
+      "text": "The new process is about reliability. It is about rollback speed too.",
+      "expect_absent": [
+        "RH.FALSE_CONTRAST"
+      ],
+      "note": "no negated first half"
+    },
+    {
+      "id": "NEG-RH-CONTRAST-CURLY-QUOTED",
+      "profile": "general-prose",
+      "text": "Context first.\n\n> “It’s not a bug — it’s a feature,” she said.\n\nThe cache warms on boot.",
+      "expect_absent": [
+        "RH.FALSE_CONTRAST"
+      ],
+      "note": "folding does not change protection; the attributed quotation stays report-only"
+    },
+    {
+      "id": "POS-LX-HOOK-CURLY",
+      "profile": "general-prose",
+      "text": "Here’s the thing: caching only helps when reads outnumber writes.",
+      "expect_present": [
+        "LX.ENGAGEMENT_HOOK"
+      ]
+    },
+    {
+      "id": "NEG-LX-HOOK-CURLY-NEARMISS",
+      "profile": "general-prose",
+      "text": "Here’s the list of checks the hook runs before each push.",
+      "expect_absent": [
+        "LX.ENGAGEMENT_HOOK"
+      ]
+    },
+    {
+      "id": "POS-LX-SYCOPHANCY-CURLY",
+      "profile": "general-prose",
+      "text": "You’re absolutely right that the index was missing.",
+      "expect_present": [
+        "LX.SYCOPHANCY"
+      ]
+    },
+    {
+      "id": "POS-FP-CHATBOT-CURLY",
+      "profile": "general-prose",
+      "text": "I’m just an AI, so I can’t browse the vendor’s status page.",
+      "expect_present": [
+        "FP.CHATBOT_RESIDUE"
+      ]
+    },
+    {
+      "id": "POS-RH-APHORISM-CURLY",
+      "profile": "general-prose",
+      "text": "Ship the smaller change first. That’s the whole point.",
+      "expect_present": [
+        "RH.APHORISM_CLOSER"
+      ]
+    },
+    {
+      "id": "POS-LX-TRANSITION-CURLY",
+      "profile": "general-prose",
+      "text": "It’s worth noting that the cache is cold. It’s important to note that eviction is lazy.",
+      "expect_present": [
+        "LX.STOCK_TRANSITION"
+      ]
+    },
+    {
+      "id": "POS-RH-INTRO-CURLY",
+      "profile": "general-prose",
+      "text": "In today’s fast-paced release cycle, the changelog is often skipped.",
+      "expect_present": [
+        "RH.GENERIC_INTRO"
+      ]
+    },
+    {
       "id": "POS-RH-TRIAD",
       "repeat": 9,
       "profile": "general-prose",
@@ -455,6 +625,15 @@
       "expect_absent": [
         "ST.HEADING_FRAME_REPEAT"
       ]
+    },
+    {
+      "id": "NEG-ST-HEADING-FRAME-VERSIONS",
+      "profile": "general-prose",
+      "text": "## [2.0.0]\n\nRetries absorb a transient failure without paging anyone, which keeps the rota quiet during a partial outage of the storage tier and avoids waking an engineer for a fault that resolves itself within a second or two of the first attempt failing. The cap is five, and beyond that the placement is parked for manual review the next morning by whoever picks up the queue, which in practice means the person already handling the incident.\n\n## [2.1.0]\n\nRetries absorb a transient failure without paging anyone, which keeps the rota quiet during a partial outage of the storage tier and avoids waking an engineer for a fault that resolves itself within a second or two of the first attempt failing. The cap is five, and beyond that the placement is parked for manual review the next morning by whoever picks up the queue, which in practice means the person already handling the incident.\n\n## [2.2.0]\n\nRetries absorb a transient failure without paging anyone, which keeps the rota quiet during a partial outage of the storage tier and avoids waking an engineer for a fault that resolves itself within a second or two of the first attempt failing. The cap is five, and beyond that the placement is parked for manual review the next morning by whoever picks up the queue, which in practice means the person already handling the incident.\n\n## [2.3.0]\n\nRetries absorb a transient failure without paging anyone, which keeps the rota quiet during a partial outage of the storage tier and avoids waking an engineer for a fault that resolves itself within a second or two of the first attempt failing. The cap is five, and beyond that the placement is parked for manual review the next morning by whoever picks up the queue, which in practice means the person already handling the incident.\n\n",
+      "expect_absent": [
+        "ST.HEADING_FRAME_REPEAT"
+      ],
+      "note": "changelog version headings share a leading number, not a frame"
     },
     {
       "id": "POS-ST-HEADING-RHETORIC",

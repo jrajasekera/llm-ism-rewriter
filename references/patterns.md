@@ -187,7 +187,7 @@ Measure these against the document's own genre norms (`contexts.md`), not an abs
 - Generic scaffolding: "Overview", "Key Takeaways", "Final Thoughts", "Challenges and Future Outlook" — when the section adds little. A heading followed by a one-sentence restatement of the heading.
 - Across a directory: the same opener in five READMEs, the same section sequence, the same closer. `scripts/llm_ism_project_check.py` reports this.
 - **Fix:** merge short sections; rename headings after what the section says; demote or remove decorative headings. A heading whose body was deleted goes with it.
-- **Not a signal:** Title Case. It is a house style and varies by era and publication. Never flag capitalization alone. A shared cross-file template is often deliberate; report the repetition, never an inference about it.
+- **Not a signal:** Title Case. It is a house style and varies by era and publication. Never flag capitalization alone. A version or step number leading each heading, as in a changelog, is a label rather than a frame. A shared cross-file template is often deliberate; report the repetition, never an inference about it.
 
 ### D2. Bullet, bold, and labeled-bullet overuse
 `ST.LABELED_BULLET_RUN` — P1, structural.

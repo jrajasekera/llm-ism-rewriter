@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "skill": "llm-ism-rewriter",
-  "version_under_test": "2.3.0",
+  "version_under_test": "2.3.1",
   "candidate_commit": "record the hash of the commit under test with the results",
   "baseline": "2.2.0",
   "baseline_commit": "347f17a6cd7a4b104302a74022e0cdcc06cbade1",

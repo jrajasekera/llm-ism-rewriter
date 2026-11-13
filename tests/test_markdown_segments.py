@@ -5,7 +5,7 @@ import unittest
 
 from _support import ROOT  # noqa: F401  (path wiring)
 from llm_ism_core import (
-    mask_inline, parse_markdown, split_sentences, line_col, line_offsets, words,
+    fold_quotes, mask_inline, parse_markdown, split_sentences, line_col, line_offsets, words,
 )
 
 
@@ -134,6 +134,12 @@ class Masking(unittest.TestCase):
     def test_newlines_survive_masking(self):
         text = "`a`\n`b`"
         self.assertEqual(mask_inline(text).count("\n"), 1)
+
+    def test_typographic_quotes_fold_one_for_one(self):
+        text = "\u201cIt\u2019s \u2018fine\u2019,\u201d she said \u2014 isn\u02bct it?"
+        folded = fold_quotes(text)
+        self.assertEqual(len(folded), len(text))
+        self.assertEqual(folded, "\"It's 'fine',\" she said \u2014 isn't it?")
 
 
 class Sentences(unittest.TestCase):

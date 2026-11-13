@@ -25,7 +25,7 @@ from dataclasses import dataclass, asdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from llm_ism_core import (  # noqa: E402
-    PROSE_KINDS, TOOL_VERSION, SCHEMA_VERSION, RegistryError, load_registry,
+    PROSE_KINDS, TOOL_VERSION, SCHEMA_VERSION, RegistryError, fold_quotes, load_registry,
     mask_inline, normalize, parse_markdown, split_sentences, words,
 )
 import llm_ism_check  # noqa: E402
@@ -102,6 +102,8 @@ class Result:
 # --- Extraction --------------------------------------------------------------
 
 def expand(text: str) -> str:
+    # "isn’t" and "isn't" are the same negation; protected spans stay byte-exact.
+    text = fold_quotes(text)
     for pattern, repl in CONTRACTIONS:
         text = pattern.sub(repl, text)
     return text

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "registry_version": "2.3.0",
+  "registry_version": "2.3.1",
   "notes": "Canonical registry for llm-ism-rewriter. references/patterns.md is the human-readable catalog; every rule here carries a `catalog` anchor into it. Detections are writing-quality signals and never evidence of authorship.",
   "tiers": {
     "fingerprint": "Standalone artifact or leaked model/tool residue. Actionable on a single occurrence.",
@@ -611,16 +611,18 @@
       "edit_priority": "P1",
       "evidence_strength": "medium",
       "detector": "regex",
-      "scope": "sentence",
+      "scope": "paragraph",
       "minimum_occurrences": 1,
       "action": "review_in_context",
       "reason": "Manufactures a position nobody held so the real claim reads as a reveal.",
       "fix": "Keep it only when the rejected belief is one the reader plausibly holds and the text names it. Otherwise state the claim directly.",
       "patterns": [
         "\\bnot (?:just|only|merely|simply) [^.;:!?]{1,60}?,? but(?: also)?\\b",
-        "\\b(?:it|this|that)(?:(?:'s| is) ?not|(?:'s| is)n't|isn't) (?:about |a )?[^.;:!?]{1,50}?[.;:,—-]\\s*(?:it|this|that)(?:'s| is) (?:about )?",
-        "\\bisn(?:'t|ot) (?:just )?an? [^.;:!?]{1,40}?[—-]\\s*it(?:'s| is)\\b",
-        "\\bno [\\w-]+, no [\\w-]+, just\\b"
+        "\\b(?:it|this|that)(?:'s|\\s+(?:is|was))(?:\\s+not|n't|\\s+never)(?:\\s+(?:just|really|simply|only|ever))? (?:about |an? )?[^.;:!?]{1,50}?[;:,—–-]\\s*(?:it|this|that)(?:'s|\\s+(?:is|was)) (?:about )?",
+        "\\bisn(?:'t|ot) (?:just )?an? [^.;:!?]{1,40}?[—–-]\\s*it(?:'s| is)\\b",
+        "\\bno [\\w-]+, no [\\w-]+, just\\b",
+        "\\b(?:is|are|was|were|'s|'re)(?:\\s+not|n't|\\s+never)(?:\\s+(?:just|really|simply|only|ever))?\\s+about\\s+[^.;:!?]{1,60}?\\.\\s+(?:it|this|that|they)(?:'s|'re|\\s+(?:is|are|was|were))(?:\\s+(?:really|actually))?\\s+about\\b(?!\\s+time\\b)",
+        "\\b(?:it|this|that)(?:'s|\\s+(?:is|was))(?:\\s+not|n't|\\s+never)(?:\\s+(?:just|really|simply|only|ever))?\\s+an?\\s+[^.;:!?]{1,40}?\\.\\s+(?:it|this|that)(?:'s|\\s+(?:is|was))\\s+an?\\b"
       ],
       "exceptions": [
         "real_prior_belief_named",

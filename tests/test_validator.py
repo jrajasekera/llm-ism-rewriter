@@ -125,6 +125,9 @@ class AnchorExtraction(unittest.TestCase):
     def test_contractions_are_expanded_before_comparison(self):
         self.assertEqual(V.expand("it doesn't and can't"), "it does not and can not")
 
+    def test_curly_contractions_expand_like_straight_ones(self):
+        self.assertEqual(V.expand("it doesn\u2019t and can\u2019t"), "it does not and can not")
+
     def test_number_with_unit(self):
         found = {m.strip() for m in V.NUM_UNIT_RE.findall("under 100 ms and 4 GB, about 12%")}
         self.assertEqual(found, {"100 ms", "4 GB", "12%"})

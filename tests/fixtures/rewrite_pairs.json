@@ -213,6 +213,23 @@
       "expect_pass": true,
       "before": "The cap is 5 attempts.",
       "after": "The cap is five attempts."
+    },
+    {
+      "id": "PASS-07-curly-contraction",
+      "mode": "edit",
+      "expect_pass": true,
+      "before": "The cache is not warm on boot, and the queue can not drain early.",
+      "after": "The cache isn’t warm on boot, and the queue can’t drain early."
+    },
+    {
+      "id": "VF-14-quote-apostrophe-curled",
+      "mode": "rewrite",
+      "expect_pass": false,
+      "expect_fail_checks": [
+        "attributed quotations"
+      ],
+      "before": "Context.\n\n> \"It's not a bug,\" she said.\n\nThe cache warms on boot.",
+      "after": "Context.\n\n> \"It’s not a bug,\" she said.\n\nThe cache warms on boot."
     }
   ]
 }

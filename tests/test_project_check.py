@@ -34,6 +34,15 @@ class Repetition(unittest.TestCase):
     def test_scaffolding_is_excluded(self):
         self.assertNotIn("table of contents", {r["phrase"] for r in report(min_files=2)["repeated_phrases"]})
 
+    def test_apostrophe_style_does_not_split_a_template(self):
+        files = {f"{i}.md": P.document_features(text) for i, text in enumerate((
+            "It's worth checking the retry budget before every release.",
+            "It\u2019s worth checking the retry budget before every release.",
+        ))}
+        phrases = {r["phrase"] for r in P.analyze(files, 5, 2)["repeated_phrases"]}
+        self.assertIn("it's worth checking the retry", phrases)
+        self.assertEqual(len({f["opening"] for f in files.values()}), 1)
+
     def test_stopword_only_phrases_are_excluded(self):
         for row in report(min_files=2)["repeated_phrases"]:
             self.assertFalse(all(t in P.STOPWORDS for t in row["phrase"].split()))
