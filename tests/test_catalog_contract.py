@@ -110,6 +110,19 @@ class CatalogContract(unittest.TestCase):
         self.assertLess(len(skill.splitlines()), 500)
         self.assertLess(len(skill), 20_000, "SKILL.md is the only always-loaded file")
 
+    def test_embedded_output_is_documented(self):
+        """`embedded` returns the final text alone; SKILL.md must say so twice."""
+        with open(os.path.join(ROOT, "SKILL.md"), encoding="utf-8") as fh:
+            skill = fh.read()
+        modes = skill.split("\n## Modes\n", 1)[1].split("\n## Paths\n", 1)[0]
+        report = skill.split("\n## Report format\n", 1)[1].split("\n## Resources\n", 1)[0]
+        self.assertIn("`embedded`", modes)
+        self.assertIn("### `embedded`", report)
+        section = report.split("### `embedded`", 1)[1].split("\n### ", 1)[0]
+        self.assertIn("nothing else", section)
+        self.assertIn("no `[specify: …]` marker", section)
+        self.assertNotIn("## Findings", section)
+
     def test_every_reference_the_skill_names_exists(self):
         import re as _re
         with open(os.path.join(ROOT, "SKILL.md"), encoding="utf-8") as fh:
