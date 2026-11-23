@@ -35,6 +35,16 @@ A single match is enough, and the span is unambiguous.
 `CL.WORDY_PHRASE` is executable but stays out of the boilerplate density label:
 it is a clarity edit, not a signal about how the text was produced.
 
+Two shapes are narrower in the script than in the catalog, because of how text
+is segmented before any pattern runs:
+
+- `FP.PROMPT_LEAKAGE` matches a stray closing tag mid-line. A tag that opens a
+  line becomes a protected HTML segment and is not scanned.
+- `LX.ENGAGEMENT_HOOK` matches stop-separated lowercase words. Capitalised ones
+  are split into separate sentences, where `ST.FRAGMENT_RUN` may count them.
+
+The agent reads for both; `SKILL.md`'s trust boundary names the tag.
+
 ## 2. Partially executable
 
 The script reports these; recurrence, genre, and literal sense decide them.

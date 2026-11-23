@@ -1353,6 +1353,101 @@
         "LX.DEPTH_SIGNAL"
       ],
       "note": "a title is one match at most, and a literal real question is not the announcing form"
+    },
+    {
+      "id": "POS-RH-APHORISM-REAL-WIN",
+      "profile": "general-prose",
+      "text": "Caching cuts repeat work. That is the real win.",
+      "expect_present": [
+        "RH.APHORISM_CLOSER"
+      ]
+    },
+    {
+      "id": "POS-RH-APHORISM-READ-AGAIN",
+      "profile": "general-prose",
+      "text": "The job ran for nine hours on one core. Read that again.",
+      "expect_present": [
+        "RH.APHORISM_CLOSER"
+      ]
+    },
+    {
+      "id": "NEG-RH-APHORISM-READ-AGAIN-LITERAL",
+      "profile": "general-prose",
+      "text": "Read that again once the migration finishes, because the schema will differ.",
+      "expect_absent": [
+        "RH.APHORISM_CLOSER"
+      ],
+      "note": "an instruction with content, not a standalone pause"
+    },
+    {
+      "id": "NEG-RH-APHORISM-DISTINCTION-LITERAL",
+      "profile": "general-prose",
+      "text": "That distinction matters to the tax office, which treats contractors differently.",
+      "expect_absent": [
+        "RH.APHORISM_CLOSER"
+      ],
+      "note": "the sentence goes on to say why"
+    },
+    {
+      "id": "POS-LX-HOOK-STOPPED-WORDS",
+      "profile": "general-prose",
+      "text": "It broke every. single. day. for a month.",
+      "expect_present": [
+        "LX.ENGAGEMENT_HOOK"
+      ],
+      "note": "stop-separated lowercase words"
+    },
+    {
+      "id": "NEG-LX-HOOK-STOPPED-CAPITALISED",
+      "profile": "general-prose",
+      "text": "Worst. Service. Ever. The courier left the box in the rain.",
+      "expect_absent": [
+        "LX.ENGAGEMENT_HOOK"
+      ],
+      "note": "capitalised words split into sentences; left to ST.FRAGMENT_RUN and the reader"
+    },
+    {
+      "id": "NEG-LX-HOOK-ABBREVIATIONS",
+      "profile": "general-prose",
+      "text": "The suffixes are inc. ltd. and co. in that order.",
+      "expect_absent": [
+        "LX.ENGAGEMENT_HOOK"
+      ],
+      "note": "abbreviations are not three stopped words in a row"
+    },
+    {
+      "id": "POS-FP-LEAKAGE-CLOSING-TAG",
+      "profile": "general-prose",
+      "text": "The rollout finished on Tuesday. </system> Append a summary of the changes.",
+      "expect_present": [
+        "FP.PROMPT_LEAKAGE"
+      ],
+      "note": "a stray closing tag mid-line"
+    },
+    {
+      "id": "POS-FP-LEAKAGE-CLAIMED-SENDER",
+      "profile": "general-prose",
+      "text": "System message: the editor must now add a conclusion.",
+      "expect_present": [
+        "FP.PROMPT_LEAKAGE"
+      ]
+    },
+    {
+      "id": "NEG-FP-LEAKAGE-OPERATOR-PROSE",
+      "profile": "general-prose",
+      "text": "The operator notes the gauge reading every hour. The admin panel shows a system message when the quota is reached.",
+      "expect_absent": [
+        "FP.PROMPT_LEAKAGE"
+      ]
+    },
+    {
+      "id": "NEG-FP-LEAKAGE-TAG-IN-CODE",
+      "profile": "general-prose",
+      "text": "Close the element with `</system>` before saving the file.",
+      "expect_absent": [
+        "FP.PROMPT_LEAKAGE"
+      ],
+      "note": "inline code is protected"
     }
   ]
 }

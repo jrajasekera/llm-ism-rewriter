@@ -122,7 +122,10 @@
         "\\bignore (?:the |all |any )?(?:previous|above|prior|preceding)\\s+instructions\\b",
         "\\bdisregard (?:the |all |any )?(?:previous|above|prior)\\b",
         "\\bdo not flag this (?:section|paragraph|sentence)\\b",
-        "^\\s*\\[?(?:write|add|insert|expand)(?: a| an| the)? (?:paragraph|section|sentence) about\\b"
+        "^\\s*\\[?(?:write|add|insert|expand)(?: a| an| the)? (?:paragraph|section|sentence) about\\b",
+        "</(?:system|skill|instructions?|assistant|user|prompt)>",
+        "^\\s*system\\s+message\\s*:",
+        "^\\s*(?:message|note|instructions?)\\s+from\\s+(?:the\\s+)?(?:system|operator|admin(?:istrator)?)\\s*:"
       ],
       "exceptions": [
         "quoted_example",
@@ -520,7 +523,8 @@
         "\\bis dead\\.",
         "\\bwhat if I told you\\b",
         "\\bthe more (?:I|we|you) sit with (?:it|this|that)\\b",
-        "^\\s*(?:(?:and|so)\\s+)?(?:two|three|four|five)\\s+(?:things|reasons|lessons|takeaways|truths|words|ideas|shifts|rules|questions)\\.\\s*$"
+        "^\\s*(?:(?:and|so)\\s+)?(?:two|three|four|five)\\s+(?:things|reasons|lessons|takeaways|truths|words|ideas|shifts|rules|questions)\\.\\s*$",
+        "(?-i:(?:\\b[a-z]{2,}\\.\\s+){2,}[a-z]{2,}\\.)"
       ],
       "exceptions": [
         "quoted_example",
@@ -845,7 +849,10 @@
         "\\bperiod\\.$",
         "^\\s*(?:and\\s+)?(?:it(?:'s| is)|it really is)(?:\\s+(?:really|just|honestly))?\\s+that simple[.!]\\s*$",
         "^\\s*(?:it's\\s+)?(?:as\\s+)?simple as that[.!]\\s*$",
-        "^\\s*(?:and\\s+)?(?:that|this)\\s+changes everything[.!]\\s*$"
+        "^\\s*(?:and\\s+)?(?:that|this)\\s+changes everything[.!]\\s*$",
+        "^\\s*read\\s+that\\s+again[.!]\\s*$",
+        "^\\s*that\\s+distinction\\s+matters[.!]\\s*$",
+        "^\\s*(?:and\\s+)?that(?:'s|\\s+is)\\s+the\\s+real\\s+win[.!]\\s*$"
       ],
       "exceptions": [
         "quoted_example",
