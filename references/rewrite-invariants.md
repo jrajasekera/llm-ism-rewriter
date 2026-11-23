@@ -77,6 +77,21 @@ count. Review warnings against the actual claims; unchanged counts establish
 neither equivalent scope nor equivalent meaning. There is no English parser or
 embedding-based equivalence test behind this check.
 
+### Strength of feeling
+
+An evaluative word carries how strongly the author meant it. An edit does not
+soften or sharpen it, and does not make a reported action sound more or less
+complete than the source did.
+
+- `The support line was disgusting` does not become `The support line was
+  disappointing`.
+- `I tried restarting it` does not become `I restarted it`. The source reports
+  an attempt, and the edit would report a result.
+
+The validator has no check for this. Compare the evaluative words and the
+reported actions yourself, most of all in reviews, complaints, and messages
+written in anger.
+
 ## Narrative commitments
 
 For prose fiction, the claim anchors extend to what the story commits to. The

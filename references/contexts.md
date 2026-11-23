@@ -81,9 +81,27 @@ The layer never travels the other way. A README, a research summary, or an incid
 | Prose fiction | Everything structural; fragments; any punctuation; a linear plot; an explicit theme; a direct emotion label; a lush passage | Fingerprints, plus the narrative review in `narrative-review.md`. Do not touch voice. Recommend `detect` mode when the user has not asked for edits. |
 | Poetry, lyrics | Everything structural; fragments; any punctuation; repetition of every kind | Fingerprints only. Do not touch voice. Recommend `detect` mode. |
 | Legal, policy, compliance | Formal connectives; repetition for precision; "in connection with"; defined-term restatement | Placeholders; marketing register |
-| Chat, Slack, email | "Let me know if…", "Hope this helps", "Great question" are ordinary courtesy | Stock vocabulary clusters, false contrasts, canned significance |
+| Chat, Slack, email | "Let me know if…", "Hope this helps", "Great question" are ordinary courtesy | Stock vocabulary clusters, false contrasts, canned significance. For casual messages, see "Informal text" below. |
 | Wiki and encyclopedic prose | Neutral register; simple copulas; explicit citations | The whole catalog applies; promotional register and vague attribution are the most common problems |
 | Non-native English writing | Formal connectives ("Moreover"), textbook phrases, safe vocabulary | Treat stock vocabulary and transitions with extra caution; never raise density on these alone, and never comment on the author's proficiency |
+
+## Informal text
+
+Chat messages, comments, rants, and angry reviews are usually exactly what
+their writer meant. Run them under `social-email`, and hold to four rules:
+
+- **The register is not a finding.** Lowercase, abbreviations such as `lmk`,
+  fragments, and emphatic stops (`Worst. Service. Ever.`) stay as written.
+- **One candidate is not enough.** Outside the `residue` family, a single
+  candidate is never a finding here. Two unrelated findings are needed before
+  any edit. Leaked tool markup or a cutoff disclaimer still stands alone.
+- **No finding, no change.** Return the text unchanged and say it needed
+  nothing.
+- **A reply that repeats context** (`RH.REDUNDANT_CONTEXT`) is reported when it
+  is the only finding, and nothing is deleted.
+
+An edit here keeps the strength of feeling (`rewrite-invariants.md`). The
+writer who called the service `disgusting` did not mean `disappointing`.
 
 ## Legitimate uses of otherwise-flagged patterns
 

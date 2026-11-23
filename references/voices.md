@@ -20,6 +20,22 @@ source uses "doesn't" and semicolons, so does the revision.
 not leaving a cliché behind. It is quietly replacing the author with a
 generically competent narrator.
 
+### Details to keep
+
+Some details carry the author more than any sentence rhythm does. They survive
+an edit unless they damage the meaning:
+
+- an odd specific detail: a real address, a strange quote, a number nobody
+  would round that way
+- a stated mixed feeling or an unresolved tension
+- a dated or in-group reference: slang, a meme, an in-joke from one year and
+  one community
+- a first-person choice the author explains
+- an aside, a parenthetical, or a self-correction
+
+These are things to leave in place. The limit below against adding any of them
+is unchanged: a detail the author did not write is an invented one.
+
 ### Directness in fiction
 
 In a story, the author's degree of directness is part of the voice. Preserving
