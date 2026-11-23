@@ -100,6 +100,8 @@ These have no detector and must never acquire a broad regex.
 | `RH.LOW_INFORMATION_RESTATEMENT` | What does this paragraph add that the last one did not? |
 | `ST.OPENING_IDENTITY` | Does the opening say what the thing *is*? |
 | `ST.TABLE_MISUSE` | Is this table holding tabular data or reformatted prose? |
+| `ST.DOCUMENT_SELF_DESCRIPTION` | Is this sentence about the document, where the reader needed its subject? |
+| `RH.REDUNDANT_CONTEXT` | In a reply, does the text rebuild background the visible conversation already holds? |
 | `CL.SEMANTIC_EDIT` | Does naming the actor make the sentence clearer without changing the claim? |
 | `ST.NARRATIVE_THEME_REDUNDANCY` | Does this passage explain a meaning the story already made explicit, and add nothing? |
 | `ST.NARRATIVE_EMOTION_REDUNDANCY` | Are several descriptions doing one piece of emotional work? |
@@ -126,6 +128,10 @@ Related judgments with no rule at all, because they are properties of the
 - Whether a plain "not X but Y" corrects a belief someone held. `RH.FALSE_CONTRAST`
   matches the negated reframe and a short list of stock idioms; a bare
   correction is ordinary English, and a broad pattern would flag every one.
+- Whether a clipped negative tail or a reversed `rather than` rejects something
+  nobody proposed. Comparisons and informative tails have the same shape.
+- Whether a maxim of the form `X is the language of Y` makes a checkable claim.
+  The literal sentence and the manufactured one differ only in meaning.
 - Whether a short-form post is built from setup-and-punchline paragraphs, or
   opens on a canned personal hook. No pattern reaches either without also
   reaching the plain writing it imitates.

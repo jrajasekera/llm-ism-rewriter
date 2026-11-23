@@ -90,6 +90,11 @@ Examples carry stable IDs. Where an ID appears in `tests/fixtures/`, the behavio
 - After: *Backups run nightly, and the job keeps 14 days.*
 - Why: nobody in the document proposed hourly backups. If a reviewer did, keep the sentence and say who.
 
+**EX-RH-11 — repeated context in a reply** (`RH.REDUNDANT_CONTEXT`)
+- Thread: a reviewer wrote *This retry hides the timeout, it doesn't fix it.*
+- Before: *You're right that this hides the timeout. The retry wraps the call, so a slow upstream looks like success. The real fix is a deadline in the client, which I measured at 40 lines. Since the client is shared, I'd rather do that in a separate change.*
+- After, in `rewrite`: *The real fix is a deadline in the client, which I measured at 40 lines. Since the client is shared, I'd rather do that in a separate change.* Findings list the two deleted sentences, which repeat the reviewer. A `[Decision]` notes that the answer could lead; the 40-line figure stays because the thread does not contain it.
+
 **EX-RH-06 — generic intro and outro** (`RH.GENERIC_INTRO`, `RH.GENERIC_OUTRO`)
 - Before, intro: *In today's fast-paced digital world, monitoring has become increasingly important for organizations of all sizes.*
 - After: delete; begin with the first specific sentence.
@@ -118,6 +123,11 @@ Examples carry stable IDs. Where an ID appears in `tests/fixtures/`, the behavio
 - After, if all three are real capabilities: unchanged. This is an enumeration, not padding.
 - After, if the third is filler: *You can define workflows as graphs and trigger them during a run.*
 - The rule surfaces the shape. Whether the third clause carries a fact is a judgment.
+
+**EX-ST-06 — writing about the document** (`ST.DOCUMENT_SELF_DESCRIPTION`)
+- Before: *The figures below are drawn from each vendor's pricing page; anything we could not confirm is flagged.*
+- After: *Prices are each vendor's published rate. Two vendors publish none.* Both facts were in the source table.
+- Counterexample, in release notes: *This replaces the polling loop removed in 3.2.* A document about change keeps its history.
 
 ## No-change examples
 

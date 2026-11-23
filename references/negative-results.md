@@ -264,7 +264,8 @@ experiment on this skill has been run. They are not findings either.
 ### Patterns adopted from blader/humanizer (2.5.0)
 
 - **Rules:** `RH.PHANTOM_OBJECTION`, `LX.GAP_SPECULATION`, `LX.PART_STANDIN`,
-  and `LX.DEPTH_SIGNAL`.
+  and `LX.DEPTH_SIGNAL`, with the judgment-only `ST.DOCUMENT_SELF_DESCRIPTION`
+  and `RH.REDUNDANT_CONTEXT`.
 - **Motivation:** a review of [blader/humanizer](https://github.com/blader/humanizer)
   v4.0.0 found patterns that this catalog did not reach. Its descriptions were
   the lead. The rules, phrase lists, thresholds, and examples here were written
@@ -279,6 +280,11 @@ experiment on this skill has been run. They are not findings either.
   wordings are narrow, and asks for review. Phrases that plain writing uses
   (`to be clear`, `not publicly available`) are left out, and a negative
   fixture holds each exclusion.
+- **Kept judgment-only:** a sentence that introduces a table is in most
+  reference documentation, and every sentence of an over-explained reply can
+  read well alone, so neither rule has a pattern. The clipped negative tail,
+  the reversed `rather than`, and the manufactured aphorism are catalog notes
+  with no rule for the same reason.
 - **Rejected from the same source:** adding a detail the editor believes true,
   which breaks the no-invented-specifics rule; a ban on em dashes, against the
   result recorded above; returning a first draft before the final text; and a

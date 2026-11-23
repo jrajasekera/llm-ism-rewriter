@@ -68,6 +68,25 @@ authorized. Give that reader the current text and intended audience, without
 the change history or a proposed diagnosis. If you review your own rewrite,
 describe it as a self-review; do not claim independent validation.
 
+## Replies
+
+A reply has a reader who already holds the context. `RH.REDUNDANT_CONTEXT`
+applies only when the surrounding conversation is visible, or the text is
+plainly a reply to something. Do not raise it for a standalone document, and do
+not guess at a thread you cannot see.
+
+Report where the answer sits, and which sentences repeat what the other person
+wrote or agreed to. In `rewrite` and `edit`, you may delete a sentence that
+duplicates the visible conversation; list each deletion in Findings.
+
+Moving the answer to the front is reordering. Report it as a `[Decision]` with
+the suggested lead, and do it only when the user has asked for restructuring.
+
+Evidence, a query, or figures that the thread does not contain are unique
+information. They stay unless the user asks for a shorter reply. On an informal
+reply, this finding alone is reported and nothing is deleted; `contexts.md`
+has the rule for informal text.
+
 ## Check the revision for new problems
 
 Read revised sentences for effort as well as length. Restore a preposition or

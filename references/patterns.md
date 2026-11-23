@@ -87,7 +87,7 @@ Words that are fine alone and cluster in generated text: *delve, tapestry, testa
 ### B5. Vague attribution and unsupported authority
 `LX.VAGUE_AUTHORITY` — P1, high evidence.
 
-"Experts agree", "industry reports suggest", "critics have noted", "many believe", "it is widely recognized", "studies show" with no study, "featured in leading publications".
+"Experts agree", "industry reports suggest", "critics have noted", "many believe", "it is widely recognized", "studies show" with no study, "featured in leading publications". The prestige list is the same move for a person: `featured in` followed by a run of outlet names, with nothing any of them said.
 
 - **Fix:** if the source is in the text, name it. If it is not, either soften to the author's own claim (only in a first-person document) or mark `[specify: who?]`. Never invent a source.
 
@@ -144,6 +144,7 @@ A stock admission that the record is thin: `While specific details are limited`,
 - **Stock idioms:** a fixed pair whose rejected half nobody proposed: `not a destination but a journey`, `a marathon, not a sprint`, `an investment, not a cost`, `not a problem but an opportunity`, `not if, but when`, `a feature, not a bug`. The checker matches these pairs and no others.
 - **Plain "not X but Y" is judgment-only.** `The outage was not a capacity problem but a misconfigured cache` is how English states a correction. No regex separates it from a manufactured one, so the checker does not try; read it under the test below.
 - **Legitimate use:** when the reader plausibly believes X *and the text names it*: "The bottleneck isn't the database, as the earlier profile suggested; it's serialization."
+- **Two shapes with no pattern:** the clipped negative tail (`The options come from the selected item, no guessing.`) and the reversed form (`X rather than Y`) where nobody proposed Y. A comparison and a tail that carries a fact are ordinary, so both are read, never matched.
 - **Fix:** "Y." Keep the contrast only when X is a real prior belief. For a stock idiom, say what the thing is (`an ongoing process`) and drop the idiom.
 
 ### C2. Rule of three
@@ -175,6 +176,7 @@ Parallel sentences reporting different facts (`The left pane shows the source. T
 
 "…and it does.", "It wasn't. It isn't.", "That's the whole point.", "That's the entire game.", "And that matters.", "X is real, and it's here.", and as standalone sentences `It's that simple.`, `Simple as that.`, `That changes everything.`, `Read that again.`, `That distinction matters.`, `That is the real win.`
 
+- **Manufactured aphorism (judgment-only):** an ordinary point cast as a maxim, as in `Symmetry is the language of trust` or `Efficiency becomes a trap`. `English is the language of aviation` is a fact, so no pattern exists; ask whether the sentence makes a claim someone could check. Replace it with that claim if the source states one.
 - **Fix:** cut. The preceding sentence already said it.
 
 ### C5. Restatement with low information gain
@@ -183,6 +185,7 @@ Parallel sentences reporting different facts (`The left pane shows the source. T
 A paragraph that ends by re-summarizing itself; a conclusion that repeats the intro; "In other words" followed by the same words; a sentence defining a term the previous sentence already used correctly.
 
 - **Ask:** what new fact, claim, example, consequence, or turn does this paragraph add? Could it be deleted without changing the argument?
+- **After an example:** a sentence that only names what the example, scene, or number just showed (`It was a lesson in patience.`). Keep it when it adds a consequence the example does not show.
 - **Across paragraphs:** note each paragraph's distinct contribution in a few words. Several paragraphs can do one rhetorical job in different wording, so a search for repeated words will miss them. See EX-RH-07.
 - **Fix:** delete the restatement. Keep the version with more specifics.
 - **Exception:** legal repetition for precision; a pedagogical recap; a mandated or executive summary whose separate function justifies the repetition.
@@ -227,6 +230,16 @@ A defence against an objection or an option that appears nowhere else in the tex
 - **Evidence:** one is how people talk. **Two or more in a document** is the finding. Several unrelated rejections in a row are stronger evidence than two far apart.
 - **Legitimate use:** an objection the text attributes to someone or answers in full; an alternative a reader would really weigh, such as the obvious design a reviewer will ask about. Skipped in `creative`, where dialogue uses these phrases. Relaxed wherever false contrast is.
 - **Fix:** remove the defence. If it holds a real claim, state the claim. Never invent the objector to justify keeping it.
+
+### C10. Repeated context in a reply
+`RH.REDUNDANT_CONTEXT` — P1, low evidence, judgment-only.
+
+A reply that restates the problem, walks back through the diagnosis, and lays out evidence the other person already has, with the answer in its last line.
+
+- **Applies when:** the surrounding conversation is visible, or the text is plainly a reply. A standalone document has a reader without that context, and this rule is not raised for it.
+- **Ask:** which sentences repeat what the other person wrote or agreed to? Where does the answer sit?
+- **Fix:** report it. A sentence that duplicates the visible conversation may be deleted, and each deletion is listed. Moving the answer to the front is reordering and needs restructuring authority; otherwise it is a `[Decision]`. Full procedure: `nonfiction-review.md`.
+- **Exception:** evidence, a query, or figures the thread does not contain. Every sentence can read well alone, so no phrase list reaches this.
 
 ### Short-form register: what stays judgment
 
@@ -291,6 +304,16 @@ Em dashes in most sentences — often two per sentence — doing the job of comm
 Tables for non-tabular prose; horizontal rules between every section; a summary table restating the text above it.
 
 - **Fix:** report. Tables are protected spans; convert one only if the user asks.
+
+### D6. Writing about the document
+`ST.DOCUMENT_SELF_DESCRIPTION` — P2, low evidence, judgment-only.
+
+Sentences about the text where the reader needed its subject: what it replaced (`This function was added to replace the old loop`), how it was assembled (`compiled from each vendor's site; anything unconfirmed is flagged`), or a layout the reader can already see (`The table below compares the six options`).
+
+- **Why:** the first is a note from the editing session, the second narrates the method, and the third describes what the eye has already found.
+- **Fix:** state the subject: what the function does, what the prices are, which vendors publish none. Keep a convention the reader cannot infer, and state it once.
+- **Keep:** change history in release notes, migration guides, incident timelines, and PR descriptions; a source credit the reader can follow; a caveat that changes what the reader should do.
+- **Not a finding by itself:** one sentence introducing a table in reference documentation. No pattern exists for this rule because that sentence is in every README.
 
 ---
 
@@ -404,6 +427,7 @@ Generated from `references/rules.json` by `scripts/build_catalog.py --write`. Do
 | `LX.ASSOCIATION_VAGUENESS` | B8 | cliche | association | P2 | regex | replace |
 | `LX.GAP_SPECULATION` | B9 | cliche | attribution | P1 | regex | request-detail |
 | `RH.FALSE_CONTRAST` | C1 | cliche | contrast | P1 | regex | review_in_context |
+| `RH.REDUNDANT_CONTEXT` | C10 | structural | restatement | P1 | llm_judgment | review_in_context |
 | `RH.PHRASE_TRIAD` | C2 | structural | triads | P1 | regex | review_in_context |
 | `RH.TRIAD_DENSITY` | C2 | structural | triads | P1 | metric | review_in_context |
 | `RH.FORCED_SYMMETRY` | C3 | structural | symmetry | P1 | metric | merge |
@@ -426,6 +450,7 @@ Generated from `references/rules.json` by `scripts/build_catalog.py --write`. Do
 | `ST.SENTENCE_CONTINUITY` | D4 | structural | continuity | P2 | metric | review_in_context |
 | `ST.UNIFORM_RHYTHM` | D4 | structural | cadence | P2 | metric | review_in_context |
 | `ST.TABLE_MISUSE` | D5 | structural | layout | P2 | llm_judgment | report |
+| `ST.DOCUMENT_SELF_DESCRIPTION` | D6 | structural | layout | P2 | llm_judgment | review_in_context |
 | `CL.SEMANTIC_EDIT` | E | clarity | clarity | P2 | llm_judgment | review_in_context |
 | `CL.WORDY_PHRASE` | E | clarity | clarity | P2 | regex | replace |
 | `ST.NARRATIVE_THEME_REDUNDANCY` | F1 | structural | narrative | P1 | llm_judgment | review_in_context |

@@ -872,7 +872,7 @@
       "action": "remove",
       "reason": "A paragraph or clause that repeats its neighbour without adding a fact, example, consequence, or turn.",
       "fix": "Delete the restatement and keep the version with more specifics.",
-      "judgment_prompt": "What new fact, claim, example, consequence, or turn does this paragraph add? Could it be deleted without changing the argument?",
+      "judgment_prompt": "What new fact, claim, example, consequence, or turn does this paragraph add? Could it be deleted without changing the argument? Does a sentence after an example, scene, or number only name what it showed?",
       "exceptions": [
         "mandated_summary_section",
         "legal_repetition_for_precision",
@@ -1018,6 +1018,26 @@
         "attributed_objection"
       ],
       "note": "A closed list of phrases; 'to be clear' is deliberately unmatched. Counted across the document. Threshold provisional; see references/negative-results.md."
+    },
+    {
+      "id": "RH.REDUNDANT_CONTEXT",
+      "title": "Repeated context in a reply",
+      "catalog": "C10",
+      "tier": "structural",
+      "family": "restatement",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "llm_judgment",
+      "scope": "document",
+      "action": "review_in_context",
+      "reason": "A reply that rebuilds background the other person already has buries the answer under it.",
+      "fix": "Report where the answer sits. Delete only sentences that duplicate the visible conversation; moving the answer forward needs restructuring authority.",
+      "judgment_prompt": "With the surrounding conversation visible, or the text plainly a reply: does it rebuild background the other person wrote or agreed to before it reaches the answer?",
+      "exceptions": [
+        "standalone_document",
+        "conversation_not_visible",
+        "unique_evidence"
+      ]
     },
     {
       "id": "ST.HEADING_DENSITY",
@@ -1236,6 +1256,27 @@
       "exceptions": [
         "reference_documentation",
         "comparison_matrix"
+      ]
+    },
+    {
+      "id": "ST.DOCUMENT_SELF_DESCRIPTION",
+      "title": "Writing about the document instead of its subject",
+      "catalog": "D6",
+      "tier": "structural",
+      "family": "layout",
+      "edit_priority": "P2",
+      "evidence_strength": "low",
+      "detector": "llm_judgment",
+      "scope": "document",
+      "action": "review_in_context",
+      "reason": "A sentence that reports what the text replaced, how it was assembled, or a layout the reader can already see spends the reader's attention on the document.",
+      "fix": "State the subject. Keep a source credit the reader can follow and a caveat that changes what the reader should do.",
+      "judgment_prompt": "Does this sentence describe the document itself (what it replaced, how it was assembled, or a layout the reader can already see) where the reader needed its subject?",
+      "exceptions": [
+        "change_history_genre",
+        "followable_source_credit",
+        "caveat_that_changes_action",
+        "convention_reader_cannot_infer"
       ]
     },
     {
