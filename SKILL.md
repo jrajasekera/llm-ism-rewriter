@@ -5,8 +5,8 @@ license: Apache-2.0
 compatibility: Agent Skills (agentskills.io) format; runs on Claude Code, Codex, Hermes Agent, and any harness that loads SKILL.md. Needs only file reading and editing. The optional checker and validator require Python 3.10+ and the standard library only.
 metadata:
   author: jrajasekera
-  version: "2.4.0"
-  sources: "Wikipedia 'Signs of AI writing' (CC BY-SA 4.0); Simon Willison's llm-cliche-highlighter (Apache-2.0); structural leads from osolmaz/ai-smell; contract practices from conorbronsdon/avoid-ai-writing; narrative checks adapted from Russell et al., StoryScope (arXiv 2604.03136)"
+  version: "2.5.0"
+  sources: "Wikipedia 'Signs of AI writing' (CC BY-SA 4.0); Simon Willison's llm-cliche-highlighter (Apache-2.0); structural leads from osolmaz/ai-smell; contract practices from conorbronsdon/avoid-ai-writing; narrative checks adapted from Russell et al., StoryScope (arXiv 2604.03136); pattern leads and the embedded-output idea from blader/humanizer (MIT)"
 ---
 
 # LLM-ism rewriter
@@ -186,3 +186,7 @@ The nonfiction review and qualification checks were informed by
 [declauding v0.13.0](https://github.com/oaustegard/claude-skills/releases/tag/declauding-v0.13.0).
 Instructions, examples, and code were written for this project; `NOTICE.md`
 records the scope of the adaptation.
+
+Several 2.5.0 patterns, the `embedded` output, and the informal-text and reply
+reviews follow leads from [blader/humanizer](https://github.com/blader/humanizer)
+(MIT). No text, example, or list was copied.

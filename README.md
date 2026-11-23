@@ -153,6 +153,8 @@ cat draft.md | python3 scripts/llm_ism_check.py -
 
 Ask to "rewrite this" or "clean this up". This is the default mode. You get findings, one final revised text, a change summary, and validation.
 
+When another task uses the skill to produce a commit message, a PR description, or a section of a document, or when you ask for the text alone, the output is `embedded`: the same procedure runs and only the final text comes back.
+
 Naming a file is not an in-place request. "Clean up draft.md and give me a revised version" returns text and leaves the file where it is.
 
 ### Edit a file in place
@@ -242,7 +244,7 @@ Stock vocabulary clusters (`delve`, `testament`, `ever-evolving landscape`), fal
 
 For prose fiction, five judgment-only checks cover narrative construction: redundant thematic explanation, redundant emotional explanation, decorative psychological mirroring, forced closure, and information timing. The agent applies them; the scripts do not.
 
-The human-readable catalog is `references/patterns.md`. The machine-readable registry is `references/rules.json`: 49 rules across 8 context profiles, canonical for every threshold the checker applies.
+The human-readable catalog is `references/patterns.md`. The machine-readable registry is `references/rules.json`: 55 rules across 8 context profiles, canonical for every threshold the checker applies.
 
 ### Limits
 
@@ -314,7 +316,7 @@ llm_ism_project_check.py [options] PATH [PATH...]
 ```
 SKILL.md                          entry point: trust boundary, modes, 8-step procedure
 references/patterns.md            the catalog, A-F, with rule IDs, tiers, and fixes
-references/rules.json             canonical registry: 49 rules, 8 context profiles
+references/rules.json             canonical registry: 55 rules, 8 context profiles
 references/contexts.md            genre profiles, legitimate uses, large-file policy
 references/narrative-review.md    prose fiction only: scope limits and checks F1-F5
 references/nonfiction-review.md   document purpose and newcomer comprehension

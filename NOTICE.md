@@ -13,13 +13,13 @@ It is a provenance record, not legal advice.
 
 | Path | Origin | Relationship to source |
 |------|--------|------------------------|
-| `SKILL.md` | Original; see *declauding* below | Written for this project; nonfiction workflow informed by declauding. |
-| `references/patterns.md` | See *Wikipedia* below | Category names and several example words paraphrased from a CC BY-SA 4.0 source. No sentences copied. |
-| `references/contexts.md` | Original | Written for this project. |
+| `SKILL.md` | Original; see *declauding* and *humanizer* below | Written for this project; nonfiction workflow informed by declauding; the `embedded` output and the default-choice test follow ideas in humanizer. |
+| `references/patterns.md` | See *Wikipedia* below | Category names and several example words paraphrased from a CC BY-SA 4.0 source. No sentences copied. Sections B9, C9, C10, and D6 follow pattern leads from humanizer; text and examples written for this project. |
+| `references/contexts.md` | Original; see *humanizer* below | Written for this project. The informal-text section follows an idea in humanizer. |
 | `references/narrative-review.md` | See *StoryScope* below | Editorial checks adapted from published research findings. All text, definitions, and examples written for this project. |
-| `references/nonfiction-review.md` | See *declauding* below | Original instructions adapting purpose-first review, newcomer reading, and overcorrection checks. |
+| `references/nonfiction-review.md` | See *declauding* below | Original instructions adapting purpose-first review, newcomer reading, and overcorrection checks. The reply review follows an idea in humanizer. |
 | `references/examples.md` | Original | All before/after pairs written for this project. |
-| `references/voices.md` | Original | Written for this project. |
+| `references/voices.md` | Original; see *humanizer* below | Written for this project. The list of details to keep follows an idea in humanizer. |
 | `references/rewrite-invariants.md` | Original | Written for this project. |
 | `references/detector-map.md` | Original | Written for this project. |
 | `references/negative-results.md` | Partly derived | Records published findings from `ai-smell` and `avoid-ai-writing` as cited leads. Summaries are paraphrased; no text copied. |
@@ -94,6 +94,29 @@ provenance manifests, and a false-positive intake workflow — which this
 repository reimplemented from scratch in Python. Its published corpus
 results are summarized in `references/negative-results.md`. No code, rules,
 or fixtures were copied.
+
+## blader/humanizer
+
+<https://github.com/blader/humanizer> (MIT, reviewed at `a32f244`, v4.0.0)
+
+An adjacent skill built from the same Wikipedia source. Its pattern
+descriptions were the lead for six rules added in 2.5.0
+(`RH.PHANTOM_OBJECTION`, `LX.GAP_SPECULATION`, `LX.PART_STANDIN`,
+`LX.DEPTH_SIGNAL`, `ST.DOCUMENT_SELF_DESCRIPTION`, `RH.REDUNDANT_CONTEXT`), for
+new patterns in three existing rules, and for several judgment notes in the
+catalog. Its output modes informed the `embedded` output. Its treatment of informal
+text and of replies informed the informal-text guard and the reply review. Its
+account of why formulaic prose reads as it does informed the default-choice
+test. The list of voice-carrying details in `references/voices.md` follows the
+same source.
+
+This project's rules, phrase lists, thresholds, instructions, examples, and
+fixtures were written independently; no upstream text, example, or watch list
+was copied. Four of its behaviours were deliberately not adopted because they
+conflict with this project's contract: adding a detail the editor believes
+true, removing every dash, returning a first draft ahead of the final text,
+and dating a text to decide how it was written. `references/negative-results.md`
+records the adoption and the rejections.
 
 ## Oskar Austegard, declauding
 

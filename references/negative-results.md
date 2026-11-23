@@ -271,7 +271,8 @@ experiment on this skill has been run. They are not findings either.
   the lead. The rules, phrase lists, thresholds, and examples here were written
   for this project.
 - **Basis:** editorial argument only. Humanizer publishes no measurement for
-  these patterns, and none has been run here. They are unvalidated hypotheses.
+  these patterns. The one run here, below, measures false positives on human
+  prose and no recall, so the rules remain unvalidated hypotheses.
 - **Precision measures taken instead:** each executable rule matches a closed
   list of phrases. `RH.PHANTOM_OBJECTION` waits for two in a document and is
   skipped in `creative`, as are `LX.PART_STANDIN` and `LX.DEPTH_SIGNAL`, which
@@ -285,6 +286,15 @@ experiment on this skill has been run. They are not findings either.
   read well alone, so neither rule has a pattern. The clipped negative tail,
   the reversed `rather than`, and the manufactured aphorism are catalog notes
   with no rule for the same reason.
+- **Measured on human prose, 2026-11-23:** `scripts/corpus_measure.py` on the
+  48-document baseline corpus described above. `RH.PHANTOM_OBJECTION` produced
+  three candidates, one in each of three essays, and no finding, since none
+  reached two in a document. The other three executable rules produced no
+  candidate. The new patterns in `RH.APHORISM_CLOSER`, `LX.ENGAGEMENT_HOOK`,
+  and `FP.PROMPT_LEAKAGE` left those rules' counts unchanged. Tables are in
+  `corpus/results/2026-11-23-humanizer-rules.md`. This shows the rules are
+  quiet on that sample and nothing about what they catch; there is still no
+  sample of the prose they target, and every threshold stays `provisional`.
 - **Rejected from the same source:** adding a detail the editor believes true,
   which breaks the no-invented-specifics rule; a ban on em dashes, against the
   result recorded above; returning a first draft before the final text; and a

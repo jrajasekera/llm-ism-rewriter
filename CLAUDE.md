@@ -110,7 +110,7 @@ These are enforced by `scripts/build_catalog.py --check` and
   frontmatter fields Claude Code, Codex, and Hermes Agent read.
 - **Attribution.** `NOTICE.md` carries file-level provenance for the Wikipedia
   CC BY-SA source, Simon Willison's highlighter, `ai-smell`,
-  `avoid-ai-writing`, and the StoryScope paper. Preserve it and the header of `references/patterns.md` in
+  `avoid-ai-writing`, the StoryScope paper, and `blader/humanizer`. Preserve it and the header of `references/patterns.md` in
   any redistribution or restructuring.
 
 ## Changing things

@@ -7,6 +7,83 @@ incompatible CLI. `SKILL.md`'s frontmatter version, `registry_version` in
 `references/rules.json`, and `TOOL_VERSION` in the scripts are kept in sync by
 `scripts/build_catalog.py --check`.
 
+## [2.5.0]
+
+Patterns and process ideas adopted from
+[blader/humanizer](https://github.com/blader/humanizer) v4.0.0, in this
+project's own wording. Six new rules, new patterns in three existing rules, an
+`embedded` output, and guidance for informal text and replies. No renamed rule,
+changed checker logic, new profile, or new dependency. No agent eval was
+written or run.
+
+### Added
+
+- `RH.PHANTOM_OBJECTION` (catalog C9, family `contrast`): a defence against an
+  objection or option nobody raised, from a closed list of six phrases such as
+  `a tempting approach would be` and `don't get me wrong`. Two per document,
+  `provisional`. `To be clear` is not matched.
+- `LX.GAP_SPECULATION` (catalog B9, family `attribution`): a stock admission
+  that no source was found, such as `while specific details are limited` or
+  `maintains a low profile`. One per document, `provisional`, action
+  `request-detail`. The guess that follows it is left to the reader, and
+  `not publicly available` is not matched.
+- `LX.PART_STANDIN` and `LX.DEPTH_SIGNAL` (catalog B7, family `hooks`):
+  `the hard part is`, `the part that matters`; and `the real question is`,
+  `what really matters`. Two per document each, `provisional`. A literal part
+  of a file or upload is not matched.
+- `ST.DOCUMENT_SELF_DESCRIPTION` (catalog D6, family `layout`) and
+  `RH.REDUNDANT_CONTEXT` (catalog C10, family `restatement`), both
+  judgment-only: a sentence about the document where the reader needed its
+  subject, and a reply that rebuilds context the thread already holds.
+- `embedded` output on `rewrite`: when another task uses the skill for a commit
+  message, a PR description, or part of a document, or the user asks for the
+  text alone, the whole workflow runs and only the final text is returned,
+  with no `[specify: …]` marker. A contract test pins the wording.
+- "The default-choice test" in `SKILL.md`: two questions for a passage no rule
+  names. It describes the prose. It creates no new finding type and authorizes
+  no rebuild.
+- "Informal text" in `references/contexts.md`: the register of a chat message
+  or a rant is never a finding, and one candidate outside `residue` is not
+  enough for an edit. An unchanged return is valid.
+- "Replies" in `references/nonfiction-review.md`: duplicates of the visible
+  conversation may be deleted and are listed; moving the answer forward is a
+  `[Decision]` without restructuring authority.
+- A strength-of-feeling invariant in `references/rewrite-invariants.md`, and a
+  list of details to keep in `references/voices.md`.
+- Catalog judgment notes with no rule: the clipped negative tail and the
+  reversed `rather than` (C1), the manufactured aphorism (C4), the sentence
+  that names what an example showed (C5), and the prestige list (B5).
+- Examples EX-LX-07 to EX-LX-09, EX-RH-10, EX-RH-11, EX-ST-06, and EX-FP-09 to
+  EX-FP-12.
+- `corpus/results/2026-11-23-humanizer-rules.*`: the 2.5.0 detectors on the
+  48-document human baseline. The new rules produced no finding and three
+  below-threshold candidates. No threshold changed.
+- `blader/humanizer` in `NOTICE.md`, with what was and was not adopted.
+
+### Changed
+
+- `RH.APHORISM_CLOSER` matches standalone `Read that again.`,
+  `That distinction matters.`, and `That is the real win.`
+- `LX.ENGAGEMENT_HOOK` matches three or more stop-separated lowercase words
+  (`every. single. day.`). The capitalised form splits into sentences first
+  and is not matched.
+- `FP.PROMPT_LEAKAGE` matches a mid-line stray closing tag such as `</system>`
+  and a line opening `System message:` or `Note from the operator:`. A tag that
+  opens a line is segmented as protected HTML and is not matched; the trust
+  boundary in `SKILL.md` covers it.
+- In `edit` mode the agent reads the file from disk before editing, and the
+  validation block names the sections reviewed.
+- The `RH.LOW_INFORMATION_RESTATEMENT` judgment prompt asks about a sentence
+  that only names what an example showed.
+- `evals/evals.json` carries the 2.5.0 version fields and no new case.
+
+### Not adopted
+
+Four humanizer behaviours conflict with this project's contract and were left
+out: adding a detail the editor believes true, removing every dash, returning
+a first draft ahead of the final text, and dating a text to decide how it was
+written. `references/negative-results.md` records the decision.
+
 ## [2.4.0]
 
 Coverage for the punchy short-form opinion register. Three new rules, new
