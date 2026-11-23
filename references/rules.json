@@ -123,9 +123,9 @@
         "\\bdisregard (?:the |all |any )?(?:previous|above|prior)\\b",
         "\\bdo not flag this (?:section|paragraph|sentence)\\b",
         "^\\s*\\[?(?:write|add|insert|expand)(?: a| an| the)? (?:paragraph|section|sentence) about\\b",
-        "</(?:system|skill|instructions?|assistant|user|prompt)>",
-        "^\\s*system\\s+message\\s*:",
-        "^\\s*(?:message|note|instructions?)\\s+from\\s+(?:the\\s+)?(?:system|operator|admin(?:istrator)?)\\s*:"
+        "</(?:system|skill|instructions?|assistant|user|prompt)>\\s*(?:ignore|disregard|append|add|insert|rewrite|replace|delete|remove|output|write|you\\s+(?:must|should|are)|do\\s+not|new\\s+instructions?|(?:the\\s+)?(?:editor|assistant|model|agent|ai)\\s+(?:must|should|will))\\b",
+        "^\\s*system\\s+message\\s*:\\s*(?:ignore|disregard|append|add|insert|rewrite|replace|delete|remove|output|write|you\\s+(?:must|should|are)|do\\s+not|new\\s+instructions?|(?:the\\s+)?(?:editor|assistant|model|agent|ai)\\s+(?:must|should|will))\\b",
+        "^\\s*(?:message|note|instructions?)\\s+from\\s+(?:the\\s+)?(?:system|operator|admin(?:istrator)?)\\s*:\\s*(?:ignore|disregard|append|add|insert|rewrite|replace|delete|remove|output|write|you\\s+(?:must|should|are)|do\\s+not|new\\s+instructions?|(?:the\\s+)?(?:editor|assistant|model|agent|ai)\\s+(?:must|should|will))\\b"
       ],
       "exceptions": [
         "quoted_example",
@@ -524,7 +524,8 @@
         "\\bwhat if I told you\\b",
         "\\bthe more (?:I|we|you) sit with (?:it|this|that)\\b",
         "^\\s*(?:(?:and|so)\\s+)?(?:two|three|four|five)\\s+(?:things|reasons|lessons|takeaways|truths|words|ideas|shifts|rules|questions)\\.\\s*$",
-        "(?-i:(?:\\b[a-z]{2,}\\.\\s+){2,}[a-z]{2,}\\.)"
+        "(?-i:\\bevery\\.\\s+single\\.\\s+[a-z]+\\.)",
+        "(?-i:\\b(?:worst|best)\\.\\s+[a-z]+\\.\\s+ever\\.)"
       ],
       "exceptions": [
         "quoted_example",
@@ -598,7 +599,7 @@
       "reason": "'The hard part is X' stages X, and 'the part that matters' points at something the text may never name.",
       "fix": "Name the thing, or state the point directly.",
       "patterns": [
-        "\\bthe\\s+(?:hard|hardest|tricky|interesting|important|real|new|slow|scary|fun)\\s+part\\s+is\\b",
+        "\\bthe\\s+(?:hard|hardest|tricky|interesting|important|real)\\s+part\\s+is\\b",
         "\\bthe\\s+part\\s+that\\s+(?:matters|counts|doesn't|does\\s+not|nobody)\\b",
         "\\bthe\\s+part\\s+worth\\b"
       ],
@@ -608,7 +609,7 @@
         "dialogue",
         "literal_part"
       ],
-      "note": "Requires an evaluative adjective or a that/worth clause, so a literal part of a file or upload is not matched. Counted across the document. Threshold provisional; see references/negative-results.md."
+      "note": "Requires an evaluative adjective or a that/worth clause; descriptive adjectives such as new or slow are not matched. A machine part described as hard still matches and is the reader's call. Counted across the document. Threshold provisional; see references/negative-results.md."
     },
     {
       "id": "LX.DEPTH_SIGNAL",
@@ -679,15 +680,15 @@
       "fix": "State what the source does not show, or cut the sentence. Never fill the gap; report a removed guess as a [Gap].",
       "patterns": [
         "\\bwhile\\s+specific\\s+details\\s+(?:(?:about|of|on|regarding)\\s+[^.;:!?]{1,80}?\\s+)?(?:are|remain)\\s+(?:limited|scarce|unclear)\\b",
-        "\\bnot\\s+(?:widely|extensively|well)\\s+documented\\b",
-        "\\bbased\\s+on\\s+(?:the\\s+)?available\\s+information\\b",
+        "\\bnot\\s+(?:widely|extensively)\\s+documented\\b",
+        "\\bbased\\s+on\\s+available\\s+information\\b",
         "\\bmaintains\\s+a\\s+low\\s+profile\\b",
         "\\bkeeps\\s+(?:(?:his|her|their|its)\\s+)?personal\\s+details\\s+private\\b"
       ],
       "exceptions": [
         "quoted_example"
       ],
-      "note": "Matches the disclaimer only; the guess that follows it is the reader's judgment. 'not publicly available' is deliberately unmatched. Threshold provisional; see references/negative-results.md."
+      "note": "Matches the disclaimer only; the guess that follows it is the reader's judgment. 'not publicly available', 'not well documented', and 'based on the available information' are deliberately unmatched. Threshold provisional; see references/negative-results.md."
     },
     {
       "id": "RH.FALSE_CONTRAST",

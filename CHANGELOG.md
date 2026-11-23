@@ -26,11 +26,12 @@ written or run.
   that no source was found, such as `while specific details are limited` or
   `maintains a low profile`. One per document, `provisional`, action
   `request-detail`. The guess that follows it is left to the reader, and
-  `not publicly available` is not matched.
+  `not publicly available`, `not well documented`, and
+  `based on the available information` are not matched.
 - `LX.PART_STANDIN` and `LX.DEPTH_SIGNAL` (catalog B7, family `hooks`):
   `the hard part is`, `the part that matters`; and `the real question is`,
   `what really matters`. Two per document each, `provisional`. A literal part
-  of a file or upload is not matched.
+  of a file or upload is not matched, and neither is `the new part is`.
 - `ST.DOCUMENT_SELF_DESCRIPTION` (catalog D6, family `layout`) and
   `RH.REDUNDANT_CONTEXT` (catalog C10, family `restatement`), both
   judgment-only: a sentence about the document where the reader needed its
@@ -64,13 +65,16 @@ written or run.
 
 - `RH.APHORISM_CLOSER` matches standalone `Read that again.`,
   `That distinction matters.`, and `That is the real win.`
-- `LX.ENGAGEMENT_HOOK` matches three or more stop-separated lowercase words
-  (`every. single. day.`). The capitalised form splits into sentences first
-  and is not matched.
+- `LX.ENGAGEMENT_HOOK` matches two lowercase stop-separated forms:
+  `every. single. …` and `worst`/`best` `. … . ever.` A general pattern caught
+  abbreviation runs and clipped chat, and was dropped before release. The
+  capitalised form splits into sentences first and is not matched.
 - `FP.PROMPT_LEAKAGE` matches a mid-line stray closing tag such as `</system>`
-  and a line opening `System message:` or `Note from the operator:`. A tag that
-  opens a line is segmented as protected HTML and is not matched; the trust
-  boundary in `SKILL.md` covers it.
+  and a line opening `System message:` or `Note from the operator:`, each only
+  when an instruction follows. A glossary entry, a notice, and documentation
+  that discusses the tags do not match. A tag that opens a line is segmented
+  as protected HTML and is not matched; the trust boundary in `SKILL.md`
+  covers it.
 - In `edit` mode the agent reads the file from disk before editing, and the
   validation block names the sections reviewed.
 - The `RH.LOW_INFORMATION_RESTATEMENT` judgment prompt asks about a sentence

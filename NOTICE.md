@@ -110,9 +110,13 @@ account of why formulaic prose reads as it does informed the default-choice
 test. The list of voice-carrying details in `references/voices.md` follows the
 same source.
 
-This project's rules, phrase lists, thresholds, instructions, examples, and
-fixtures were written independently; no upstream text, example, or watch list
-was copied. Four of its behaviours were deliberately not adopted because they
+The phrase lists of `RH.PHANTOM_OBJECTION`, `LX.GAP_SPECULATION`,
+`LX.PART_STANDIN`, and `LX.DEPTH_SIGNAL` are adapted from humanizer's lists:
+each is a subset of the phrases it names, narrowed for this checker. Humanizer
+is Copyright (c) 2025 Siqi Chen and distributed under the MIT License, whose
+text is at <https://github.com/blader/humanizer/blob/main/LICENSE>. This
+project's rule definitions, thresholds, instructions, examples, and fixtures
+were written independently; no upstream sentence or example was copied. Four of its behaviours were deliberately not adopted because they
 conflict with this project's contract: adding a detail the editor believes
 true, removing every dash, returning a first draft ahead of the final text,
 and dating a text to decide how it was written. `references/negative-results.md`

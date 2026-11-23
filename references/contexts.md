@@ -90,8 +90,8 @@ The layer never travels the other way. A README, a research summary, or an incid
 Chat messages, comments, rants, and angry reviews are usually exactly what
 their writer meant. Run them under `social-email`, and hold to four rules:
 
-- **The register is not a finding.** Lowercase, abbreviations such as `lmk`,
-  fragments, and emphatic stops (`Worst. Service. Ever.`) stay as written.
+- **The register is not a finding.** Lowercase, abbreviations such as `tbh`,
+  fragments, and emphatic stops (`Never. Again.`) stay as written.
 - **One candidate is not enough.** Outside the `residue` family, a single
   candidate is never a finding here. Two unrelated findings are needed before
   any edit. Leaked tool markup or a cutoff disclaimer still stands alone.
@@ -101,7 +101,7 @@ their writer meant. Run them under `social-email`, and hold to four rules:
   is the only finding, and nothing is deleted.
 
 An edit here keeps the strength of feeling (`rewrite-invariants.md`). The
-writer who called the service `disgusting` did not mean `disappointing`.
+writer who called the refund policy `a scam` did not mean `unclear`.
 
 ## Legitimate uses of otherwise-flagged patterns
 

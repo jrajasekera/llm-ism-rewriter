@@ -155,7 +155,7 @@ Omit the density line when there are fewer than three findings. "This passage is
 
 ### `embedded`
 
-The final text and nothing else: no findings, summary, or validation block, and no `[specify: …]` marker. Where a fix needs a fact the source lacks, or a validator `FAIL` cannot be resolved, keep the source wording for that span.
+The final text and nothing else: no findings, summary, or validation block, and no `[specify: …]` marker. Only the report is suppressed; every check still runs. Make no edit that would need a `[Gap]` or `[Decision]` to be reported, or that deletes a claim: where a fix needs a fact the source lacks, or a validator `FAIL` cannot be resolved, keep the source wording for that span.
 
 ## Resources
 
@@ -189,4 +189,4 @@ records the scope of the adaptation.
 
 Several 2.5.0 patterns, the `embedded` output, and the informal-text and reply
 reviews follow leads from [blader/humanizer](https://github.com/blader/humanizer)
-(MIT). No text, example, or list was copied.
+(MIT). Four phrase lists are adapted from it; no sentence or example was copied.

@@ -83,10 +83,10 @@ An evaluative word carries how strongly the author meant it. An edit does not
 soften or sharpen it, and does not make a reported action sound more or less
 complete than the source did.
 
-- `The support line was disgusting` does not become `The support line was
-  disappointing`.
-- `I tried restarting it` does not become `I restarted it`. The source reports
-  an attempt, and the edit would report a result.
+- `The refund policy is a scam` does not become `The refund policy is
+  unclear`.
+- `We asked twice for a callback` does not become `We arranged a callback`.
+  The source reports a request, and the edit would report an outcome.
 
 The validator has no check for this. Compare the evaluative words and the
 reported actions yourself, most of all in reviews, complaints, and messages

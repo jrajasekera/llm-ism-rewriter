@@ -39,13 +39,13 @@ Examples carry stable IDs. Where an ID appears in `tests/fixtures/`, the behavio
 - Why: the disclaimer described the search and the guess had nothing under it.
 
 **EX-LX-08 — "the part" standing in** (`LX.PART_STANDIN`)
-- Before: *Sharing one build folder nearly works. This note is about the part that doesn't. The slow part is the dependencies.*
-- After, source says what fails: *Sharing one build folder saves disk space, but one checkout can run another's stale output. Most of the build time goes to the dependencies.*
-- After, source never says: keep the first sentence, and report a `[Gap]` for what fails.
+- Before: *The schema change is two lines. The hard part is everything around it, and the part that matters is rollback.*
+- After, source says what surrounds it: *The schema change is two lines. The backfill and the dual-write window take most of the work, and both must be reversible.*
+- After, source never says: keep the first sentence, and report a `[Gap]` for what the other work is.
 
 **EX-LX-09 — announced depth** (`LX.DEPTH_SIGNAL`)
-- Before: *The real question is whether the team can adapt. What really matters is readiness.*
-- After: *The open question is whether the team can adapt.* "Readiness" restated the question, so it goes; a second claim would need to be in the source.
+- Before: *The real question is whether the library can stay open on Sundays. What really matters is sustainability.*
+- After: *The open question is whether the library can stay open on Sundays.* "Sustainability" restated the question, so it goes; a second claim would need to be in the source.
 
 ## Rhetorical
 
@@ -91,9 +91,10 @@ Examples carry stable IDs. Where an ID appears in `tests/fixtures/`, the behavio
 - Why: nobody in the document proposed hourly backups. If a reviewer did, keep the sentence and say who.
 
 **EX-RH-11 — repeated context in a reply** (`RH.REDUNDANT_CONTEXT`)
-- Thread: a reviewer wrote *This retry hides the timeout, it doesn't fix it.*
-- Before: *You're right that this hides the timeout. The retry wraps the call, so a slow upstream looks like success. The real fix is a deadline in the client, which I measured at 40 lines. Since the client is shared, I'd rather do that in a separate change.*
-- After, in `rewrite`: *The real fix is a deadline in the client, which I measured at 40 lines. Since the client is shared, I'd rather do that in a separate change.* Findings list the two deleted sentences, which repeat the reviewer. A `[Decision]` notes that the answer could lead; the 40-line figure stays because the thread does not contain it.
+- Thread, by email: the client wrote *Your quote lists delivery on the 14th, but the contract says the 9th.*
+- Before: *Thank you for your email. As you note, our quote lists delivery on the 14th, while the contract says the 9th. We have checked with the warehouse, which confirms stock arrives on the 8th. We can therefore deliver on the 9th as contracted.*
+- After, in `rewrite`: *Thank you for your email. We have checked with the warehouse, which confirms stock arrives on the 8th. We can therefore deliver on the 9th as contracted.* Findings list the one deleted sentence, which repeats the client. A `[Decision]` notes that the answer could lead; the warehouse check stays because the thread does not contain it.
+- In a casual chat reply, the same finding alone is reported and nothing is deleted (`contexts.md`).
 
 **EX-RH-06 — generic intro and outro** (`RH.GENERIC_INTRO`, `RH.GENERIC_OUTRO`)
 - Before, intro: *In today's fast-paced digital world, monitoring has become increasingly important for organizations of all sizes.*
@@ -125,8 +126,8 @@ Examples carry stable IDs. Where an ID appears in `tests/fixtures/`, the behavio
 - The rule surfaces the shape. Whether the third clause carries a fact is a judgment.
 
 **EX-ST-06 — writing about the document** (`ST.DOCUMENT_SELF_DESCRIPTION`)
-- Before: *The figures below are drawn from each vendor's pricing page; anything we could not confirm is flagged.*
-- After: *Prices are each vendor's published rate. Two vendors publish none.* Both facts were in the source table.
+- Before: *This page was gathered from the three team wikis, and entries we could not match are marked with a dagger.*
+- After: *On-call contacts for the three teams. A dagger marks a contact nobody has confirmed since March.* The March date was in the source footnote; the convention stays because the reader cannot infer it.
 - Counterexample, in release notes: *This replaces the polling loop removed in 3.2.* A document about change keeps its history.
 
 ## No-change examples

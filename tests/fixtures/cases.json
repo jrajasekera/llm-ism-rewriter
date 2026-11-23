@@ -1190,7 +1190,7 @@
     {
       "id": "POS-RH-PHANTOM-OBJECTION",
       "profile": "general-prose",
-      "text": "Session tokens rotate every 24 hours. A tempting approach would be to restart the auth service on a timer, but that drops every session.\n\nDon't get me wrong, restarts have their place. Rotation happens in place.",
+      "text": "The importer validates each row before it writes. A tempting approach would be to validate the whole file first, but large files would never start.\n\nDon't get me wrong, whole-file checks have their place. Row checks keep memory flat.",
       "expect_present": [
         "RH.PHANTOM_OBJECTION"
       ],
@@ -1235,7 +1235,7 @@
     {
       "id": "NEG-RH-PHANTOM-OBJECTION-TECHNICAL",
       "profile": "technical-docs",
-      "text": "Session tokens rotate every 24 hours. A tempting approach would be to restart the auth service on a timer, but that drops every session.\n\nDon't get me wrong, restarts have their place. Rotation happens in place.",
+      "text": "The importer validates each row before it writes. A tempting approach would be to validate the whole file first, but large files would never start.\n\nDon't get me wrong, whole-file checks have their place. Row checks keep memory flat.",
       "expect_absent": [
         "RH.PHANTOM_OBJECTION"
       ],
@@ -1253,7 +1253,7 @@
     {
       "id": "POS-LX-GAP-SPECULATION",
       "profile": "general-prose",
-      "text": "While specific details about the founding are limited, the company appears to date from the 1990s.",
+      "text": "While specific details about the bridge's construction are limited, it was probably finished before the railway arrived.",
       "expect_present": [
         "LX.GAP_SPECULATION"
       ]
@@ -1261,7 +1261,7 @@
     {
       "id": "POS-LX-GAP-SPECULATION-PROFILE",
       "profile": "general-prose",
-      "text": "Her early career is not widely documented. She maintains a low profile and keeps personal details private.",
+      "text": "The composer's early training is not widely documented. He maintains a low profile and keeps his personal details private.",
       "expect_present": [
         "LX.GAP_SPECULATION"
       ]
@@ -1295,7 +1295,7 @@
     {
       "id": "POS-LX-PART-STANDIN",
       "profile": "general-prose",
-      "text": "Sharing one build folder nearly works. The hard part is the dependencies.\n\nThe part that matters is the lockfile.",
+      "text": "The migration script ran cleanly on staging. The hard part is the rollback.\n\nThe part that matters is the order of the two foreign keys.",
       "expect_present": [
         "LX.PART_STANDIN"
       ],
@@ -1331,7 +1331,7 @@
     {
       "id": "POS-LX-DEPTH-SIGNAL",
       "profile": "general-prose",
-      "text": "The real question is whether teams can adapt. What really matters is whether they change their habits.",
+      "text": "The real question is whether the grant covers a second year. What really matters is who signs the renewal.",
       "expect_present": [
         "LX.DEPTH_SIGNAL"
       ]
@@ -1357,7 +1357,7 @@
     {
       "id": "POS-RH-APHORISM-REAL-WIN",
       "profile": "general-prose",
-      "text": "Caching cuts repeat work. That is the real win.",
+      "text": "The new index halves the nightly job. That is the real win.",
       "expect_present": [
         "RH.APHORISM_CLOSER"
       ]
@@ -1391,7 +1391,7 @@
     {
       "id": "POS-LX-HOOK-STOPPED-WORDS",
       "profile": "general-prose",
-      "text": "It broke every. single. day. for a month.",
+      "text": "The pager went off every. single. night. for a month.",
       "expect_present": [
         "LX.ENGAGEMENT_HOOK"
       ],
@@ -1400,7 +1400,7 @@
     {
       "id": "NEG-LX-HOOK-STOPPED-CAPITALISED",
       "profile": "general-prose",
-      "text": "Worst. Service. Ever. The courier left the box in the rain.",
+      "text": "Best. Ramen. Ever. The broth takes two days.",
       "expect_absent": [
         "LX.ENGAGEMENT_HOOK"
       ],
@@ -1448,6 +1448,95 @@
         "FP.PROMPT_LEAKAGE"
       ],
       "note": "inline code is protected"
+    },
+    {
+      "id": "NEG-LX-HOOK-ETC-RUN",
+      "profile": "general-prose",
+      "text": "We bought apples, pears, plums, etc. etc. etc. and went home.",
+      "expect_absent": [
+        "LX.ENGAGEMENT_HOOK"
+      ],
+      "note": "a run of abbreviations is not stopped emphasis"
+    },
+    {
+      "id": "NEG-LX-HOOK-LATIN-ABBREVIATIONS",
+      "profile": "academic-research",
+      "text": "The form was described as gen. nov. sp. nov. in the monograph (cf. ibid. loc. cit.).",
+      "expect_absent": [
+        "LX.ENGAGEMENT_HOOK"
+      ]
+    },
+    {
+      "id": "NEG-LX-HOOK-LOWERCASE-CHAT",
+      "profile": "general-prose",
+      "text": "i checked the build. passed. shipping.",
+      "expect_absent": [
+        "LX.ENGAGEMENT_HOOK"
+      ],
+      "note": "lowercase fragments in a chat message are the register"
+    },
+    {
+      "id": "NEG-FP-LEAKAGE-TAGS-DISCUSSED",
+      "profile": "technical-docs",
+      "text": "Wrap the question in <user> and </user> tags, and close the block with </system> before the turn.",
+      "expect_absent": [
+        "FP.PROMPT_LEAKAGE"
+      ],
+      "note": "a tag discussed in prose is not stray; no instruction follows it"
+    },
+    {
+      "id": "NEG-FP-LEAKAGE-GLOSSARY-SENDER",
+      "profile": "technical-docs",
+      "text": "System message: the first message in the list, which sets behaviour.",
+      "expect_absent": [
+        "FP.PROMPT_LEAKAGE"
+      ],
+      "note": "a glossary entry, with no instruction to an editor"
+    },
+    {
+      "id": "NEG-FP-LEAKAGE-NOTICE-SENDER",
+      "profile": "general-prose",
+      "text": "Note from the administrator: the server is down on Friday for patching.\n\nMessage from the operator: the lift is out of service until Tuesday.",
+      "expect_absent": [
+        "FP.PROMPT_LEAKAGE"
+      ],
+      "note": "ordinary notices"
+    },
+    {
+      "id": "NEG-LX-GAP-SPECULATION-WELL-DOCUMENTED",
+      "profile": "technical-docs",
+      "text": "The `--fast` flag is not well documented upstream, so its behaviour is described here.",
+      "expect_absent": [
+        "LX.GAP_SPECULATION"
+      ],
+      "note": "a plain statement about documentation"
+    },
+    {
+      "id": "NEG-LX-GAP-SPECULATION-COMMITTEE",
+      "profile": "general-prose",
+      "text": "Based on the available information, the committee approved the grant on 4 May.",
+      "expect_absent": [
+        "LX.GAP_SPECULATION"
+      ],
+      "note": "a decision made on stated evidence"
+    },
+    {
+      "id": "NEG-LX-PART-STANDIN-COMPONENTS",
+      "profile": "technical-docs",
+      "text": "The new part is the retry queue. The slow part is the index build.",
+      "expect_absent": [
+        "LX.PART_STANDIN"
+      ],
+      "note": "new and slow describe components; only evaluative adjectives are matched"
+    },
+    {
+      "id": "POS-LX-HOOK-STOPPED-EVER",
+      "profile": "general-prose",
+      "text": "That was the worst. commute. ever. and it rained the whole way.",
+      "expect_present": [
+        "LX.ENGAGEMENT_HOOK"
+      ],
+      "note": "the worst/best \u2026 ever form in lowercase"
     }
   ]
 }

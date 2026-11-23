@@ -38,10 +38,14 @@ it is a clarity edit, not a signal about how the text was produced.
 Two shapes are narrower in the script than in the catalog, because of how text
 is segmented before any pattern runs:
 
-- `FP.PROMPT_LEAKAGE` matches a stray closing tag mid-line. A tag that opens a
-  line becomes a protected HTML segment and is not scanned.
-- `LX.ENGAGEMENT_HOOK` matches stop-separated lowercase words. Capitalised ones
-  are split into separate sentences, where `ST.FRAGMENT_RUN` may count them.
+- `FP.PROMPT_LEAKAGE` matches a stray closing tag mid-line, and only when an
+  instruction follows it. A tag that opens a line becomes a protected HTML
+  segment and is not scanned. A sender line (`System message:`) is matched on
+  the same condition, so glossary entries and notices do not fire at P0.
+- `LX.ENGAGEMENT_HOOK` matches two lowercase stop-separated forms
+  (`every. single. …` and `worst`/`best` `. … . ever.`). A general pattern
+  caught abbreviation runs and clipped chat messages. Capitalised words are
+  split into separate sentences, where `ST.FRAGMENT_RUN` may count them.
 
 The agent reads for both; `SKILL.md`'s trust boundary names the tag.
 
@@ -130,7 +134,7 @@ Related judgments with no rule at all, because they are properties of the
   correction is ordinary English, and a broad pattern would flag every one.
 - Whether a clipped negative tail or a reversed `rather than` rejects something
   nobody proposed. Comparisons and informative tails have the same shape.
-- Whether a maxim of the form `X is the language of Y` makes a checkable claim.
+- Whether a maxim of the form `X is the currency of Y` makes a checkable claim.
   The literal sentence and the manufactured one differ only in meaning.
 - Whether a short-form post is built from setup-and-punchline paragraphs, or
   opens on a canned personal hook. No pattern reaches either without also

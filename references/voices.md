@@ -25,8 +25,8 @@ generically competent narrator.
 Some details carry the author more than any sentence rhythm does. They survive
 an edit unless they damage the meaning:
 
-- an odd specific detail: a real address, a strange quote, a number nobody
-  would round that way
+- an odd specific detail: the bus route, the brand of the broken kettle, a
+  number nobody would round that way
 - a stated mixed feeling or an unresolved tension
 - a dated or in-group reference: slang, a meme, an in-joke from one year and
   one community

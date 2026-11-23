@@ -268,8 +268,8 @@ experiment on this skill has been run. They are not findings either.
   and `RH.REDUNDANT_CONTEXT`.
 - **Motivation:** a review of [blader/humanizer](https://github.com/blader/humanizer)
   v4.0.0 found patterns that this catalog did not reach. Its descriptions were
-  the lead. The rules, phrase lists, thresholds, and examples here were written
-  for this project.
+  the lead, and the phrase lists are narrowed subsets of its own. The rule
+  definitions, thresholds, and examples here were written for this project.
 - **Basis:** editorial argument only. Humanizer publishes no measurement for
   these patterns. The one run here, below, measures false positives on human
   prose and no recall, so the rules remain unvalidated hypotheses.
@@ -281,6 +281,17 @@ experiment on this skill has been run. They are not findings either.
   wordings are narrow, and asks for review. Phrases that plain writing uses
   (`to be clear`, `not publicly available`) are left out, and a negative
   fixture holds each exclusion.
+- **Narrowed after review, before release:** a general pattern for
+  stop-separated words fired on abbreviation runs (`etc. etc. etc.`,
+  `gen. nov. sp. nov.`) and on clipped lowercase chat, so
+  `LX.ENGAGEMENT_HOOK` now matches two fixed forms. The new
+  `FP.PROMPT_LEAKAGE` patterns fired at P0 on a glossary entry, on notices
+  from an administrator, and on documentation that discusses prompt tags, so
+  they now require an instruction after the tag or sender line.
+  `LX.GAP_SPECULATION` dropped `not well documented` and
+  `based on the available information`, which documentation and reporting use
+  plainly. `LX.PART_STANDIN` dropped `new`, `slow`, `fun`, and `scary`, which
+  describe components. Each has a negative fixture.
 - **Kept judgment-only:** a sentence that introduces a table is in most
   reference documentation, and every sentence of an over-explained reply can
   read well alone, so neither rule has a pattern. The clipped negative tail,
@@ -318,8 +329,8 @@ corpus. Each is marked `"threshold_status": "provisional"` in the registry.
 | `RH.MIRRORED_PAIR` | ≥ 2 mirrored pairs per document; echo halves 3–12 words and equal length, half the positions shared; negated replies ≤ 20 words | Editorial judgment | Speech, essay, and documentation controls; a labeled device/not-device set |
 | `RH.SELF_ANSWERED_QUESTION` | ≥ 2 per document; question of 1–3 words after a determiner or conjunction | Editorial judgment | FAQ, tutorial, column, and transcript controls |
 | `RH.PHANTOM_OBJECTION` | ≥ 2 per document; a closed list of six phrases | Editorial judgment | Essay, design-doc, and forum controls; a labeled raised/not-raised set |
-| `LX.GAP_SPECULATION` | ≥ 1 per document; a closed list of five wordings | Editorial judgment | Biography, journalism, and encyclopedic controls |
-| `LX.PART_STANDIN` | ≥ 2 per document; ten adjectives, four `that` verbs, and `worth` | Editorial judgment | Blog, tutorial, and retrospective controls |
+| `LX.GAP_SPECULATION` | ≥ 1 per document; five wordings; `well documented` and `the available information` excluded | Editorial judgment | Biography, journalism, and encyclopedic controls |
+| `LX.PART_STANDIN` | ≥ 2 per document; six evaluative adjectives, four `that` verbs, and `worth` | Editorial judgment | Blog, tutorial, and retrospective controls |
 | `LX.DEPTH_SIGNAL` | ≥ 2 per document; a closed list of four phrases | Editorial judgment | Essay, column, and management-prose controls |
 | `ST.HEADING_DENSITY` | < 60 prose words per heading | Editorial judgment | Reference-doc controls |
 | `ST.HEADING_FRAME_REPEAT` | ≥ 3 same-level headings sharing a first word | Lead from `ai-smell` | Same-level sibling sampling across doc sets |

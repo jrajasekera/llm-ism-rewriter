@@ -122,6 +122,7 @@ class CatalogContract(unittest.TestCase):
         self.assertIn("nothing else", section)
         self.assertIn("no `[specify: …]` marker", section)
         self.assertNotIn("## Findings", section)
+        self.assertIn("`[Gap]`", section, "embedded must say what happens to reportable edits")
 
     def test_every_reference_the_skill_names_exists(self):
         import re as _re
