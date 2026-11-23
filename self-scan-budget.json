@@ -94,7 +94,8 @@
         "ST.HEADING_RHETORIC",
         "ST.LABELED_BULLET_RUN",
         "RH.PHRASE_TRIAD",
-        "ST.DASH_DENSITY"
+        "ST.DASH_DENSITY",
+        "LX.GAP_SPECULATION"
       ],
       "note": "Every 'Before:' line is a clich\u00e9 on purpose, including the em-dash example."
     },

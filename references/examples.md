@@ -32,6 +32,12 @@ Examples carry stable IDs. Where an ID appears in `tests/fixtures/`, the behavio
 - Before: *Great question! Here's the thing: caching isn't magic. Let's dive in.*
 - After: *Caching helps only when reads outnumber writes.* — content taken from the next paragraph of the source. If there is no such content, just delete.
 
+**EX-LX-07 — a gap filled with a guess** (`LX.GAP_SPECULATION`)
+- Before: *While specific details about the mill's early years are limited, it likely opened in the 1880s to serve nearby farms.*
+- After, source silent: *The sources give no opening date for the mill.* Reported as a `[Gap]`; the guess is removed and named in Findings.
+- After, source has it: use the date the document gives elsewhere.
+- Why: the disclaimer described the search and the guess had nothing under it.
+
 ## Rhetorical
 
 **EX-RH-01 — false contrast** (`RH.FALSE_CONTRAST`)
@@ -69,6 +75,11 @@ Examples carry stable IDs. Where an ID appears in `tests/fixtures/`, the behavio
 **EX-RH-09 — a stock idiom** (`RH.FALSE_CONTRAST`)
 - Before: *The journey toward observability is not a destination but an ongoing process.*
 - After: *Observability is ongoing work.* — or, if the paragraph says what the work is, that.
+
+**EX-RH-10 — arguing with no one** (`RH.PHANTOM_OBJECTION`)
+- Before: *Backups run nightly. A tempting approach would be to run them hourly, but that would fill the disk. Don't get me wrong, hourly backups have their uses. The nightly job keeps 14 days.*
+- After: *Backups run nightly, and the job keeps 14 days.*
+- Why: nobody in the document proposed hourly backups. If a reviewer did, keep the sentence and say who.
 
 **EX-RH-06 — generic intro and outro** (`RH.GENERIC_INTRO`, `RH.GENERIC_OUTRO`)
 - Before, intro: *In today's fast-paced digital world, monitoring has become increasingly important for organizations of all sizes.*
@@ -150,6 +161,14 @@ The correct output is byte-identical text. A rewrite here is a failure.
 **EX-FP-08 — a correction** (`RH.FALSE_CONTRAST`)
 > The second postmortem found the outage was not a capacity problem but a misconfigured cache.
 > A real prior belief, overturned by a named document. Keep it.
+
+**EX-FP-09 — an objection someone raised** (`RH.PHANTOM_OBJECTION`)
+> Priya's review asked why we don't cache at the edge. I'm not saying the edge cache is wrong; it would work for the catalogue pages. It fails for carts, which change on every request.
+> The objection is attributed and answered. One use, and a real one.
+
+**EX-FP-10 — a real limit of the record** (`LX.GAP_SPECULATION`)
+> The parish register is not widely documented before 1790, when the fire destroyed the earlier volumes.
+> The checker reports it for review. The sentence states a limit, gives the reason, and guesses nothing, so it stays.
 
 ## Overlapping evidence
 

@@ -261,6 +261,30 @@ experiment on this skill has been run. They are not findings either.
   been run. A rule that over-flags a register gets narrowed, relaxed in that
   profile, or removed, and the result is recorded here.
 
+### Patterns adopted from blader/humanizer (2.5.0)
+
+- **Rules:** `RH.PHANTOM_OBJECTION` and `LX.GAP_SPECULATION`.
+- **Motivation:** a review of [blader/humanizer](https://github.com/blader/humanizer)
+  v4.0.0 found patterns that this catalog did not reach. Its descriptions were
+  the lead. The rules, phrase lists, thresholds, and examples here were written
+  for this project.
+- **Basis:** editorial argument only. Humanizer publishes no measurement for
+  these patterns, and none has been run here. They are unvalidated hypotheses.
+- **Precision measures taken instead:** each executable rule matches a closed
+  list of phrases. `RH.PHANTOM_OBJECTION` waits for two in a document and is
+  skipped in `creative`. `LX.GAP_SPECULATION` reports on one match, because its
+  wordings are narrow, and asks for review. Phrases that plain writing uses
+  (`to be clear`, `not publicly available`) are left out, and a negative
+  fixture holds each exclusion.
+- **Rejected from the same source:** adding a detail the editor believes true,
+  which breaks the no-invented-specifics rule; a ban on em dashes, against the
+  result recorded above; returning a first draft before the final text; and a
+  rule that dates a text to decide how it was written.
+- **Decision:** **adopted as editorial hypotheses, 2026-11-23, version 2.5.0.**
+  No agent eval has been written or run for them. A rule that over-flags a
+  register gets narrowed, relaxed in that profile, or removed, and the result
+  is recorded here.
+
 ## Provisional thresholds currently shipping
 
 Every number below is a starting policy calibrated against this repository's own
@@ -274,6 +298,8 @@ corpus. Each is marked `"threshold_status": "provisional"` in the registry.
 | `RH.FORCED_SYMMETRY` | ≥ 3 consecutive same-opener sentences | Editorial judgment | Speech and marketing controls |
 | `RH.MIRRORED_PAIR` | ≥ 2 mirrored pairs per document; echo halves 3–12 words and equal length, half the positions shared; negated replies ≤ 20 words | Editorial judgment | Speech, essay, and documentation controls; a labeled device/not-device set |
 | `RH.SELF_ANSWERED_QUESTION` | ≥ 2 per document; question of 1–3 words after a determiner or conjunction | Editorial judgment | FAQ, tutorial, column, and transcript controls |
+| `RH.PHANTOM_OBJECTION` | ≥ 2 per document; a closed list of six phrases | Editorial judgment | Essay, design-doc, and forum controls; a labeled raised/not-raised set |
+| `LX.GAP_SPECULATION` | ≥ 1 per document; a closed list of five wordings | Editorial judgment | Biography, journalism, and encyclopedic controls |
 | `ST.HEADING_DENSITY` | < 60 prose words per heading | Editorial judgment | Reference-doc controls |
 | `ST.HEADING_FRAME_REPEAT` | ≥ 3 same-level headings sharing a first word | Lead from `ai-smell` | Same-level sibling sampling across doc sets |
 | `ST.LABELED_BULLET_RUN` | > 0.5 labeled bullets per section, ≥ 4 bullets | Lead from `ai-smell` | Glossary and API-reference controls |

@@ -117,6 +117,17 @@ Clauses tacked onto a fact: "…, highlighting the importance of X", "…, under
 - **Fix:** name the relation (*caused, funded, part of, after*).
 - **Exception:** legal terms of art. Skipped in `legal-policy`.
 
+### B9. Gap-filling disclaimers
+`LX.GAP_SPECULATION` — P1, low evidence, review in context.
+
+A stock admission that the record is thin: `While specific details are limited`, `not widely documented`, `based on available information`, `maintains a low profile`, `keeps personal details private`.
+
+- **Why:** the sentence reports a failed search as if it were a fact about the subject, and a guess usually follows it: `She likely grew up nearby, which shaped her later work.`
+- **What the checker matches:** the disclaimer, in that closed list of wordings. It does not match the guess. Read the next sentence for `likely`, `it is believed`, or `appears to have`, and treat a guess that rests on nothing in the source as part of the same finding.
+- **Not matched:** `not publicly available`. Reporting uses it for a real limit: `The figures are not publicly available.`
+- **Legitimate use:** a sentence that states a real limit of the record and stops there.
+- **Fix:** state what the source does not show (`The sources give no founding date.`), or cut the sentence. Never fill the gap. A removed guess is reported as a `[Gap]`.
+
 ---
 
 ## C. Rhetorical structures
@@ -202,6 +213,17 @@ A fragment that relabels the word before it and then qualifies the relabel: `It'
 - **What the checker matches:** the doubled form (`The X kind. The kind that…`), the negated pair of kinds, and a word echoed with *real*, *true*, or *genuine*. A single fragment (`It was a hard problem. The good kind.`) is ordinary emphasis and is not matched.
 - **Legitimate use:** fiction, poetry, speeches, and dialogue (skipped in `creative`). `ST.FRAGMENT_RUN` covers longer runs of short sentences; when both describe one span, report one finding.
 - **Fix:** fold the qualification into the sentence it modifies: `It's about the autonomy to work without being watched.` If the fragment adds nothing, cut it. Never add a detail to make the fragment earn its place.
+
+### C9. Arguing with no one
+`RH.PHANTOM_OBJECTION` — P1, low evidence, review in context.
+
+A defence against an objection or an option that appears nowhere else in the text: `A tempting approach would be to…`, `One might be tempted to…`, `It would be easy to just…`, `Don't get me wrong`, `This is not to say…`, `I'm not saying…`.
+
+- **Why:** the text argues with a reader it invented, so a routine claim arrives as a rebuttal. A rejected option that nobody would weigh is the same move.
+- **What the checker matches:** that closed list of phrases, counted across the document. `To be clear` is not matched; ordinary writing uses it too often.
+- **Evidence:** one is how people talk. **Two or more in a document** is the finding. Several unrelated rejections in a row are stronger evidence than two far apart.
+- **Legitimate use:** an objection the text attributes to someone or answers in full; an alternative a reader would really weigh, such as the obvious design a reviewer will ask about. Skipped in `creative`, where dialogue uses these phrases. Relaxed wherever false contrast is.
+- **Fix:** remove the defence. If it holds a real claim, state the claim. Never invent the objector to justify keeping it.
 
 ### Short-form register: what stays judgment
 
@@ -375,6 +397,7 @@ Generated from `references/rules.json` by `scripts/build_catalog.py --write`. Do
 | `LX.PERFORMATIVE_HONESTY` | B7 | cliche | hooks | P1 | regex | remove |
 | `LX.SYCOPHANCY` | B7 | cliche | hooks | P0 | regex | remove |
 | `LX.ASSOCIATION_VAGUENESS` | B8 | cliche | association | P2 | regex | replace |
+| `LX.GAP_SPECULATION` | B9 | cliche | attribution | P1 | regex | request-detail |
 | `RH.FALSE_CONTRAST` | C1 | cliche | contrast | P1 | regex | review_in_context |
 | `RH.PHRASE_TRIAD` | C2 | structural | triads | P1 | regex | review_in_context |
 | `RH.TRIAD_DENSITY` | C2 | structural | triads | P1 | metric | review_in_context |
@@ -386,6 +409,7 @@ Generated from `references/rules.json` by `scripts/build_catalog.py --write`. Do
 | `RH.GENERIC_OUTRO` | C6 | cliche | intro_outro | P1 | regex | remove |
 | `RH.SELF_ANSWERED_QUESTION` | C7 | cliche | questions | P1 | regex | review_in_context |
 | `RH.ELABORATING_FRAGMENT` | C8 | cliche | cadence | P1 | regex | review_in_context |
+| `RH.PHANTOM_OBJECTION` | C9 | cliche | contrast | P1 | regex | review_in_context |
 | `ST.CROSS_FILE_TEMPLATE` | D1 | structural | headings | P2 | metric | review_in_context |
 | `ST.HEADING_DENSITY` | D1 | structural | headings | P2 | metric | merge |
 | `ST.HEADING_FRAME_REPEAT` | D1 | structural | headings | P2 | metric | review_in_context |

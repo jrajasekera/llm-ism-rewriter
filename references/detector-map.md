@@ -53,6 +53,7 @@ The script reports these; recurrence, genre, and literal sense decide them.
 | `LX.ENGAGEMENT_HOOK` | regex | Whether a hook is the genre's job (a headline, a lede). |
 | `LX.PERFORMATIVE_HONESTY` | regex | Whether the document is already first-person and candid. |
 | `LX.ASSOCIATION_VAGUENESS` | regex | Whether the phrase is a legal term of art. |
+| `LX.GAP_SPECULATION` | regex | Whether the sentence reports a real limit of the record, and whether a guess follows it. |
 | `RH.FALSE_CONTRAST` | regex | **The central judgment**: whether a reader plausibly holds the rejected belief. |
 | `RH.TRIAD_DENSITY` | metric | Whether there are exactly three real items. |
 | `RH.PHRASE_TRIAD` | regex | Whether the third clause carries a fact. |
@@ -62,6 +63,7 @@ The script reports these; recurrence, genre, and literal sense decide them.
 | `RH.GENERIC_INTRO` / `RH.GENERIC_OUTRO` | regex | Whether a conventional section is mandated by the genre. |
 | `RH.SELF_ANSWERED_QUESTION` | regex (counted per document) | Whether the reader would genuinely ask the question, as in an FAQ. |
 | `RH.ELABORATING_FRAGMENT` | regex | Whether the fragment carries a qualification the sentence could not. |
+| `RH.PHANTOM_OBJECTION` | regex (counted per document) | Whether the objection or option appears elsewhere in the text or the thread. |
 | `ST.HEADING_DENSITY` | metric | Whether the document is reference material. |
 | `ST.HEADING_FRAME_REPEAT` | metric | Whether parallel headings are an intentional outline. |
 | `ST.HEADING_RHETORIC` | regex | Whether the section under the heading delivers content. |

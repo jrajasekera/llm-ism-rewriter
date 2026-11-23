@@ -605,6 +605,33 @@
       ]
     },
     {
+      "id": "LX.GAP_SPECULATION",
+      "title": "Disclaimer that no source was found",
+      "catalog": "B9",
+      "tier": "cliche",
+      "family": "attribution",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "regex",
+      "scope": "document",
+      "minimum_occurrences": 1,
+      "threshold_status": "provisional",
+      "action": "request-detail",
+      "reason": "A stock admission that the record is thin, usually followed by a plausible guess that fills the gap.",
+      "fix": "State what the source does not show, or cut the sentence. Never fill the gap; report a removed guess as a [Gap].",
+      "patterns": [
+        "\\bwhile\\s+specific\\s+details\\s+(?:(?:about|of|on|regarding)\\s+[^.;:!?]{1,80}?\\s+)?(?:are|remain)\\s+(?:limited|scarce|unclear)\\b",
+        "\\bnot\\s+(?:widely|extensively|well)\\s+documented\\b",
+        "\\bbased\\s+on\\s+(?:the\\s+)?available\\s+information\\b",
+        "\\bmaintains\\s+a\\s+low\\s+profile\\b",
+        "\\bkeeps\\s+(?:(?:his|her|their|its)\\s+)?personal\\s+details\\s+private\\b"
+      ],
+      "exceptions": [
+        "quoted_example"
+      ],
+      "note": "Matches the disclaimer only; the guess that follows it is the reader's judgment. 'not publicly available' is deliberately unmatched. Threshold provisional; see references/negative-results.md."
+    },
+    {
       "id": "RH.FALSE_CONTRAST",
       "title": "False contrast",
       "catalog": "C1",
@@ -899,6 +926,37 @@
         "dialogue",
         "quoted_example"
       ]
+    },
+    {
+      "id": "RH.PHANTOM_OBJECTION",
+      "title": "Defence against an objection nobody raised",
+      "catalog": "C9",
+      "tier": "cliche",
+      "family": "contrast",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "regex",
+      "scope": "document",
+      "minimum_occurrences": 2,
+      "threshold_status": "provisional",
+      "action": "review_in_context",
+      "reason": "The text rejects an option or answers an objection that appears nowhere else, so the real claim arrives as a rebuttal. Once is ordinary; a habit is a template.",
+      "fix": "Remove the defence and keep any real claim inside it. Keep an objection the text attributes or answers in full.",
+      "patterns": [
+        "\\ba\\s+tempting\\s+approach\\s+would\\s+be\\b",
+        "\\bone\\s+might\\s+be\\s+tempted\\s+to\\b",
+        "\\bit\\s+would\\s+be\\s+easy\\s+to\\s+just\\b",
+        "\\bdon't\\s+get\\s+me\\s+wrong\\b",
+        "\\bthis\\s+is\\s+not\\s+to\\s+say\\b",
+        "\\bi(?:'m|\\s+am)\\s+not\\s+saying\\b"
+      ],
+      "exceptions": [
+        "quoted_example",
+        "established_first_person_voice",
+        "dialogue",
+        "attributed_objection"
+      ],
+      "note": "A closed list of phrases; 'to be clear' is deliberately unmatched. Counted across the document. Threshold provisional; see references/negative-results.md."
     },
     {
       "id": "ST.HEADING_DENSITY",

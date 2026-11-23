@@ -327,7 +327,7 @@
     {
       "id": "POS-RH-CONTRAST-CURLY",
       "profile": "general-prose",
-      "text": "This isn’t about productivity; it’s about autonomy.",
+      "text": "This isn\u2019t about productivity; it\u2019s about autonomy.",
       "expect_present": [
         "RH.FALSE_CONTRAST"
       ],
@@ -336,7 +336,7 @@
     {
       "id": "POS-RH-CONTRAST-CURLY-EM-DASH",
       "profile": "general-prose",
-      "text": "It’s not a bug — it’s a feature of the design.",
+      "text": "It\u2019s not a bug \u2014 it\u2019s a feature of the design.",
       "expect_present": [
         "RH.FALSE_CONTRAST"
       ]
@@ -344,7 +344,7 @@
     {
       "id": "POS-RH-CONTRAST-EN-DASH",
       "profile": "general-prose",
-      "text": "It's not a bug – it's a feature of the design.",
+      "text": "It's not a bug \u2013 it's a feature of the design.",
       "expect_present": [
         "RH.FALSE_CONTRAST"
       ],
@@ -370,7 +370,7 @@
     {
       "id": "POS-RH-CONTRAST-ACROSS-WRAPPED-CURLY",
       "profile": "general-prose",
-      "text": "They weren’t about speed. They’re\nabout trust, and the survey says so.",
+      "text": "They weren\u2019t about speed. They\u2019re\nabout trust, and the survey says so.",
       "expect_present": [
         "RH.FALSE_CONTRAST"
       ],
@@ -379,7 +379,7 @@
     {
       "id": "POS-RH-CONTRAST-ACROSS-ARTICLE",
       "profile": "general-prose",
-      "text": "It’s not a bug. It’s a feature.",
+      "text": "It\u2019s not a bug. It\u2019s a feature.",
       "expect_present": [
         "RH.FALSE_CONTRAST"
       ]
@@ -432,7 +432,7 @@
     {
       "id": "NEG-RH-CONTRAST-CURLY-QUOTED",
       "profile": "general-prose",
-      "text": "Context first.\n\n> “It’s not a bug — it’s a feature,” she said.\n\nThe cache warms on boot.",
+      "text": "Context first.\n\n> \u201cIt\u2019s not a bug \u2014 it\u2019s a feature,\u201d she said.\n\nThe cache warms on boot.",
       "expect_absent": [
         "RH.FALSE_CONTRAST"
       ],
@@ -441,7 +441,7 @@
     {
       "id": "POS-LX-HOOK-CURLY",
       "profile": "general-prose",
-      "text": "Here’s the thing: caching only helps when reads outnumber writes.",
+      "text": "Here\u2019s the thing: caching only helps when reads outnumber writes.",
       "expect_present": [
         "LX.ENGAGEMENT_HOOK"
       ]
@@ -449,7 +449,7 @@
     {
       "id": "NEG-LX-HOOK-CURLY-NEARMISS",
       "profile": "general-prose",
-      "text": "Here’s the list of checks the hook runs before each push.",
+      "text": "Here\u2019s the list of checks the hook runs before each push.",
       "expect_absent": [
         "LX.ENGAGEMENT_HOOK"
       ]
@@ -457,7 +457,7 @@
     {
       "id": "POS-LX-SYCOPHANCY-CURLY",
       "profile": "general-prose",
-      "text": "You’re absolutely right that the index was missing.",
+      "text": "You\u2019re absolutely right that the index was missing.",
       "expect_present": [
         "LX.SYCOPHANCY"
       ]
@@ -465,7 +465,7 @@
     {
       "id": "POS-FP-CHATBOT-CURLY",
       "profile": "general-prose",
-      "text": "I’m just an AI, so I can’t browse the vendor’s status page.",
+      "text": "I\u2019m just an AI, so I can\u2019t browse the vendor\u2019s status page.",
       "expect_present": [
         "FP.CHATBOT_RESIDUE"
       ]
@@ -473,7 +473,7 @@
     {
       "id": "POS-RH-APHORISM-CURLY",
       "profile": "general-prose",
-      "text": "Ship the smaller change first. That’s the whole point.",
+      "text": "Ship the smaller change first. That\u2019s the whole point.",
       "expect_present": [
         "RH.APHORISM_CLOSER"
       ]
@@ -481,7 +481,7 @@
     {
       "id": "POS-LX-TRANSITION-CURLY",
       "profile": "general-prose",
-      "text": "It’s worth noting that the cache is cold. It’s important to note that eviction is lazy.",
+      "text": "It\u2019s worth noting that the cache is cold. It\u2019s important to note that eviction is lazy.",
       "expect_present": [
         "LX.STOCK_TRANSITION"
       ]
@@ -489,7 +489,7 @@
     {
       "id": "POS-RH-INTRO-CURLY",
       "profile": "general-prose",
-      "text": "In today’s fast-paced release cycle, the changelog is often skipped.",
+      "text": "In today\u2019s fast-paced release cycle, the changelog is often skipped.",
       "expect_present": [
         "RH.GENERIC_INTRO"
       ]
@@ -671,7 +671,7 @@
       "id": "POS-ST-DASH",
       "repeat": 5,
       "profile": "general-prose",
-      "text": "Caching—when done right—cuts latency, but it adds complexity, and complexity has a cost that the on-call rota eventually pays for in pages and confusion.\n\n",
+      "text": "Caching\u2014when done right\u2014cuts latency, but it adds complexity, and complexity has a cost that the on-call rota eventually pays for in pages and confusion.\n\n",
       "expect_present": [
         "ST.DASH_DENSITY"
       ]
@@ -826,7 +826,7 @@
     {
       "id": "PROTECTED-QUOTE",
       "profile": "general-prose",
-      "text": "The SRE put it plainly.\n\n> \"Logs are the first thing I check and the last thing I trust.\" — an SRE I worked with\n\nMost teams already collect the data.",
+      "text": "The SRE put it plainly.\n\n> \"Logs are the first thing I check and the last thing I trust.\" \u2014 an SRE I worked with\n\nMost teams already collect the data.",
       "expect_absent": [
         "LX.PERFORMATIVE_HONESTY"
       ],
@@ -898,7 +898,7 @@
     {
       "id": "POS-RH-SELF-ANSWERED-CURLY",
       "profile": "general-prose",
-      "text": "And the cost? It’s lower than last year. So what does this mean for the team? We can stop batching releases.",
+      "text": "And the cost? It\u2019s lower than last year. So what does this mean for the team? We can stop batching releases.",
       "expect_present": [
         "RH.SELF_ANSWERED_QUESTION"
       ]
@@ -1186,6 +1186,111 @@
       "expect_absent": [
         "LX.PERFORMATIVE_HONESTY"
       ]
+    },
+    {
+      "id": "POS-RH-PHANTOM-OBJECTION",
+      "profile": "general-prose",
+      "text": "Session tokens rotate every 24 hours. A tempting approach would be to restart the auth service on a timer, but that drops every session.\n\nDon't get me wrong, restarts have their place. Rotation happens in place.",
+      "expect_present": [
+        "RH.PHANTOM_OBJECTION"
+      ],
+      "note": "two defences against options nobody proposed, counted across paragraphs"
+    },
+    {
+      "id": "POS-RH-PHANTOM-OBJECTION-WRAPPED-CURLY",
+      "profile": "general-prose",
+      "text": "It would be easy to just\nraise the limit. This is not to say limits are bad. Don\u2019t get me wrong, the default is fine.",
+      "expect_present": [
+        "RH.PHANTOM_OBJECTION"
+      ],
+      "note": "a phrase split by a hard line wrap and a typographic apostrophe both match"
+    },
+    {
+      "id": "NEG-RH-PHANTOM-OBJECTION-ISOLATED",
+      "profile": "general-prose",
+      "text": "I'm not saying the old scheduler was wrong. It was built for a single region, and we now run in four.",
+      "expect_absent": [
+        "RH.PHANTOM_OBJECTION"
+      ],
+      "note": "one occurrence is ordinary; the threshold is two per document"
+    },
+    {
+      "id": "NEG-RH-PHANTOM-OBJECTION-PROTECTED",
+      "profile": "general-prose",
+      "text": "The style guide lists `don't get me wrong` and `this is not to say` as phrases to cut.",
+      "expect_absent": [
+        "RH.PHANTOM_OBJECTION"
+      ],
+      "note": "phrases discussed inside code spans are protected"
+    },
+    {
+      "id": "NEG-RH-PHANTOM-OBJECTION-DIALOGUE",
+      "profile": "creative",
+      "text": "\"I'm not saying you lied,\" Mara said. \"I'm not saying anything yet.\" She set the cup down.",
+      "expect_absent": [
+        "RH.PHANTOM_OBJECTION"
+      ],
+      "note": "dialogue in fiction; the creative profile skips the family"
+    },
+    {
+      "id": "NEG-RH-PHANTOM-OBJECTION-TECHNICAL",
+      "profile": "technical-docs",
+      "text": "Session tokens rotate every 24 hours. A tempting approach would be to restart the auth service on a timer, but that drops every session.\n\nDon't get me wrong, restarts have their place. Rotation happens in place.",
+      "expect_absent": [
+        "RH.PHANTOM_OBJECTION"
+      ],
+      "note": "the contrast family is relaxed in technical-docs, so two occurrences are below the threshold of four"
+    },
+    {
+      "id": "NEG-RH-PHANTOM-OBJECTION-TO-BE-CLEAR",
+      "profile": "general-prose",
+      "text": "To be clear, the migration runs once. To be clear about scope, it touches two tables.",
+      "expect_absent": [
+        "RH.PHANTOM_OBJECTION"
+      ],
+      "note": "to be clear is ordinary and deliberately unmatched"
+    },
+    {
+      "id": "POS-LX-GAP-SPECULATION",
+      "profile": "general-prose",
+      "text": "While specific details about the founding are limited, the company appears to date from the 1990s.",
+      "expect_present": [
+        "LX.GAP_SPECULATION"
+      ]
+    },
+    {
+      "id": "POS-LX-GAP-SPECULATION-PROFILE",
+      "profile": "general-prose",
+      "text": "Her early career is not widely documented. She maintains a low profile and keeps personal details private.",
+      "expect_present": [
+        "LX.GAP_SPECULATION"
+      ]
+    },
+    {
+      "id": "NEG-LX-GAP-SPECULATION-LITERAL",
+      "profile": "general-prose",
+      "text": "The figures are not publicly available, so the audit used the 2019 filing.",
+      "expect_absent": [
+        "LX.GAP_SPECULATION"
+      ],
+      "note": "reporting uses this phrase literally; deliberately unmatched"
+    },
+    {
+      "id": "NEG-LX-GAP-SPECULATION-LOW",
+      "profile": "general-prose",
+      "text": "The reservoir maintains a low water level through August. Details of the 2021 survey are limited to the two northern wells.",
+      "expect_absent": [
+        "LX.GAP_SPECULATION"
+      ]
+    },
+    {
+      "id": "NEG-LX-GAP-SPECULATION-QUOTED",
+      "profile": "general-prose",
+      "text": "> While specific details are limited, the firm keeps personal details private.\n> \u2014 Annual review, 2021",
+      "expect_absent": [
+        "LX.GAP_SPECULATION"
+      ],
+      "note": "an attributed blockquote is a protected span"
     }
   ]
 }
