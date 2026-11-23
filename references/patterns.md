@@ -101,13 +101,15 @@ Clauses tacked onto a fact: "…, highlighting the importance of X", "…, under
 - **Exception:** in academic prose a participle tail often summarizes the paper's own result. Relaxed in `academic-research`.
 
 ### B7. Engagement hooks and canned reactions
-`LX.ENGAGEMENT_HOOK`, `LX.SYCOPHANCY`, `LX.PERFORMATIVE_HONESTY` — P1 / P0 / P1.
+`LX.ENGAGEMENT_HOOK`, `LX.SYCOPHANCY`, `LX.PERFORMATIVE_HONESTY`, `LX.PART_STANDIN`, `LX.DEPTH_SIGNAL` — P1 / P0 / P1 / P1 / P1.
 
 - Hooks: "Have you ever wondered…?", "Picture this:", "Let's dive in", "Buckle up", "Here's the thing", "Here's the twist", "The punchline is", "Sit with that for a moment", "That's the part nobody talks about", "X is dead", "Let that sink in", `the more I sit with it`.
 - Announced enumeration: a verbless count standing as its own sentence before the list it announces, as in `Three things. First, …`. A full sentence that introduces a real procedure (`There are three steps.`) or a count with a verb (`Three things stand out:`) is not matched.
 - Sycophancy: "What a fantastic point", "You're absolutely right", "Excellent choice".
 - Performative honesty: "Honestly,", "Let me be real with you", "I'll be blunt", and the question form `And honestly?`.
 - **Fix:** delete. Start with the content. For an announced list, keep the items and drop the count.
+- "The part" as a stand-in (`LX.PART_STANDIN`): `The hard part is…`, `the part that matters`, `the part worth sharing`. The first stages a point; the others gesture at something the text may never name. The checker needs an evaluative adjective or a `that`/`worth` clause, so `the second part of the upload` is not matched. One is an ordinary idiom; **two or more in a document** is the finding. Fix: name the thing, or state the point.
+- Announced depth (`LX.DEPTH_SIGNAL`): `The real question is…`, `What really matters…`, `the deeper issue`, `the heart of the matter`. The phrase promises a hidden truth and supplies none. **Two or more in a document** is the finding. Fix: drop the announcement and keep the specific claim.
 
 ### B8. Association vagueness
 `LX.ASSOCIATION_VAGUENESS` — P2, low evidence.
@@ -393,7 +395,9 @@ Generated from `references/rules.json` by `scripts/build_catalog.py --write`. Do
 | `LX.PROMOTIONAL_REGISTER` | B4 | cliche | promotional | P1 | regex | replace |
 | `LX.VAGUE_AUTHORITY` | B5 | cliche | attribution | P1 | regex | request-detail |
 | `LX.PARTICIPLE_TAIL` | B6 | cliche | participle | P1 | regex | remove |
+| `LX.DEPTH_SIGNAL` | B7 | cliche | hooks | P1 | regex | review_in_context |
 | `LX.ENGAGEMENT_HOOK` | B7 | cliche | hooks | P1 | regex | remove |
+| `LX.PART_STANDIN` | B7 | cliche | hooks | P1 | regex | review_in_context |
 | `LX.PERFORMATIVE_HONESTY` | B7 | cliche | hooks | P1 | regex | remove |
 | `LX.SYCOPHANCY` | B7 | cliche | hooks | P0 | regex | remove |
 | `LX.ASSOCIATION_VAGUENESS` | B8 | cliche | association | P2 | regex | replace |

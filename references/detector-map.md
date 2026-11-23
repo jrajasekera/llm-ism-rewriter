@@ -52,6 +52,8 @@ The script reports these; recurrence, genre, and literal sense decide them.
 | `LX.PARTICIPLE_TAIL` | regex | Whether the interpretation is supported elsewhere in the document. |
 | `LX.ENGAGEMENT_HOOK` | regex | Whether a hook is the genre's job (a headline, a lede). |
 | `LX.PERFORMATIVE_HONESTY` | regex | Whether the document is already first-person and candid. |
+| `LX.PART_STANDIN` | regex (counted per document) | Whether the text goes on to name the thing, and whether the part is literal. |
+| `LX.DEPTH_SIGNAL` | regex (counted per document) | Whether the phrase introduces a point the text then makes specifically. |
 | `LX.ASSOCIATION_VAGUENESS` | regex | Whether the phrase is a legal term of art. |
 | `LX.GAP_SPECULATION` | regex | Whether the sentence reports a real limit of the record, and whether a guess follows it. |
 | `RH.FALSE_CONTRAST` | regex | **The central judgment**: whether a reader plausibly holds the rejected belief. |

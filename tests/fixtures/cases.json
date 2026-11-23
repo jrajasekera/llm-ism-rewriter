@@ -1291,6 +1291,68 @@
         "LX.GAP_SPECULATION"
       ],
       "note": "an attributed blockquote is a protected span"
+    },
+    {
+      "id": "POS-LX-PART-STANDIN",
+      "profile": "general-prose",
+      "text": "Sharing one build folder nearly works. The hard part is the dependencies.\n\nThe part that matters is the lockfile.",
+      "expect_present": [
+        "LX.PART_STANDIN"
+      ],
+      "note": "two uses of the part standing in for the point, counted across paragraphs"
+    },
+    {
+      "id": "NEG-LX-PART-STANDIN-ISOLATED",
+      "profile": "general-prose",
+      "text": "The parser was done in a week. The hard part is the error messages, which took three more.",
+      "expect_absent": [
+        "LX.PART_STANDIN"
+      ],
+      "note": "one occurrence is an ordinary idiom; the threshold is two per document"
+    },
+    {
+      "id": "NEG-LX-PART-STANDIN-LITERAL",
+      "profile": "general-prose",
+      "text": "Upload the first part of the archive, then the part that failed. The second part is retried automatically, and the last part is the checksum.",
+      "expect_absent": [
+        "LX.PART_STANDIN"
+      ],
+      "note": "literal parts of a multipart upload"
+    },
+    {
+      "id": "NEG-LX-PART-STANDIN-CREATIVE",
+      "profile": "creative",
+      "text": "The hard part is the leaving. The part that matters is who stays.",
+      "expect_absent": [
+        "LX.PART_STANDIN"
+      ],
+      "note": "the creative profile skips the hooks family"
+    },
+    {
+      "id": "POS-LX-DEPTH-SIGNAL",
+      "profile": "general-prose",
+      "text": "The real question is whether teams can adapt. What really matters is whether they change their habits.",
+      "expect_present": [
+        "LX.DEPTH_SIGNAL"
+      ]
+    },
+    {
+      "id": "NEG-LX-DEPTH-SIGNAL-ISOLATED",
+      "profile": "general-prose",
+      "text": "Cost is settled. The real question is whether the vendor can deliver by March.",
+      "expect_absent": [
+        "LX.DEPTH_SIGNAL"
+      ],
+      "note": "one occurrence; the threshold is two per document"
+    },
+    {
+      "id": "NEG-LX-DEPTH-SIGNAL-TITLE",
+      "profile": "general-prose",
+      "text": "Greene published *The Heart of the Matter* in 1948. The real question on the exam paper was number four.",
+      "expect_absent": [
+        "LX.DEPTH_SIGNAL"
+      ],
+      "note": "a title is one match at most, and a literal real question is not the announcing form"
     }
   ]
 }

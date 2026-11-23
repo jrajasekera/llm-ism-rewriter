@@ -38,6 +38,15 @@ Examples carry stable IDs. Where an ID appears in `tests/fixtures/`, the behavio
 - After, source has it: use the date the document gives elsewhere.
 - Why: the disclaimer described the search and the guess had nothing under it.
 
+**EX-LX-08 — "the part" standing in** (`LX.PART_STANDIN`)
+- Before: *Sharing one build folder nearly works. This note is about the part that doesn't. The slow part is the dependencies.*
+- After, source says what fails: *Sharing one build folder saves disk space, but one checkout can run another's stale output. Most of the build time goes to the dependencies.*
+- After, source never says: keep the first sentence, and report a `[Gap]` for what fails.
+
+**EX-LX-09 — announced depth** (`LX.DEPTH_SIGNAL`)
+- Before: *The real question is whether the team can adapt. What really matters is readiness.*
+- After: *The open question is whether the team can adapt.* "Readiness" restated the question, so it goes; a second claim would need to be in the source.
+
 ## Rhetorical
 
 **EX-RH-01 — false contrast** (`RH.FALSE_CONTRAST`)
@@ -169,6 +178,14 @@ The correct output is byte-identical text. A rewrite here is a failure.
 **EX-FP-10 — a real limit of the record** (`LX.GAP_SPECULATION`)
 > The parish register is not widely documented before 1790, when the fire destroyed the earlier volumes.
 > The checker reports it for review. The sentence states a limit, gives the reason, and guesses nothing, so it stays.
+
+**EX-FP-11 — one honest "hard part"** (`LX.PART_STANDIN`)
+> The parser took a week. The hard part is the error messages, which took three more.
+> One use, and the sentence names the thing at once. The checker suppresses it.
+
+**EX-FP-12 — a literal question** (`LX.DEPTH_SIGNAL`)
+> Cost is settled. The real question is whether the vendor can deliver by March.
+> A single use that contrasts a settled matter with an open one. Leave it.
 
 ## Overlapping evidence
 

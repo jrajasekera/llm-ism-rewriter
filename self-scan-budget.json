@@ -95,7 +95,9 @@
         "ST.LABELED_BULLET_RUN",
         "RH.PHRASE_TRIAD",
         "ST.DASH_DENSITY",
-        "LX.GAP_SPECULATION"
+        "LX.GAP_SPECULATION",
+        "LX.PART_STANDIN",
+        "LX.DEPTH_SIGNAL"
       ],
       "note": "Every 'Before:' line is a clich\u00e9 on purpose, including the em-dash example."
     },

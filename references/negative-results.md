@@ -263,7 +263,8 @@ experiment on this skill has been run. They are not findings either.
 
 ### Patterns adopted from blader/humanizer (2.5.0)
 
-- **Rules:** `RH.PHANTOM_OBJECTION` and `LX.GAP_SPECULATION`.
+- **Rules:** `RH.PHANTOM_OBJECTION`, `LX.GAP_SPECULATION`, `LX.PART_STANDIN`,
+  and `LX.DEPTH_SIGNAL`.
 - **Motivation:** a review of [blader/humanizer](https://github.com/blader/humanizer)
   v4.0.0 found patterns that this catalog did not reach. Its descriptions were
   the lead. The rules, phrase lists, thresholds, and examples here were written
@@ -272,7 +273,9 @@ experiment on this skill has been run. They are not findings either.
   these patterns, and none has been run here. They are unvalidated hypotheses.
 - **Precision measures taken instead:** each executable rule matches a closed
   list of phrases. `RH.PHANTOM_OBJECTION` waits for two in a document and is
-  skipped in `creative`. `LX.GAP_SPECULATION` reports on one match, because its
+  skipped in `creative`, as are `LX.PART_STANDIN` and `LX.DEPTH_SIGNAL`, which
+  also wait for two. `LX.PART_STANDIN` requires an evaluative adjective or a
+  `that`/`worth` clause, so a literal part is not matched. `LX.GAP_SPECULATION` reports on one match, because its
   wordings are narrow, and asks for review. Phrases that plain writing uses
   (`to be clear`, `not publicly available`) are left out, and a negative
   fixture holds each exclusion.
@@ -300,6 +303,8 @@ corpus. Each is marked `"threshold_status": "provisional"` in the registry.
 | `RH.SELF_ANSWERED_QUESTION` | ≥ 2 per document; question of 1–3 words after a determiner or conjunction | Editorial judgment | FAQ, tutorial, column, and transcript controls |
 | `RH.PHANTOM_OBJECTION` | ≥ 2 per document; a closed list of six phrases | Editorial judgment | Essay, design-doc, and forum controls; a labeled raised/not-raised set |
 | `LX.GAP_SPECULATION` | ≥ 1 per document; a closed list of five wordings | Editorial judgment | Biography, journalism, and encyclopedic controls |
+| `LX.PART_STANDIN` | ≥ 2 per document; ten adjectives, four `that` verbs, and `worth` | Editorial judgment | Blog, tutorial, and retrospective controls |
+| `LX.DEPTH_SIGNAL` | ≥ 2 per document; a closed list of four phrases | Editorial judgment | Essay, column, and management-prose controls |
 | `ST.HEADING_DENSITY` | < 60 prose words per heading | Editorial judgment | Reference-doc controls |
 | `ST.HEADING_FRAME_REPEAT` | ≥ 3 same-level headings sharing a first word | Lead from `ai-smell` | Same-level sibling sampling across doc sets |
 | `ST.LABELED_BULLET_RUN` | > 0.5 labeled bullets per section, ≥ 4 bullets | Lead from `ai-smell` | Glossary and API-reference controls |

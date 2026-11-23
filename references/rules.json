@@ -579,6 +579,60 @@
       ]
     },
     {
+      "id": "LX.PART_STANDIN",
+      "title": "\"The part\" standing in for the point",
+      "catalog": "B7",
+      "tier": "cliche",
+      "family": "hooks",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "regex",
+      "scope": "document",
+      "minimum_occurrences": 2,
+      "threshold_status": "provisional",
+      "action": "review_in_context",
+      "reason": "'The hard part is X' stages X, and 'the part that matters' points at something the text may never name.",
+      "fix": "Name the thing, or state the point directly.",
+      "patterns": [
+        "\\bthe\\s+(?:hard|hardest|tricky|interesting|important|real|new|slow|scary|fun)\\s+part\\s+is\\b",
+        "\\bthe\\s+part\\s+that\\s+(?:matters|counts|doesn't|does\\s+not|nobody)\\b",
+        "\\bthe\\s+part\\s+worth\\b"
+      ],
+      "exceptions": [
+        "quoted_example",
+        "established_first_person_voice",
+        "dialogue",
+        "literal_part"
+      ],
+      "note": "Requires an evaluative adjective or a that/worth clause, so a literal part of a file or upload is not matched. Counted across the document. Threshold provisional; see references/negative-results.md."
+    },
+    {
+      "id": "LX.DEPTH_SIGNAL",
+      "title": "Announced depth",
+      "catalog": "B7",
+      "tier": "cliche",
+      "family": "hooks",
+      "edit_priority": "P1",
+      "evidence_strength": "low",
+      "detector": "regex",
+      "scope": "document",
+      "minimum_occurrences": 2,
+      "threshold_status": "provisional",
+      "action": "review_in_context",
+      "reason": "The phrase promises a hidden truth and adds no detail of its own.",
+      "fix": "Drop the announcement and state the specific claim.",
+      "patterns": [
+        "\\bthe\\s+real\\s+question\\s+is\\b",
+        "\\bwhat\\s+really\\s+matters\\b",
+        "\\bthe\\s+deeper\\s+issue\\b",
+        "\\bthe\\s+heart\\s+of\\s+the\\s+matter\\b"
+      ],
+      "exceptions": [
+        "quoted_example"
+      ],
+      "note": "A closed list of four phrases, counted across the document. Threshold provisional; see references/negative-results.md."
+    },
+    {
       "id": "LX.ASSOCIATION_VAGUENESS",
       "title": "Association vagueness",
       "catalog": "B8",
